@@ -14,6 +14,12 @@ class HomeController extends Controller
         // $this->middleware('auth');
     }
 
+    public function sandbox()
+    {
+        // 測試用
+        return view('sandbox');
+    }
+
     /**
      * Show the application dashboard.
      *
@@ -23,4 +29,5 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
 }

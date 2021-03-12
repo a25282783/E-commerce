@@ -20,7 +20,7 @@ class RegisterController extends Controller
     | validation and creation. By default this controller uses a trait to
     | provide this functionality without requiring any additional code.
     |
-    */
+     */
 
     use RegistersUsers;
 
@@ -50,9 +50,12 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'first_name' => ['required', 'string'],
+            'last_name' => ['required', 'string'],
+            'mobile' => ['required', 'numeric'],
+            'address1' => ['required'],
         ]);
     }
 
@@ -65,9 +68,17 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
+            'name' => $data['first_name'] . ' ' . $data['last_name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'mobile' => $data['mobile'],
+            'address' => $data['address1'] . $data['address2'],
+            'city' => $data['city'],
+            'state' => $data['state'],
+            'zip_code' => $data['zip_code'],
+            'country' => $data['country'],
         ]);
     }
 }

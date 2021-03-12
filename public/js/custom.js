@@ -416,91 +416,91 @@ $("#contact-us-form .clear-btn").click(function(){
 // });
 
 //====================
-$(function () {
-    $("#register-form").validate({
-        rules: {
-            "first-name": { //name
-                required: true,
-                // minlength: 2,
+// $(function () {
+//     $("#register-form").validate({
+//         rules: {
+//             "first-name": { //name
+//                 required: true,
+//                 // minlength: 2,
 
-            },
-            "last-name": { //name
-                required: true,
-                // minlength: 2,
+//             },
+//             "last-name": { //name
+//                 required: true,
+//                 // minlength: 2,
 
-            },
-            "phone": { //phone
-                required: true,
-                number: true,
-                digits: true,
-                minlength: 10,
-                maxlength: 10
-                //email: true
-            },
-            "email": { //email
-                required: true,
-                email: true,
+//             },
+//             "phone": { //phone
+//                 required: true,
+//                 number: true,
+//                 digits: true,
+//                 minlength: 10,
+//                 maxlength: 10
+//                 //email: true
+//             },
+//             "email": { //email
+//                 required: true,
+//                 email: true,
 
-            },
-            "content": { //checkbox1
-            	minlength: 5,
-                required: true
-            },
-            "pswd": { //checkbox1
-            	minlength: 6,
-                required: true,
-                pwcheck: true,
-            },
-            "pswd-ag": {
-                minlength : 6,
-                equalTo : "#pswd"
-            },
-            "adress1":{
-                required: true
-            },
-            "zip":{
-                required: false
-            },
-            // "birth": {
-            //     required: true
-            // },
-            "city": {
-                required: false
-            },
-            "county": {
-                required: false
-            },
-            "checkterm":{
-                required: true
-            }
-        },
-        messages: {
-            "first-name": "the field must be filled in",
-            "last-name": "the field must be filled in",
-            "phone": "wrong cell phone formate",
-            "email": "wrong email formate",
-            "content": "請至少輸入五個字以上的內容",
-            "pswd": "at least 6 characters",
-            "pswd-ag": "please enter the same password",
-            // "birth": "請輸入相同密碼",
-            "address1": "At least one address must be filled in",
-            "checkterm": "please confirm the terms"
-        },
-        errorPlacement: function (error, element) {
-            error.appendTo(element.parent());
-        },
-        event: "keyup",
-        submitHandler: function(form) {
-          form.submit();
-        //   doRegister();
-        }
-    });
-    $.validator.addMethod("pwcheck", function(value) {
-	   return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) // consists of only these
-	       && /[a-zA-Z]/.test(value) // has a lowercase letter
-	       && /\d/.test(value) // has a digit
-	});
-});
+//             },
+//             "content": { //checkbox1
+//             	minlength: 5,
+//                 required: true
+//             },
+//             "pswd": { //checkbox1
+//             	minlength: 6,
+//                 required: true,
+//                 pwcheck: true,
+//             },
+//             "pswd-ag": {
+//                 minlength : 6,
+//                 equalTo : "#pswd"
+//             },
+//             "adress1":{
+//                 required: true
+//             },
+//             "zip":{
+//                 required: false
+//             },
+//             // "birth": {
+//             //     required: true
+//             // },
+//             "city": {
+//                 required: false
+//             },
+//             "county": {
+//                 required: false
+//             },
+//             "checkterm":{
+//                 required: true
+//             }
+//         },
+//         messages: {
+//             "first-name": "the field must be filled in",
+//             "last-name": "the field must be filled in",
+//             "phone": "wrong cell phone formate",
+//             "email": "wrong email formate",
+//             "content": "請至少輸入五個字以上的內容",
+//             "pswd": "at least 6 characters",
+//             "pswd-ag": "please enter the same password",
+//             // "birth": "請輸入相同密碼",
+//             "address1": "At least one address must be filled in",
+//             "checkterm": "please confirm the terms"
+//         },
+//         errorPlacement: function (error, element) {
+//             error.appendTo(element.parent());
+//         },
+//         event: "keyup",
+//         submitHandler: function(form) {
+//           form.submit();
+//         //   doRegister();
+//         }
+//     });
+//     $.validator.addMethod("pwcheck", function(value) {
+// 	   return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) // consists of only these
+// 	       && /[a-zA-Z]/.test(value) // has a lowercase letter
+// 	       && /\d/.test(value) // has a digit
+// 	});
+// });
 
 
 //======================
@@ -649,91 +649,91 @@ $(function () {
 });
 
 //=====================
-$(function () {
-    $("#reset-pswd").validate({
-        rules: {
-            "client-name": { //name
-                required: true,
-                minlength: 2,
+// $(function () {
+//     $("#reset-pswd").validate({
+//         rules: {
+//             "client-name": { //name
+//                 required: true,
+//                 minlength: 2,
 
-            },
-            "phone": { //phone
-                required: true,
-                number: true,
-                digits: true,
-                minlength: 10,
-                maxlength: 10
-                //email: true
-            },
-            "email": { //email
-                required: true,
-                email: true,
+//             },
+//             "phone": { //phone
+//                 required: true,
+//                 number: true,
+//                 digits: true,
+//                 minlength: 10,
+//                 maxlength: 10
+//                 //email: true
+//             },
+//             "email": { //email
+//                 required: true,
+//                 email: true,
 
 
-            },
-            "content": { //checkbox1
-                minlength: 5,
-                required: true
-            },
-            "pswd": { //checkbox1
-                minlength: 6,
-                required: true,
-                pwcheck: true,
-            },
-            "pswd-ag": {
-                // required: true,
-                minlength : 6,
-                equalTo : "#pswd"
-            },
-            "birth": {
-                required: true
-            },
-            "city": {
-                required: false
-            },
-            "county": {
-                required: false
-            },
-        },
-        messages: {
-            username: {
-                required: "此為必填欄位",
-                minlength: "UserName 至少需要 {0} 個字"
-            },
-            //client-name: "名字至少兩個字",
-            email: "請正確輸入Email",
-            agree: "你必須勾選同意",
-            "client-name": "名字至少兩個字",
-            "phone": "wrong cell phone formate",
-            "email": "wrong email formate",
-            "content": "請至少輸入五個字以上的內容",
-            "pswd": "at least 6 characters",
-            "pswd-ag": "please enter the same password",
-            "birth": "請輸入相同密碼",
-        },
-        errorPlacement: function (error, element) {
-            if (element.attr("name") == "entry.555108400") {
-              error.insertAfter($('.checkbox1-error'));
-                //error.insertAfter()
-            }else if(element.attr("name") == "entry.367696876"){
-              error.insertAfter($('.checkbox2-error'));
-            }
-            //
-            else{
-              error.appendTo(element.parent());
-            }
-        },
-        event: "keyup",
-        submitHandler: function(form) {
-          form.submit();
-        }
-    });
-    $.validator.addMethod("pwcheck", function(value) {
-       return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) // consists of only these
-           && /[a-zA-Z]/.test(value) // has a lowercase letter
-           && /\d/.test(value) // has a digit
-    });
-});
+//             },
+//             "content": { //checkbox1
+//                 minlength: 5,
+//                 required: true
+//             },
+//             "pswd": { //checkbox1
+//                 minlength: 6,
+//                 required: true,
+//                 pwcheck: true,
+//             },
+//             "pswd-ag": {
+//                 // required: true,
+//                 minlength : 6,
+//                 equalTo : "#pswd"
+//             },
+//             "birth": {
+//                 required: true
+//             },
+//             "city": {
+//                 required: false
+//             },
+//             "county": {
+//                 required: false
+//             },
+//         },
+//         messages: {
+//             username: {
+//                 required: "此為必填欄位",
+//                 minlength: "UserName 至少需要 {0} 個字"
+//             },
+//             //client-name: "名字至少兩個字",
+//             email: "請正確輸入Email",
+//             agree: "你必須勾選同意",
+//             "client-name": "名字至少兩個字",
+//             "phone": "wrong cell phone formate",
+//             "email": "wrong email formate",
+//             "content": "請至少輸入五個字以上的內容",
+//             "pswd": "at least 6 characters",
+//             "pswd-ag": "please enter the same password",
+//             "birth": "請輸入相同密碼",
+//         },
+//         errorPlacement: function (error, element) {
+//             if (element.attr("name") == "entry.555108400") {
+//               error.insertAfter($('.checkbox1-error'));
+//                 //error.insertAfter()
+//             }else if(element.attr("name") == "entry.367696876"){
+//               error.insertAfter($('.checkbox2-error'));
+//             }
+//             //
+//             else{
+//               error.appendTo(element.parent());
+//             }
+//         },
+//         event: "keyup",
+//         submitHandler: function(form) {
+//           form.submit();
+//         }
+//     });
+//     $.validator.addMethod("pwcheck", function(value) {
+//        return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) // consists of only these
+//            && /[a-zA-Z]/.test(value) // has a lowercase letter
+//            && /\d/.test(value) // has a digit
+//     });
+// });
 //==========================menu click outside================
 
 

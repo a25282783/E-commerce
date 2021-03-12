@@ -11,13 +11,12 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        // $this->middleware('auth');
     }
 
     public function sandbox()
     {
         // 測試用
-        return view('sandbox');
+        return view('auth.login', ['response' => 'ok']);
     }
 
     /**
@@ -27,7 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('index');
     }
 
 }

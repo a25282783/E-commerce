@@ -13,17 +13,17 @@
 					<ul>
 						<li>
 							<a href="footer-terms.php">
-								<img src="img/svg/btn_arrow_w.svg" class='svg-farrow'>payment method
+								<img src="/img/svg/btn_arrow_w.svg" class='svg-farrow'>payment method
 							</a>
 						</li>
 						<li>
 							<a href="footer-terms.php">
-								<img src="img/svg/btn_arrow_w.svg" class='svg-farrow'>Shipping method
+								<img src="/img/svg/btn_arrow_w.svg" class='svg-farrow'>Shipping method
 							</a>
 						</li>
 						<li>
 							<a href="footer-terms.php">
-								<img src="img/svg/btn_arrow_w.svg" class='svg-farrow'>Return and exchange methods
+								<img src="/img/svg/btn_arrow_w.svg" class='svg-farrow'>Return and exchange methods
 							</a>
 						</li>
 						<!-- <li>
@@ -37,12 +37,12 @@
 					<ul>
 						<li>
 							<a href="footer-terms.php">
-								<img src="img/svg/btn_arrow_w.svg" class='svg-farrow'>Terms of Service
+								<img src="/img/svg/btn_arrow_w.svg" class='svg-farrow'>Terms of Service
 							</a>
 						</li>
 						<li>
 							<a href="footer-terms.php">
-								<img src="img/svg/btn_arrow_w.svg" class='svg-farrow'>privacy policy
+								<img src="/img/svg/btn_arrow_w.svg" class='svg-farrow'>privacy policy
 							</a>
 						</li>
 						<!-- <li>

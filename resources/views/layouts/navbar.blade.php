@@ -1,7 +1,7 @@
 <header class='fixed-top'>
 	<nav class="navbar navbar-expand-xl navbar-light .navbar-toggler-icon ">
-		<a class="navbar-brand" href="index.php">
-			<img src="img/svg/logo-02.png">
+		<a class="navbar-brand" href="/">
+			<img src="/img/svg/logo-02.png">
 		</a>
 		<div class="">
 			<ul class='navbar-userM'>
@@ -30,7 +30,7 @@
 					</svg>
 					<p>SHOPPING CAR</p>
 				</a></li>
-				<li><a href="person-login.php">
+				<li><a href="/login">
 				<svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 						 viewBox="0 0 37.9 37.9" style="enable-background:new 0 0 37.9 37.9;" xml:space="preserve">
 					<g>
@@ -53,7 +53,7 @@
 				</a></li>
 				<li>
 					<a href="order-list.php">
-						<img src="img/svg/order-w.svg" alt="">
+						<img src="/img/svg/order-w.svg" alt="">
 
 						<p>ORDER LIST</p>
 					</a>
@@ -65,7 +65,7 @@
 		</div>
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<a class="navbar-brand" href="index.php">
-				<img src="img/svg/logo-01.png">
+				<img src="/img/svg/logo-01.png">
 			</a>
 			<ul class="navbar-nav">
 				<li class="nav-item header-input" style="">
@@ -177,7 +177,7 @@
 					</svg>
 					<p style="position: relative;">SHOPPING CAR<span class="badge custom-badges">5</span></p>
 				</a></li>
-				<li><a href="person-login.php">
+				<li><a href="/login">
 					<svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 						 viewBox="0 0 37.9 37.9" style="enable-background:new 0 0 37.9 37.9;" xml:space="preserve">
 					<g>

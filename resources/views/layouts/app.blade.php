@@ -19,8 +19,8 @@
 
     <!-- Favicons
 	================================================== -->
-	<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
-	<link rel="icon" href="img/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/img/favicon.ico" type="image/x-icon">
 	<!-- end Favicons
 	================================================== -->
 
@@ -38,20 +38,20 @@
 
 	<!-- <link rel="stylesheet" href="css/font-awesome.min.css"> -->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="css/vendor/jqueryui/jquery-ui.css">
-	<link rel="stylesheet" type="text/css" href="css/vendor/fontawesome/font-awesome.css">
+	<link rel="stylesheet" type="text/css" href="/css/vendor/jqueryui/jquery-ui.css">
+	<link rel="stylesheet" type="text/css" href="/css/vendor/fontawesome/font-awesome.css">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet" type="text/css">
 
 
 	<!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">	 -->
-	<link rel="stylesheet" type="text/css" href="css/vendor/bootstrap/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="/css/vendor/bootstrap/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/components/checkbox.min.css">
 
-	<link rel="stylesheet" type="text/css" href="css/vendor/animation/animation.css">
-	<link rel="stylesheet" type="text/css" href="css/vendor/slick/slick.css">
-	<link rel="stylesheet" type="text/css" href="css/vendor/slick/slick-theme.css">
-	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<link rel="stylesheet" type="text/css" href="css/global.css">
+	<link rel="stylesheet" type="text/css" href="/css/vendor/animation/animation.css">
+	<link rel="stylesheet" type="text/css" href="/css/vendor/slick/slick.css">
+	<link rel="stylesheet" type="text/css" href="/css/vendor/slick/slick-theme.css">
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+	<link rel="stylesheet" type="text/css" href="/css/global.css">
 	<!--[if lt IE 9]>
 		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -334,8 +334,8 @@
     <!-- jQuery
 	================================================== -->
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-	<script src='js/jquery-1.12.3.min.js'></script>
-	<script src="js/vendor/slick/slick.min.js"></script>
+	<script src='/js/jquery-1.12.3.min.js'></script>
+	<script src="/js/vendor/slick/slick.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
 

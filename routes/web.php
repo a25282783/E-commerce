@@ -13,11 +13,14 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
  */
-Auth::routes(['verify' => true]);
-
-Route::get('/', 'HomeController@index')->name('home');
 Route::get('/test', 'HomeController@sandbox');
 
+Auth::routes(['verify' => true]);
+
+// ========== guest ==========
+Route::get('/', 'HomeController@index')->name('home');
+
+// ========== auth ===========
 Route::group(['middleware' => ['verified', 'auth']], function () {
 
 });

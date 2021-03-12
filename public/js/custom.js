@@ -123,7 +123,7 @@ $(function(){
 		// nextArrow: $('.ic2').find('.right'),
 	});
 
-	
+
 
 	$('.index-adslide-ul').slick({
 		swipeToSlide:true,
@@ -162,8 +162,8 @@ $(function(){
 
 
 	// }
-	
-	
+
+
 })
 
 
@@ -274,7 +274,7 @@ $(".forget-pswd-link").on('click', function(e){
     $("#forget-pswd-send").hide();
 	$("#forget-pswd-input").show();
 	$("#forgot_password_email").val("");
-    
+
 	$(".forget-pswd-page.forget, .mask").css("opacity", "1");
 	$(".forget-pswd-page.forget, .mask").fadeIn();
 	$("header, .header-input, section, footer").addClass("blur-class");
@@ -282,7 +282,7 @@ $(".forget-pswd-link").on('click', function(e){
 
 $(".forget-pswd-page .close-btn").on('click', function(){
 	$(".forget-pswd-page, .mask").fadeOut();
-	$("header, .header-input, section, footer").removeClass("blur-class");	
+	$("header, .header-input, section, footer").removeClass("blur-class");
 });
 
 
@@ -333,7 +333,7 @@ $(function () {
                 number: true,
                 digits: true,
                 minlength: 7,
-                maxlength: 10 
+                maxlength: 10
                 //email: true
             },
             "email": { //email
@@ -376,41 +376,44 @@ $("#contact-us-form .clear-btn").click(function(){
 
 //=================
 
-$(function () {
-    $("#login-form").validate({
-        rules: {
-            "email": { //email
-                required: true,
-                email: true,
-            },
-            "pswd": { //checkbox1
-            	minlength: 6,
-                required: true
-            },
-        },
-        messages: {
-            "email": "wrong email formate",
-            "pswd": "wrong password",
-        },
-        errorPlacement: function (error, element) {
-            if (element.attr("name") == "entry.555108400") {
-              error.insertAfter($('.checkbox1-error'));
-                //error.insertAfter()
-            }else if(element.attr("name") == "entry.367696876"){
-              error.insertAfter($('.checkbox2-error'));
-            }
-            // 
-            else{
-              error.appendTo(element.parent());
-            }
-        },
-        event: "keyup",
-        submitHandler: function(form) {
-          form.submit();
-        //   do_login()
-        }
-    });
-});
+/**
+ * 給後端驗證
+ */
+// $(function () {
+//     $("#login-form").validate({
+//         rules: {
+//             "email": { //email
+//                 required: true,
+//                 email: true,
+//             },
+//             "pswd": { //checkbox1
+//             	minlength: 6,
+//                 required: true
+//             },
+//         },
+//         messages: {
+//             "email": "wrong email formate",
+//             "pswd": "wrong password",
+//         },
+//         errorPlacement: function (error, element) {
+//             if (element.attr("name") == "entry.555108400") {
+//               error.insertAfter($('.checkbox1-error'));
+//                 //error.insertAfter()
+//             }else if(element.attr("name") == "entry.367696876"){
+//               error.insertAfter($('.checkbox2-error'));
+//             }
+//             //
+//             else{
+//               error.appendTo(element.parent());
+//             }
+//         },
+//         event: "keyup",
+//         submitHandler: function(form) {
+//           form.submit();
+//         //   do_login()
+//         }
+//     });
+// });
 
 //====================
 $(function () {
@@ -431,7 +434,7 @@ $(function () {
                 number: true,
                 digits: true,
                 minlength: 10,
-                maxlength: 10 
+                maxlength: 10
                 //email: true
             },
             "email": { //email
@@ -500,43 +503,46 @@ $(function () {
 });
 
 
-
-
 //======================
-$(function () {
-    $("#forget-pswd-suc").validate({
-        rules: {
-            "email": { //email
-                required: true,
-                email: true,
+/**
+ * 給後端驗證
+ */
+// $(function () {
+//     $("#forget-pswd-suc").validate({
+//         rules: {
+//             "email": { //email
+//                 required: true,
+//                 email: true,
 
 
-            },
-        },
-        messages: {
-            "email": "wrong email formate",
-        },
-        errorPlacement: function (error, element) {
-            if (element.attr("name") == "entry.555108400") {
-              error.insertAfter($('.checkbox1-error'));
-                //error.insertAfter()
-            }else if(element.attr("name") == "entry.367696876"){
-              error.insertAfter($('.checkbox2-error'));
-            }
-            // 
-            else{
-              error.appendTo(element.parent());
-            }
-        },
-        event: "keyup",
-        submitHandler: function(form) {
-            // doForgotPassword();
-            form.submit();
-        }
-    });
-    
-});
+//             },
+//         },
+//         messages: {
+//             "email": "wrong email formate",
+//         },
+//         errorPlacement: function (error, element) {
+//             if (element.attr("name") == "entry.555108400") {
+//               error.insertAfter($('.checkbox1-error'));
+//                 //error.insertAfter()
+//             }else if(element.attr("name") == "entry.367696876"){
+//               error.insertAfter($('.checkbox2-error'));
+//             }
+//             //
+//             else{
+//               error.appendTo(element.parent());
+//             }
+//         },
+//         event: "keyup",
+//         submitHandler: function(form) {
+//             // doForgotPassword();
+//             form.submit();
+//         }
+//     });
+
+// });
 //=======================
+
+
 $(function () {
     $("#person-info-form").validate({
         rules: {
@@ -555,7 +561,7 @@ $(function () {
                 number: true,
                 digits: true,
                 minlength: 10,
-                maxlength: 10 
+                maxlength: 10
                 //email: true
             },
             "email": { //email
@@ -607,7 +613,7 @@ $(function () {
             email: "請正確輸入Email",
             agree: "你必須勾選同意",
             "first-name": "the field must be filled in",
-            "last-name": "the field must be filled in", 
+            "last-name": "the field must be filled in",
             "phone": "wrong cell phone formate",
             "email": "wrong email formate",
             "content": "請至少輸入五個字以上的內容",
@@ -624,7 +630,7 @@ $(function () {
             }else if(element.attr("name") == "entry.367696876"){
               error.insertAfter($('.checkbox2-error'));
             }
-            // 
+            //
             else{
               error.appendTo(element.parent());
             }
@@ -656,7 +662,7 @@ $(function () {
                 number: true,
                 digits: true,
                 minlength: 10,
-                maxlength: 10 
+                maxlength: 10
                 //email: true
             },
             "email": { //email
@@ -712,7 +718,7 @@ $(function () {
             }else if(element.attr("name") == "entry.367696876"){
               error.insertAfter($('.checkbox2-error'));
             }
-            // 
+            //
             else{
               error.appendTo(element.parent());
             }
@@ -917,7 +923,7 @@ $(".dropdown-submenu ul").each(function(){
         })
 
     }
-    
+
 });
 
 

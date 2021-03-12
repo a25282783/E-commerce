@@ -30,7 +30,13 @@
 					</svg>
 					<p>SHOPPING CAR</p>
 				</a></li>
-				<li><a href="/login">
+				<li>
+                @auth
+                <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                @endauth
+                @guest
+                <a href="/login">
+                @endguest
 				<svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 						 viewBox="0 0 37.9 37.9" style="enable-background:new 0 0 37.9 37.9;" xml:space="preserve">
 					<g>
@@ -49,8 +55,14 @@
 						</g>
 					</g>
 					</svg>
-					<p>LOG IN</p>
-				</a></li>
+                    @auth
+                    <p>LOG OUT</p>
+                    @endauth
+					@guest
+                    <p>LOG IN</p>
+                    @endguest
+				</a>
+                </li>
 				<li>
 					<a href="order-list.php">
 						<img src="/img/svg/order-w.svg" alt="">
@@ -177,7 +189,13 @@
 					</svg>
 					<p style="position: relative;">SHOPPING CAR<span class="badge custom-badges">5</span></p>
 				</a></li>
-				<li><a href="/login">
+				<li>
+                @auth
+                <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                @endauth
+                @guest
+                <a href="/login">
+                @endguest
 					<svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 						 viewBox="0 0 37.9 37.9" style="enable-background:new 0 0 37.9 37.9;" xml:space="preserve">
 					<g>
@@ -196,9 +214,16 @@
 						</g>
 					</g>
 					</svg>
-					<p>LOG IN</p>
+					@auth
+                    <p>LOG OUT</p>
+                    @endauth
+					@guest
+                    <p>LOG IN</p>
+                    @endguest
 				</a></li>
-
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
 				<!-- <li>
 					<a href="order-list.php">
 						<img src="img/svg/order-g.svg" alt="">
@@ -207,7 +232,6 @@
 					</a>
 				</li> -->
 			</ul>
-
 		</div>
 	</nav>
 </header>

@@ -63,13 +63,15 @@
                     @endguest
 				</a>
                 </li>
-				<li>
-					<a href="order-list.php">
-						<img src="/img/svg/order-w.svg" alt="">
+                @auth
+                <li>
+                    <a href="order-list.php">
+                        <img src="/img/svg/order-w.svg" alt="">
 
-						<p>ORDER LIST</p>
-					</a>
-				</li>
+                        <p>ORDER LIST</p>
+                    </a>
+                </li>
+                @endauth
 			</ul>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
@@ -96,7 +98,7 @@
 				</form>
 				</li>
 			  <li class="nav-item">
-			    <a class="nav-link" href="about.php">COMPANY<span class="sr-only">(current)</span></a>
+			    <a class="nav-link" href="{{ route('about') }}">COMPANY<span class="sr-only">(current)</span></a>
 			  </li>
 			  <li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -224,13 +226,15 @@
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                     @csrf
                 </form>
-				<!-- <li>
-					<a href="order-list.php">
-						<img src="img/svg/order-g.svg" alt="">
+                @auth
+                <li>
+                    <a href="order-list.php">
+                        <img src="img/svg/order-g.svg" alt="">
 
-						<p>訂單查詢</p>
-					</a>
-				</li> -->
+                        <p>訂單查詢</p>
+                    </a>
+                </li>
+                @endauth
 			</ul>
 		</div>
 	</nav>

@@ -19,6 +19,7 @@ Auth::routes(['verify' => true]);
 
 // ========== guest ==========
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/company', 'HomeController@company')->name('about');
 
 // ========== auth ===========
 Route::group(['middleware' => ['verified', 'auth']], function () {

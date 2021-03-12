@@ -19,14 +19,14 @@ class HomeController extends Controller
         return view('auth.login', ['response' => 'ok']);
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
         return view('index');
+    }
+
+    public function company()
+    {
+        return view('company');
     }
 
 }

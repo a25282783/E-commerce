@@ -1,4 +1,7 @@
 <?php
+use App\Admin\Extensions\Form\CKEditor;
+use Encore\Admin\Form;
+use Encore\Admin\Grid;
 
 /**
  * Laravel-admin - admin builder based on Laravel.
@@ -18,4 +21,16 @@
  *
  */
 
-Encore\Admin\Form::forget(['map', 'editor']);
+Form::forget(['map', 'editor']);
+
+Grid::init(function (Grid $grid) {
+    $grid->actions(function (Grid\Displayers\Actions $actions) {
+        $actions->disableView();
+    });
+});
+Form::init(function (Form $form) {
+    $form->tools(function (Form\Tools $tools) {
+        $tools->disableView();
+    });
+});
+Form::extend('ckeditor', CKEditor::class);

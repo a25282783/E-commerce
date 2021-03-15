@@ -29,4 +29,29 @@ class HomeController extends Controller
         return view('company');
     }
 
+    public function service()
+    {
+        return view('template');
+    }
+
+    public function technology()
+    {
+        return view('template');
+    }
+
+    public function faq()
+    {
+        return view('template');
+    }
+
+    public function download()
+    {
+        return view('download');
+    }
+
+    public function contact()
+    {
+        return view('contact');
+    }
+
 }

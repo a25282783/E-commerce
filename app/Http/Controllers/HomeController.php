@@ -2,6 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Company;
+use App\Contact;
+use App\Faq;
+use App\File;
+use App\Message;
+use App\Service;
+use App\Tech;
+use Illuminate\Http\Request;
+
 class HomeController extends Controller
 {
     /**
@@ -26,32 +35,47 @@ class HomeController extends Controller
 
     public function company()
     {
-        return view('company');
+        $data['data'] = Company::first();
+        return view('company', $data);
     }
 
     public function service()
     {
-        return view('template');
+        $data['data'] = Service::first();
+        $data['main'] = 'Service';
+        return view('template', $data);
     }
 
     public function technology()
     {
-        return view('template');
+        $data['data'] = Tech::first();
+        $data['main'] = 'Technology';
+        return view('template', $data);
     }
 
     public function faq()
     {
-        return view('template');
+        $data['data'] = Faq::first();
+        $data['main'] = 'Faq';
+        return view('template', $data);
     }
 
     public function download()
     {
-        return view('download');
+        $data['data'] = File::orderBy('id', 'desc')->paginate(10);
+        return view('download', $data);
     }
 
     public function contact()
     {
-        return view('contact');
+        $data['data'] = Contact::first();
+        return view('contact', $data);
+    }
+
+    public function contactPost(Request $request)
+    {
+        Message::create($request->all());
+        return back()->with('msg', 'Send Successfully!');
     }
 
 }

@@ -6,7 +6,6 @@ use App\Faq;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
-use Encore\Admin\Show;
 
 class FaqController extends AdminController
 {
@@ -27,31 +26,10 @@ class FaqController extends AdminController
         $grid = new Grid(new Faq());
 
         $grid->column('id', __('Id'));
-        $grid->column('created_at', __('Created at'));
-        $grid->column('updated_at', __('Updated at'));
-        $grid->column('title', __('Title'));
-        $grid->column('content', __('Content'));
+        $grid->column('title', '標題');
+        $grid->column('content', '內容')->limit(50);
 
         return $grid;
-    }
-
-    /**
-     * Make a show builder.
-     *
-     * @param mixed $id
-     * @return Show
-     */
-    protected function detail($id)
-    {
-        $show = new Show(Faq::findOrFail($id));
-
-        $show->field('id', __('Id'));
-        $show->field('created_at', __('Created at'));
-        $show->field('updated_at', __('Updated at'));
-        $show->field('title', __('Title'));
-        $show->field('content', __('Content'));
-
-        return $show;
     }
 
     /**
@@ -63,8 +41,8 @@ class FaqController extends AdminController
     {
         $form = new Form(new Faq());
 
-        $form->text('title', __('Title'));
-        $form->textarea('content', __('Content'));
+        $form->text('title', '標題');
+        $form->ckeditor('content', '內容');
 
         return $form;
     }

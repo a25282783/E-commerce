@@ -2,19 +2,19 @@
 
 namespace App\Admin\Controllers;
 
-use App\Tech;
+use App\Message;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 
-class TechController extends AdminController
+class MessageController extends AdminController
 {
     /**
      * Title for current resource.
      *
      * @var string
      */
-    protected $title = 'Tech';
+    protected $title = 'Message';
 
     /**
      * Make a grid builder.
@@ -23,11 +23,14 @@ class TechController extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new Tech());
+        $grid = new Grid(new Message());
 
         $grid->column('id', __('Id'));
-        $grid->column('title', '標題');
-        $grid->column('content', '內容')->limit(50);
+        $grid->column('name', '名稱');
+        $grid->column('mobile', '手機');
+        $grid->column('email', __('Email'));
+        $grid->column('title', '主旨');
+        $grid->column('content', '內容')->limit(30);
 
         return $grid;
     }
@@ -39,9 +42,12 @@ class TechController extends AdminController
      */
     protected function form()
     {
-        $form = new Form(new Tech());
+        $form = new Form(new Message());
 
-        $form->text('title', '標題');
+        $form->text('name', '名稱');
+        $form->text('mobile', '手機');
+        $form->email('email', __('Email'));
+        $form->text('title', '主旨');
         $form->textarea('content', '內容');
 
         return $form;

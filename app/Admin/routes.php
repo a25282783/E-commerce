@@ -16,4 +16,7 @@ Route::group([
     $router->resource('faq', FaqController::class);
     $router->resource('service', ServiceController::class);
     $router->resource('tech', TechController::class);
+    $router->resource('contact', ContactController::class);
+    $router->resource('message', MessageController::class);
+    $router->resource('file', FileController::class);
 });

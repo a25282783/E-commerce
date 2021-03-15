@@ -24,7 +24,8 @@ Route::get('/service', 'HomeController@service')->name('service');
 Route::get('/technology', 'HomeController@technology')->name('tech');
 Route::get('/faq', 'HomeController@faq')->name('faq');
 Route::get('/download', 'HomeController@download')->name('download');
-Route::get('/contact_us', 'HomeController@contact_us')->name('contact');
+Route::get('/contact_us', 'HomeController@contact')->name('contact');
+Route::post('/contact_us', 'HomeController@contactPost')->name('post.contact');
 
 // ========= upload ==========
 Route::post('ckeditor/upload', 'CkeditorUploadController@uploadImage');

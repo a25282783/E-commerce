@@ -5,18 +5,16 @@
         <div class="row">
             <div class="col-12">
                 <div class="content-wrap">
-                    <h1 class="main-title">Payment Method</h1>
+                    <h1 class="main-title">{{ $main }}</h1>
+                    @if ($data)
                     <div class="title green-decor-title">
                         <div class="decor-squ"></div>
-                        <div>Features</div>
+                        <div>{{ $data->title }}</div>
                     </div>
                     <div class="content">
-                        {{-- editable --}}
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida nisl diam, a interdum nunc venenatis ut. Fusce dapibus massa rutrum mi iaculis fringilla. Quisque eu ultrices quam. Nullam varius dictum eros in lobortis. Sed ut tempor enim. Sed sit amet turpis sed risus porttitor euismod at in enim. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Praesent consectetur mi dui, nec fermentum ante sodales in. Aliquam vitae posuere libero. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis venenatis eu augue eget egestas. Donec ultrices interdum metus, sit amet fermentum ex. Nulla facilisis eros eu mollis bibendum.
-                        </p>
-                        {{-- editable --}}
+                        {!! $data->content !!}
                     </div>
+                    @endif
                 </div>
             </div>
         </div>

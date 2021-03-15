@@ -2,19 +2,19 @@
 
 namespace App\Admin\Controllers;
 
-use App\Service;
+use App\File;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 
-class ServiceController extends AdminController
+class FileController extends AdminController
 {
     /**
      * Title for current resource.
      *
      * @var string
      */
-    protected $title = 'Service';
+    protected $title = 'File';
 
     /**
      * Make a grid builder.
@@ -23,11 +23,11 @@ class ServiceController extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new Service());
+        $grid = new Grid(new File());
 
         $grid->column('id', __('Id'));
         $grid->column('title', '標題');
-        $grid->column('content', '內容')->limit(50);
+        $grid->column('path', '文件路徑');
 
         return $grid;
     }
@@ -39,10 +39,10 @@ class ServiceController extends AdminController
      */
     protected function form()
     {
-        $form = new Form(new Service());
+        $form = new Form(new File());
 
         $form->text('title', '標題');
-        $form->ckeditor('content', '內容');
+        $form->file('path', '文件(PDF Only)')->uniqueName()->rules('mimes:pdf')->downloadable();
 
         return $form;
     }

@@ -49,7 +49,7 @@
                             </div>
                             <div class="item-wrap justify-content-between">
                                 <label for="">
-                                    <a class="forget-pswd-link" href="">
+                                    <a class="forget-pswd-link" href="javascript:;">
                                         Forget Password
                                     </a>
                                 </label>
@@ -96,7 +96,7 @@
     $("header, .header-input, section, footer").addClass("blur-class");
 </script>
 @endif
-<div class="mask" style="opacity: 0"></div>
+<div class="mask" ></div>
 <div class="forget-pswd-page forget info-bottom" style="opacity: 0">
     <div class="form-wrap">
         <div class="title">

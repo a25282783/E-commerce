@@ -145,25 +145,43 @@ $(function(){
 		],
 	});
 
+    $(".slider.img-slider").slick({
+        dots: false,
+        responsive: [{
+            breakpoint: 5000,
+            settings: {
+                slidesToShow: 4
+            }
+        }, {
+            breakpoint: 1200,
+            settings: {
+                slidesToShow: 4
+            }
+        }, {
+            breakpoint: 992,
+            settings: {
+                slidesToShow: 4
+            }
+        }, {
+            breakpoint: 768,
+            settings: {
+                slidesToShow: 4
+            }
+        }, {
+            breakpoint: 577,
+            settings: {
+                slidesToShow: 1
+            }
+        }]
+    });
 
-	//
+    let x = $(".img-slider li.slick-current img").attr("src");
+    $(".product-img .img-wrap img").attr("src", x);
 
-
-	// if ($(document).width() > 991) {
-	//    $('.dropdown-menu', this).css('margin-top', 0);
-	//    $('.dropdown').hover(function () {
-	//        // $('.dropdown-toggle', this).trigger('click').toggleClass("disabled");
-	//        $('.dropdown-menu').toggleClass("show");
-	//    });
-
-
-
-	// }
-
-
+    $(".img-slider-wrap img").on('click', function(){
+        $(".product-img .img-wrap img").attr("src", $(this).attr("src"));
+    });
 })
-
-
 
 
 
@@ -198,45 +216,6 @@ function limit_text(text_obj, limit_num){
 
 
 
-//$(".bn3-box h2")
-
-// limit_text(".bn3-box h2", 8);
-// limit_text(".bn3-box p", 50);
-
-
-
-
-
-$(".slider.img-slider").slick({
-	dots: false,
-	responsive: [{
-        breakpoint: 5000,
-        settings: {
-            slidesToShow: 4
-        }
-    }, {
-        breakpoint: 1200,
-        settings: {
-            slidesToShow: 4
-        }
-    }, {
-        breakpoint: 992,
-        settings: {
-            slidesToShow: 4
-        }
-    }, {
-        breakpoint: 768,
-        settings: {
-            slidesToShow: 4
-        }
-    }, {
-        breakpoint: 577,
-        settings: {
-            slidesToShow: 1
-        }
-    }]
-});
-
 //==============shop-cart==============
 $(".shipping-radio-area .radio-wrap").on('click', function(){
 	$(".shipping-radio-area .radio-wrap").removeClass("active");
@@ -265,32 +244,25 @@ $(".radio-text-wrap:nth-child(1)").css("display", "block");
 
 
 //===============person-login-register==================
-$(".forget-pswd-page.forget, .mask").css("display", "none");
-$(".forget-pswd-link").on('click', function(e){
-    e.preventDefault();
-    $("#forget-pswd-send").hide();
-	$("#forget-pswd-input").show();
-	$("#forgot_password_email").val("");
+$(function(){
+    $(".forget-pswd-page.forget, .mask").css("display", "none");
+    $(".forget-pswd-link").on('click', function(e){
+        e.preventDefault();
+        $("#forget-pswd-send").hide();
+        $("#forget-pswd-input").show();
+        $("#forgot_password_email").val("");
 
-	$(".forget-pswd-page.forget, .mask").css("opacity", "1");
-	$(".forget-pswd-page.forget, .mask").fadeIn();
-	$("header, .header-input, section, footer").addClass("blur-class");
+        $(".forget-pswd-page.forget, .mask").css("opacity", "1");
+        $(".forget-pswd-page.forget, .mask").fadeIn();
+        $("header, .header-input, section, footer").addClass("blur-class");
+    })
+
+    $(".forget-pswd-page .close-btn").on('click', function(){
+        $(".forget-pswd-page, .mask").fadeOut();
+        $("header, .header-input, section, footer").removeClass("blur-class");
+    });
 })
 
-$(".forget-pswd-page .close-btn").on('click', function(){
-	$(".forget-pswd-page, .mask").fadeOut();
-	$("header, .header-input, section, footer").removeClass("blur-class");
-});
-
-
-//============img-slider-wrap============
-let x = $(".img-slider li.slick-current img").attr("src");
-$(".product-img .img-wrap img").attr("src", x);
-
-$(".img-slider-wrap img").on('click', function(){
-	//alert($(this).attr("src"))
-	$(".product-img .img-wrap img").attr("src", $(this).attr("src"));
-});
 
 
 
@@ -316,112 +288,6 @@ function limit_text(text_obj, limit_num){
 	});
 }
 limit_text(".ip-box .ip-name", 40)
-
-
-$(function () {
-    $("#person-info-form").validate({
-        rules: {
-            "first-name": { //name
-                required: true,
-                // minlength: 2,
-
-            },
-            "last-name": { //name
-                required: true,
-                // minlength: 2,
-
-            },
-            "phone": { //phone
-                required: true,
-                number: true,
-                digits: true,
-                minlength: 10,
-                maxlength: 10
-                //email: true
-            },
-            "email": { //email
-                required: true,
-                email: true,
-
-
-            },
-            "address":{
-                required: true
-            },
-            "content": { //checkbox1
-                minlength: 5,
-                required: true
-            },
-            "pswd": { //checkbox1
-                minlength: 6,
-                required: true,
-                pwcheck: true,
-            },
-            "pswd-ag": {
-                minlength : 6,
-                equalTo : "#pswd"
-            },
-            // "birth": {
-            //     required: true
-            // },
-            "city": {
-                required: false
-            },
-            "state":{
-                required: false
-            },
-            "zip":{
-                required: false
-            },
-            "county": {
-                required: false
-            },
-
-
-        },
-        messages: {
-            username: {
-                required: "此為必填欄位",
-                minlength: "UserName 至少需要 {0} 個字"
-            },
-            //client-name: "名字至少兩個字",
-            email: "請正確輸入Email",
-            agree: "你必須勾選同意",
-            "first-name": "the field must be filled in",
-            "last-name": "the field must be filled in",
-            "phone": "wrong cell phone formate",
-            "email": "wrong email formate",
-            "content": "請至少輸入五個字以上的內容",
-            "pswd": "at least 6 characters",
-            "pswd-ag": "please enter the same password",
-            // "birth": "請輸入相同密碼",
-            "address": "At least one address must be filled in",
-
-        },
-        errorPlacement: function (error, element) {
-            if (element.attr("name") == "entry.555108400") {
-              error.insertAfter($('.checkbox1-error'));
-                //error.insertAfter()
-            }else if(element.attr("name") == "entry.367696876"){
-              error.insertAfter($('.checkbox2-error'));
-            }
-            //
-            else{
-              error.appendTo(element.parent());
-            }
-        },
-        event: "keyup",
-        submitHandler: function(form) {
-
-          form.submit();
-        }
-    });
-    $.validator.addMethod("pwcheck", function(value) {
-       return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) // consists of only these
-           && /[a-zA-Z]/.test(value) // has a lowercase letter
-           && /\d/.test(value) // has a digit
-    });
-});
 
 
 $('button.navbar-toggler').click(function(){

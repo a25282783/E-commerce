@@ -41,7 +41,7 @@
 			</button>
 		</div>
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<a class="navbar-brand" href="index.php">
+			<a class="navbar-brand" href="/">
 				<img src="/img/svg/logo-01.png">
 			</a>
 			<ul class="navbar-nav">
@@ -65,23 +65,21 @@
 						<li>
 							<h3 class="dropdown-item dropdown-main">New product</h3>
 							<ul class="dropdown-menu">
-								<li><a href="product-new.php">New product</a></li>
-								<li><a href="product-new.php">New product</a></li>
-								<li><a href="product-new.php">New product</a></li>
-								<li><a href="product-new.php">New product</a></li>
-								<li><a href="product-new.php">New product</a></li>
-								<li><a href="product-new.php">New product</a></li>
-								<li><a href="product-new.php">New product</a></li>
-
+                                @foreach (App\Product::select('id','name')->orderBy('id','desc')->limit(7)->get() as $item)
+                                <li>
+                                    <a href="/product/{{ $item->id }}">{{ $item->name }}</a>
+                                </li>
+                                @endforeach
 							</ul>
 						</li>
 						<li>
 							<h3 class="dropdown-item dropdown-main">Category</h3>
 							<ul class="dropdown-menu">
-								<li><a href="product-cate.php">Category product </a></li>
-								<li><a href="product-cate.php">Category product</a></li>
-								<li><a href="product-cate.php">Category product</a></li>
-								<li><a href="product-cate.php">Category product</a></li>
+                                @foreach (App\Category::select('id','name')->orderBy('id','desc')->limit(7)->get() as $item)
+                                <li>
+                                    <a href="/category/{{ $item->id }}">{{ $item->name }}</a>
+                                </li>
+                                @endforeach
 							</ul>
 						</li>
 					</ul>

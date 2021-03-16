@@ -21,4 +21,5 @@ Route::group([
     $router->resource('file', FileController::class);
     $router->resource('category', CategoryController::class);
     $router->resource('product', ProductController::class);
+    $router->resource('cart', CartController::class);
 });

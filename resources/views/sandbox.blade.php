@@ -1,8 +1,7 @@
 @extends('layouts.app')
 @section('content')
-<section id="person-login-register" class="top-bottom-empty">
+<section id="product-inner">
 	<!-- <div class="main-title-bottom"> -->
-	<div>
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
@@ -12,7 +11,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
 	<div class="info-bottom">
 		<div class="container">
 			<div class="row">

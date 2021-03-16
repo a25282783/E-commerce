@@ -26,10 +26,12 @@ Route::get('/faq', 'HomeController@faq')->name('faq');
 Route::get('/download', 'HomeController@download')->name('download');
 Route::get('/contact_us', 'HomeController@contact')->name('contact');
 Route::post('/contact_us', 'HomeController@contactPost')->name('post.contact');
+Route::get('/product/{id}', 'CartController@product')->where('id', '[0-9]+');
 
 // ========= upload ==========
 Route::post('ckeditor/upload', 'CkeditorUploadController@uploadImage');
 // ========== auth ===========
 Route::group(['middleware' => ['verified', 'auth']], function () {
-
+    Route::get('/test', 'HomeController@sandbox');
+    Route::post('addToCart', 'CartController@addToCart');
 });

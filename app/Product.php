@@ -55,4 +55,9 @@ class Product extends Model
         return json_decode($detail, true);
     }
 
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
+
 }

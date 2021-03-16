@@ -19,4 +19,6 @@ Route::group([
     $router->resource('contact', ContactController::class);
     $router->resource('message', MessageController::class);
     $router->resource('file', FileController::class);
+    $router->resource('category', CategoryController::class);
+    $router->resource('product', ProductController::class);
 });

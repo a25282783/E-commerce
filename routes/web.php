@@ -27,6 +27,7 @@ Route::get('/download', 'HomeController@download')->name('download');
 Route::get('/contact_us', 'HomeController@contact')->name('contact');
 Route::post('/contact_us', 'HomeController@contactPost')->name('post.contact');
 Route::get('/product/{id}', 'CartController@product')->where('id', '[0-9]+');
+Route::get('/category/{id}', 'CartController@category')->where('id', '[0-9]+');
 
 // ========= upload ==========
 Route::post('ckeditor/upload', 'CkeditorUploadController@uploadImage');

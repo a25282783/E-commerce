@@ -22,6 +22,14 @@ class Category extends Model
             });
         }
 
+        /**
+         * 更改category status會同步更改products
+         */
+        static::updating(function ($category) {
+            $status = $category->status;
+            $category->products->each->update(['status' => $status]);
+        });
+
     }
 
     public function products()

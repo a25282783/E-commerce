@@ -1,13 +1,13 @@
 @extends('layouts.app')
 @section('content')
 <style>
-    .container{
+    #verify{
         margin-top: 8rem;
         margin-bottom: 8rem;
     }
 </style>
 <section id="product-inner">
-<div class="container">
+<div class="container" id="verify">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">

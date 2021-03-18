@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cart;
+use App\Category;
 use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,6 +16,14 @@ class CartController extends Controller
         abort_if(!$res, 404);
         $data['data'] = $res;
         return view('product', $data);
+    }
+
+    public function category($id)
+    {
+        $res = Category::find($id);
+        abort_if(!$res, 404);
+        $data['data'] = $res->products()->orderBy('id', 'desc')->paginate(12);
+        return view('category', $data);
     }
 
     public function addToCart(Request $request)

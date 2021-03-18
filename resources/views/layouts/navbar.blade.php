@@ -102,11 +102,11 @@
 			    <a class="nav-link" href="{{ route('contact') }}">CONTACT US </a>
 			  </li>
 			</ul>
-			<ul class='navbar-user'>
+			<ul class='navbar-user d-flex'>
 				<li>
                     <a href="shop-cart.php">
                         @include('mixin.svg.navbar4')
-                        <p style="position: relative;">SHOPPING CAR
+                        <p style="position: relative;margin-top:3px">SHOPPING CAR
                             <span class="badge custom-badges">5</span>
                         </p>
                     </a>
@@ -120,10 +120,10 @@
                 @endguest
                 @include('mixin.svg.navbar5')
                 @auth
-                <p>LOG OUT</p>
+                <p style="margin-top:3px;">LOG OUT</p>
                 @endauth
                 @guest
-                <p>LOG IN</p>
+                <p style="margin-top:3px;">LOG IN</p>
                 @endguest
 				</a>
             </li>

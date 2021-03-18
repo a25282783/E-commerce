@@ -112,10 +112,7 @@
                         @else
                         <div class="col-12 col-lg-4">
                             <div class="add-to-cart">
-                                <form method="get" action="{{ route('verification.notice') }}" style="width: 100%">
-                                @csrf
-                                <input type="submit" value="Verify Email" >
-                                </form>
+                                <input type="submit" value="Verify Email" onclick="location.href ='/email/verify';">
                             </div>
                         </div>
                         @endif

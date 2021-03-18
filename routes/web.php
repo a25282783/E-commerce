@@ -33,6 +33,7 @@ Route::get('/category/{id}', 'CartController@category')->where('id', '[0-9]+');
 Route::post('ckeditor/upload', 'CkeditorUploadController@uploadImage');
 // ========== auth ===========
 Route::group(['middleware' => ['verified', 'auth']], function () {
-    Route::get('/test', 'HomeController@sandbox');
+    Route::get('profile', 'HomeController@profile')->name('user');
+    Route::post('profile', 'HomeController@update_profile')->name('update.user');
     Route::post('addToCart', 'CartController@addToCart');
 });

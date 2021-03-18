@@ -10,6 +10,7 @@ use App\Message;
 use App\Service;
 use App\Tech;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -76,6 +77,35 @@ class HomeController extends Controller
     {
         Message::create($request->all());
         return back()->with('msg', 'Send Successfully!');
+    }
+
+    public function profile()
+    {
+        $user = Auth::user();
+        return view('profile', ['user' => $user]);
+    }
+
+    public function update_profile(Request $request)
+    {
+        $request->validate([
+            'first_name' => ['required', 'string'],
+            'last_name' => ['required', 'string'],
+            'mobile' => ['required', 'numeric'],
+            'address' => ['required'],
+        ]);
+        $data = $request->all();
+        Auth::user()->update([
+            'name' => $data['first_name'] . ' ' . $data['last_name'],
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'mobile' => $data['mobile'],
+            'address' => $data['address'],
+            'city' => $data['city'],
+            'state' => $data['state'],
+            'zip_code' => $data['zip_code'],
+            'country' => $data['country'],
+        ]);
+        return back();
     }
 
 }

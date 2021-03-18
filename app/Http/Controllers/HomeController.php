@@ -25,7 +25,7 @@ class HomeController extends Controller
     public function sandbox()
     {
         // 測試用
-        return view('auth.login', ['response' => 'ok']);
+        return view('sandbox');
     }
 
     public function index()

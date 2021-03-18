@@ -133,8 +133,8 @@
                 @auth
                 <li>
                     <a href="order-list.php">
-                        <img src="/img/svg/order-g.svg" alt="">
-                        <p>訂單查詢</p>
+                        <img src="/img/svg/order-w.svg" alt="" style="background-color: #4b4b4b;border-radius: 5px;padding: 0;">
+                        <p>ORDER LIST</p>
                     </a>
                 </li>
                 @endauth

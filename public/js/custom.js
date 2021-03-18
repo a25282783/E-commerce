@@ -92,34 +92,31 @@ $(function(){
 		],
 	});
 
-	$('.index-p3-out').slick({
-		swipeToSlide:true,
-		dots: true,
-		autoplay: false,
-		infinite: true,
-		speed: 500,
-		cssEase: 'ease',
-		slidesToShow: 1,
-		slidesToScroll: 1,
-		responsive: [
-	        {
-	            breakpoint: 9999,
-	            settings: "unslick"
-	        },
-	        {
-	            breakpoint: 768,
-	             settings: {
-	                    slidesToShow: 1,
-	                    slidesToScroll: 1,
-	                    infinite: true,
-	                    dots: true
-	                }
-	        }
-	    ]
-		// arrows: true,
-		// prevArrow: $('.ic2').find('.left'),
-		// nextArrow: $('.ic2').find('.right'),
-	});
+	// $('.index-p3-out').slick({
+	// 	swipeToSlide:true,
+	// 	dots: true,
+	// 	autoplay: false,
+	// 	infinite: true,
+	// 	speed: 500,
+	// 	cssEase: 'ease',
+	// 	slidesToShow: 1,
+	// 	slidesToScroll: 1,
+	// 	responsive: [
+	//         {
+	//             breakpoint: 9999,
+	//             settings: "unslick"
+	//         },
+	//         {
+	//             breakpoint: 768,
+	//              settings: {
+	//                     slidesToShow: 1,
+	//                     slidesToScroll: 1,
+	//                     infinite: true,
+	//                     dots: true
+	//                 }
+	//         }
+	//     ]
+	// });
 
 
 	$('.index-adslide-ul').slick({
@@ -318,111 +315,6 @@ function limit_text(text_obj, limit_num){
 limit_text(".ip-box .ip-name", 40)
 
 
-$(function () {
-    $("#person-info-form").validate({
-        rules: {
-            "first-name": { //name
-                required: true,
-                // minlength: 2,
-
-            },
-            "last-name": { //name
-                required: true,
-                // minlength: 2,
-
-            },
-            "phone": { //phone
-                required: true,
-                number: true,
-                digits: true,
-                minlength: 10,
-                maxlength: 10
-                //email: true
-            },
-            "email": { //email
-                required: true,
-                email: true,
-
-
-            },
-            "address":{
-                required: true
-            },
-            "content": { //checkbox1
-                minlength: 5,
-                required: true
-            },
-            "pswd": { //checkbox1
-                minlength: 6,
-                required: true,
-                pwcheck: true,
-            },
-            "pswd-ag": {
-                minlength : 6,
-                equalTo : "#pswd"
-            },
-            // "birth": {
-            //     required: true
-            // },
-            "city": {
-                required: false
-            },
-            "state":{
-                required: false
-            },
-            "zip":{
-                required: false
-            },
-            "county": {
-                required: false
-            },
-
-
-        },
-        messages: {
-            username: {
-                required: "此為必填欄位",
-                minlength: "UserName 至少需要 {0} 個字"
-            },
-            //client-name: "名字至少兩個字",
-            email: "請正確輸入Email",
-            agree: "你必須勾選同意",
-            "first-name": "the field must be filled in",
-            "last-name": "the field must be filled in",
-            "phone": "wrong cell phone formate",
-            "email": "wrong email formate",
-            "content": "請至少輸入五個字以上的內容",
-            "pswd": "at least 6 characters",
-            "pswd-ag": "please enter the same password",
-            // "birth": "請輸入相同密碼",
-            "address": "At least one address must be filled in",
-
-        },
-        errorPlacement: function (error, element) {
-            if (element.attr("name") == "entry.555108400") {
-              error.insertAfter($('.checkbox1-error'));
-                //error.insertAfter()
-            }else if(element.attr("name") == "entry.367696876"){
-              error.insertAfter($('.checkbox2-error'));
-            }
-            //
-            else{
-              error.appendTo(element.parent());
-            }
-        },
-        event: "keyup",
-        submitHandler: function(form) {
-
-          form.submit();
-        }
-    });
-    $.validator.addMethod("pwcheck", function(value) {
-       return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) // consists of only these
-           && /[a-zA-Z]/.test(value) // has a lowercase letter
-           && /\d/.test(value) // has a digit
-    });
-});
-
 
 $('button.navbar-toggler').click(function(){
     //if($(".navbar-collapse").hasClass("show") == true)console.log(1)
@@ -511,80 +403,6 @@ function removeInvalidChars($el) {
 $.validator.addMethod("letters", function(value, element) {
 	return this.optional(element) || value == value.match(/^([^~`!@#$%^&*()_+={}"'\[\]\{\}?\/<>,:;\-])*$/gm);
 });
-
-
-
-$(function(){
-    $('#cart_form').validate({
-        ignore: [],
-        rules:{
-            "order-firstName": {
-                required: true,
-                letters: true,
-            },
-            "order-lastName": {
-                required: true,
-                letters: true,
-            },
-            "order-mail":{
-                required: true,
-                email: true
-            },
-            "order-phone":{
-                required: true,
-                number:true,
-                digits: true,
-                minlength: 10,
-                maxlength: 10
-            },
-            "receiver-firstName":{
-                required: true,
-                letters: true
-            },
-            "receiver-lastName":{
-                required: true,
-                letters: true
-            },
-            "receiver-mail":{
-                required: true,
-                email: true
-            },
-            "receiver-phone":{
-                required: true,
-                number: true,
-                digits: true,
-                minlength: 10,
-                maxlength: 10
-            },
-            "receiver-address":{
-                required: true
-            }
-
-        },
-        messages: {
-            // "order-firstName": "the field must be filled in",
-            // "order-lastName": "the field must be filled in",
-            // "receiver-firstName": "the field must be filled in",
-            // "receiver-lastName": "the field must be filled in",
-            // "order-phone": "wrong cell phone formate",
-            // "receiver-phone": "wrong cell phone formate",
-            "order-mail": "wrong email formate",
-            "receiver-mail": "wrong email formate",
-            "receiver-address": "At least one address must be filled in",
-        },
-        errorPlacement:function(error,element){
-            error.appendTo(element.parent());
-        },
-        event: "keyup",
-        submitHandler:function(form){
-            $("#cart_form input[type=text]").each(function(index){
-                removeInvalidChars(this);
-            });
-            form.submit();
-        }
-    });
-});
-
 
 
 //=================================

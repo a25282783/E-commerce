@@ -20,7 +20,7 @@
                         @endif
                             <div class="col-6 col-md-3" >
                                 <div class="ip-box">
-                                    <a href="product-inner.php">
+                                    <a href="/product/{{ $product->id }}">
                                         <figure>
                                             <img src="/uploads/{{ $product->prev_img }}" class='img-rwd'>
                                             @if ($product->detail['sale'])
@@ -31,7 +31,7 @@
                                             @endif
                                         </figure>
                                     </a>
-                                    <h4 class='ip-name'>{{ $product->name }}</h4>
+                                    <h4 class='ip-name'>{{ Str::limit($product->name,30) }}</h4>
                                     <div class="ip-price-wrap-m ">
                                         @if ($product->detail['sale'])
                                         <STRIKE class='ip-price'>

@@ -75,4 +75,5 @@
   		COPYRIGHT@moveon All Right Reserved 2020.  	</div>
   </div>
 </div>
+<script type="text/javascript" src='/js/custom.js'></script>
 

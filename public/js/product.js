@@ -1,4 +1,5 @@
-
+// ckeditor 自帶gdiv
+Vue.config.ignoredElements = ['gdiv']
 var app = new Vue({
     el: '#product-inner',
     data: {
@@ -39,4 +40,5 @@ var app = new Vue({
         // console.log(this.limitation)
     }
 })
+
 

@@ -17,7 +17,7 @@
             <div class="col-12 col-lg-6">
                 <div class="product-img">
                     <div class="img-wrap">
-                        <img src="" alt="">
+                        <img src="/uploads/{{$data->img[0]}}" alt="">
                     </div>
                 </div>
                 <div class="img-slider-wrap">
@@ -112,7 +112,7 @@
                         @else
                         <div class="col-12 col-lg-4">
                             <div class="add-to-cart">
-                                <form method="POST" action="{{ route('verification.resend') }}" style="width: 100%">
+                                <form method="get" action="{{ route('verification.notice') }}" style="width: 100%">
                                 @csrf
                                 <input type="submit" value="Verify Email" >
                                 </form>

@@ -133,8 +133,7 @@
                 @auth
                 <li>
                     <a href="order-list.php">
-                        <img src="img/svg/order-g.svg" alt="">
-
+                        <img src="/img/svg/order-g.svg" alt="">
                         <p>訂單查詢</p>
                     </a>
                 </li>

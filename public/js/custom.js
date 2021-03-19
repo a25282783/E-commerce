@@ -432,18 +432,18 @@ $(".dropdown-submenu ul").each(function(){
 
 
 
-$(".input-wrap.count .add").click(function(){
-    var x = parseInt($(this).siblings(".spinner").val());
-    $(this).siblings(".spinner").val(x+1);
-});
+// $(".input-wrap.count .add").click(function(){
+//     var x = parseInt($(this).siblings(".spinner").val());
+//     $(this).siblings(".spinner").val(x+1);
+// });
 
-$(".input-wrap.count .sub").click(function(){
-    var x = parseInt($(this).siblings(".spinner").val());
-    if(x==0){
-        return
-    }
-    $(this).siblings(".spinner").val(x-1);
-});
+// $(".input-wrap.count .sub").click(function(){
+//     var x = parseInt($(this).siblings(".spinner").val());
+//     if(x==0){
+//         return
+//     }
+//     $(this).siblings(".spinner").val(x-1);
+// });
 
 $(document).ready(function(){
 	if($(window).width()<1199){

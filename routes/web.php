@@ -36,4 +36,6 @@ Route::group(['middleware' => ['verified', 'auth']], function () {
     Route::get('profile', 'HomeController@profile')->name('user');
     Route::post('profile', 'HomeController@update_profile')->name('update.user');
     Route::post('addToCart', 'CartController@addToCart');
+    Route::post('dropToCart', 'CartController@dropToCart');
+    Route::get('cart', 'CartController@cart');
 });

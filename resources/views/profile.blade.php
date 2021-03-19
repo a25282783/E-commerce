@@ -40,9 +40,13 @@
                                 </div>
                             </div>
                             @include('mixin.profile')
-                            <div class="btn-area">
-                                <button type="submit">SAVE</button>
+                            <div class="btn-area d-flex justify-content-around align-items-center">
+                                <button type="submit" style="padding: 0.5em 2em !important;">SAVE</button>
+                                <button  onclick="event.preventDefault();document.getElementById('logout-form').submit();" style="padding: 0.5em 2em !important;">LOG OUT</button>
                             </div>
+                        </form>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
                         </form>
                     </div>
                 </div>

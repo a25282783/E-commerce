@@ -6,21 +6,21 @@
 		<div class="">
 			<ul class='navbar-userM'>
 				<li>
-                    <a href="shop-cart.php">
+                    <a href="/cart">
                     @include('mixin.svg.navbar1')
 					<p>SHOPPING CAR</p>
 				    </a>
                 </li>
 				<li>
                     @auth
-                    <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                    <a href="{{ route('user') }}">
                     @endauth
                     @guest
                     <a href="/login">
                     @endguest
                     @include('mixin.svg.navbar2')
                     @auth
-                    <p>LOG OUT</p>
+                    <p>PROFILE</p>
                     @endauth
                     @guest
                     <p>LOG IN</p>
@@ -104,32 +104,31 @@
 			</ul>
 			<ul class='navbar-user d-flex'>
 				<li>
-                    <a href="shop-cart.php">
+                    <a href="/cart">
                         @include('mixin.svg.navbar4')
                         <p style="position: relative;margin-top:3px">SHOPPING CAR
-                            <span class="badge custom-badges">5</span>
+                            <span class="badge custom-badges shop-num" >
+                                {{ Auth::user()->carts->count() }}
+                            </span>
                         </p>
                     </a>
                 </li>
 				<li>
                 @auth
-                <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                <a href="{{ route('user') }}" >
                 @endauth
                 @guest
                 <a href="/login">
                 @endguest
                 @include('mixin.svg.navbar5')
                 @auth
-                <p style="margin-top:3px;">LOG OUT</p>
+                <p style="margin-top:3px;">PROFILE</p>
                 @endauth
                 @guest
                 <p style="margin-top:3px;">LOG IN</p>
                 @endguest
 				</a>
             </li>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                    @csrf
-                </form>
                 @auth
                 <li>
                     <a href="order-list.php">

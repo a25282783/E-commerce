@@ -58,4 +58,34 @@ class CartController extends Controller
         return json_encode(['msg' => 'Add To Cart Successfully']);
 
     }
+
+    public function dropToCart(Request $request)
+    {
+        $id = (int) $request->input('id');
+
+        Cart::find($id)->delete();
+        return response('');
+    }
+
+    public function cart()
+    {
+        $cart = Auth::user()->carts()->with('product')->get();
+        // 總計
+        $total_price = 0;
+        foreach ($cart as $v) {
+            // 判斷是否特價
+            if ($v->product->detail['sale']) {
+                $price = $v->product->detail['sale'];
+            } else {
+                $price = $v->product->detail['price'];
+            }
+            $v->perItemTotalPrice = $v->amount * $price;
+            $total_price += $v->perItemTotalPrice;
+        }
+
+        $data['data'] = $cart;
+        $data['total_price'] = $total_price;
+        return view('cart', $data);
+    }
+
 }

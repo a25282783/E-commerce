@@ -107,9 +107,11 @@
                     <a href="/cart">
                         @include('mixin.svg.navbar4')
                         <p style="position: relative;margin-top:3px">SHOPPING CAR
+                            @auth
                             <span class="badge custom-badges shop-num" >
                                 {{ Auth::user()->carts->count() }}
                             </span>
+                            @endauth
                         </p>
                     </a>
                 </li>

@@ -12,6 +12,9 @@ class Cart extends Model
         'user_id',
         'product_id',
         'amount',
+        'per_price',
+        'total_price',
+        'receipt',
     ];
 
     public function user()
@@ -22,5 +25,37 @@ class Cart extends Model
     public function product()
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function getTotalPriceAttribute($price)
+    {
+        return $price / 100;
+    }
+
+    public function setTotalPriceAttribute($price)
+    {
+        $this->attributes['total_price'] = $price * 100;
+    }
+
+    public function getPerPriceAttribute($price)
+    {
+        return $price / 100;
+    }
+
+    public function setPerPriceAttribute($price)
+    {
+        $this->attributes['per_price'] = $price * 100;
+    }
+
+    public function setReceiptAttribute($receipt)
+    {
+        if (is_array($receipt)) {
+            $this->attributes['receipt'] = json_encode($receipt);
+        }
+    }
+
+    public function getReceiptAttribute($receipt)
+    {
+        return json_decode($receipt, true);
     }
 }

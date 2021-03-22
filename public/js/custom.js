@@ -359,17 +359,6 @@ $('input[type=radio][name=shipping-methods]').change(function() {
 });
 
 
-//check for same name and phone
-$(".same-person").change(function() {
-    if(this.checked) {
-        $(".receiver-name").val($(".order-name").val());
-        $(".receiver-phone").val($(".order-phone").val());
-    }else{
-        $(".receiver-name").val("");
-        $(".receiver-phone").val("");
-    }
-});
-
 //same address
 $(".same-address").change(function() {
     if(this.checked) {

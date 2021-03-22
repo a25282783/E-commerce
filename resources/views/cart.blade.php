@@ -1,6 +1,14 @@
 @extends('layouts.app')
 @section('content')
-{{-- // TODO 個人檔案 --}}
+<style>
+    .form-required{
+        padding: 0 !important;
+        color: #e60e0efa;
+    }
+    .product-name-wrap{
+        cursor:pointer;
+    }
+</style>
 <section id="shop-cart">
     <div class="main-title-bottom">
         <div class="container">
@@ -14,7 +22,8 @@
         </div>
     </div>
     <div class="cart-form-wrap">
-        <form action="" id="cart_form">
+        <form action="{{ route('update.cart') }}" id="cart_form" method="POST">
+            @csrf
             {{-- 商品總覽 --}}
             <div class="container">
                 <div class="row">
@@ -40,7 +49,7 @@
                             <div class="list-wrap">
                                 <div class="col-12 col-lg-4">
                                     <div class="list-inner-title">Product</div>
-                                    <div class="product-name-wrap flex-wraper">
+                                    <div class="product-name-wrap flex-wraper" onclick="location.href='/product/{{ $cart->product_id }}'" >
                                         <div class="img-wrap">
                                             <img src="/uploads/{{ $cart->product->prev_img }}" alt="">
                                         </div>
@@ -73,7 +82,7 @@
                                     <div class="flex-wraper">
                                         <div class="input-wrap count">
                                             <input min="1" class="spinner" type="number"
-                                            value="{{ $cart->amount }}">
+                                            value="{{ $cart->amount }}" name="order[{{ $cart->id }}]">
                                             <div class="spin add" @click="addCount">▲</div>
                                             <div class="spin sub" @click="minusCount">▼</div>
                                         </div>
@@ -129,18 +138,23 @@
                                 <div class="radio-wrap active">
                                     <label>
                                         <div class="img-wrap">
+                                            @if (isset($basic))
+                                            <img src="/uploads/{{ $basic->delivery }}" alt="">
+                                            <div class="text">{{ $basic->delivery_name }}</div>
+                                            @else
                                             <img src="img/cart/svg/icon-01.svg" alt="">
                                             <div class="text">Taiwan Post Office</div>
+                                            @endif
                                         </div>
-                                        <input type="radio" name="shipping-methods" value="post" checked>
                                     </label>
                                 </div>
                             </div>
                             <div class="radio-textarea">
                                 <div class="radio-text-wrap">
                                     <p>
-                                        1.It is a long established fact that a reader will be distracted by the readable content<br>
-                                        2.It is a long established fact<br>3.distracted by the readable content
+                                    @if (isset($basic))
+                                        {!! nl2br($basic->delivery_desc) !!}
+                                    @endif
                                     </p>
                                 </div>
                             </div>
@@ -160,22 +174,27 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="list-bottom payment-radio-area">
-
                             <div class="radio-area">
                                 <div class="radio-wrap active">
                                     <label>
                                         <div class="img-wrap">
+                                            @if (isset($basic))
+                                            <img src="/uploads/{{ $basic->payment }}" alt="">
+                                            <div class="text">{{ $basic->payment_name }}</div>
+                                            @else
                                             <img src="img/cart/svg/icon-05.svg" alt="">
                                             <div class="text">Credit Card</div>
+                                            @endif
                                         </div>
-                                        <input type="radio" name="payment-methods" value="" checked>
                                     </label>
                                 </div>
                             </div>
                             <div class="radio-textarea">
                                 <div class="radio-text-wrap">
                                     <p>
-                                        distracted by the readable content
+                                    @if (isset($basic))
+                                    {!! nl2br($basic->payment_desc) !!}
+                                    @endif
                                     </p>
                                 </div>
                             </div>
@@ -183,12 +202,13 @@
                     </div>
                 </div>
             </div>
+            {{-- User --}}
             <div class="container">
                 <div class="row">
                     <div class="col-12">
                         <div class="title green-decor-title">
                             <div class="decor-squ"></div>
-                            <div>Orderer</div>
+                            <div>User</div>
                         </div>
                     </div>
                 </div>
@@ -200,7 +220,7 @@
                                     <div class="item-wrap">
                                         <label for="">FIRST NAME</label>
                                         <div class="input-wrap">
-                                            <input class="order-name" name="order-firstName" type="text" placeholder="First Name">
+                                            <input class="order-name" name="order-firstName" type="text" readonly="readonly" value="{{$user->first_name}}">
                                         </div>
                                     </div>
                                 </div>
@@ -208,7 +228,7 @@
                                     <div class="item-wrap">
                                         <label for="">E-MAIL</label>
                                         <div class="input-wrap">
-                                            <input type="text" name="order-mail" placeholder="email@email.com">
+                                            <input type="text" name="order-mail" readonly="readonly" value="{{$user->email}}">
                                         </div>
                                     </div>
                                 </div>
@@ -217,7 +237,7 @@
                                     <div class="item-wrap">
                                         <label for="">LAST NAME</label>
                                         <div class="input-wrap">
-                                            <input class="order-name" name="order-lastName" type="text" placeholder="LAST NAME">
+                                            <input class="order-name" name="order-lastName" type="text" readonly="readonly" value="{{$user->last_name}}">
                                         </div>
                                     </div>
                                 </div>
@@ -225,7 +245,7 @@
                                     <div class="item-wrap">
                                         <label for="">PHONE NUMBER</label>
                                         <div class="input-wrap">
-                                            <input class="order-phone" name="order-phone" type="text" placeholder="886-02-12345678">
+                                            <input class="order-phone" name="order-phone" type="text" readonly="readonly" value="{{$user->mobile}}">
                                         </div>
                                     </div>
                                 </div>
@@ -250,60 +270,90 @@
                                 <div class="col-12">
                                     <div class="item-wrap">
                                         <div class="ui checkbox">
-                                            <input type="checkbox" class="same-person">
-                                            <label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspCheck with orderer</label>
+                                            <input type="checkbox" class="same-person" v-model="checked">
+                                            <label>Check with User</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6 order-1">
                                     <div class="item-wrap">
-                                        <label for="">FIRST NAME</label>
+                                        <label for="">
+                                            <span class="form-required">*</span>
+                                            FIRST NAME
+                                        </label>
                                         <div class="input-wrap">
-                                            <input class="receiver-name" name="receiver-firstName" type="text" placeholder="First Name">
+                                            <input class="receiver-name" name="first_name" type="text" :value="(checked)?'{{$user->first_name}}':''" required>
+                                            @error('first_name')
+                                            <span class="form-required">
+                                                {{ $message }}
+                                            </span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6 order-4">
                                     <div class="item-wrap">
-                                        <label for="">E-MAIL</label>
+                                        <label for="">
+                                            <span class="form-required">*</span>
+                                            E-MAIL
+                                        </label>
                                         <div class="input-wrap">
-                                            <input type="text" name="receiver-mail" placeholder="email@email.com">
+                                            <input type="text" name="email" :value="(checked)?'{{$user->email}}':''" required>
+                                            @error('email')
+                                            <span class="form-required">
+                                                {{ $message }}
+                                            </span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6 order-2">
                                     <div class="item-wrap">
-                                        <label for="">LAST NAME</label>
+                                        <label for="">
+                                            <span class="form-required">*</span>
+                                            LAST NAME
+                                        </label>
                                         <div class="input-wrap">
-                                            <input class="receiver-name" name="receiver-lastName" type="text" placeholder="Last Name">
+                                            <input class="receiver-name" name="last_name" type="text" :value="(checked)?'{{$user->last_name}}':''" required>
+                                            @error('last_name')
+                                            <span class="form-required">
+                                                {{ $message }}
+                                            </span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6 order-3">
                                     <div class="item-wrap">
-                                        <label for="">PHONE NUMBER</label>
+                                        <label for="">
+                                            <span class="form-required">*</span>
+                                            PHONE NUMBER
+                                        </label>
                                         <div class="input-wrap">
-                                            <input class="receiver-phone" name="receiver-phone" type="text" placeholder="886-02-12345678">
+                                            <input class="receiver-phone" name="mobile" type="text" :value="(checked)?'{{$user->mobile}}':''" required>
+                                            @error('mobile')
+                                            <span class="form-required">
+                                                {{ $message }}
+                                            </span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-12 order-5">
                                     <div class="item-wrap address-wrap">
-                                        <label for="">ADDRESS LINE 1</label>
+                                        <label for="">
+                                            <span class="form-required">*</span>
+                                            ADDRESS
+                                        </label>
                                         <div class="input-wrap">
                                             <div class="address-input">
-                                                <input class="receiver-address" name="receiver-address" type="text" placeholder="enter your address">
+                                                <input class="receiver-address" name="address" type="text" :value="(checked)?'{{$user->address}}':''" required>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 order-6">
-                                    <div class="item-wrap address-wrap">
-                                        <label for="">ADDRESS LINE 2</label>
-                                        <div class="input-wrap">
-                                            <div class="address-input">
-                                                <input class="receiver-address" type="text" placeholder="">
-                                            </div>
+                                            @error('address')
+                                            <span class="form-required">
+                                                {{ $message }}
+                                            </span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -311,7 +361,7 @@
                                     <div class="item-wrap">
                                         <label for="">CITY</label>
                                         <div class="input-wrap">
-                                            <input name="city" type="text" placeholder="ex:Xizhi Dist.">
+                                            <input name="city" type="text" :value="(checked)?'{{$user->city}}':''">
                                         </div>
                                     </div>
                                 </div>
@@ -319,7 +369,7 @@
                                     <div class="item-wrap">
                                         <label for="">STATE/PROVINCE/REGION</label>
                                         <div class="input-wrap">
-                                            <input name="state" type="text" placeholder="ex:Taipei">
+                                            <input name="state" type="text" :value="(checked)?'{{$user->state}}':''">
                                         </div>
                                     </div>
                                 </div>
@@ -327,7 +377,7 @@
                                     <div class="item-wrap">
                                         <label for="">ZIP</label>
                                         <div class="input-wrap">
-                                            <input name="zip" type="text" placeholder="ex:106">
+                                            <input name="zip_code" type="text" :value="(checked)?'{{$user->zip_code}}':''">
                                         </div>
                                     </div>
                                 </div>
@@ -335,7 +385,7 @@
                                     <div class="item-wrap">
                                         <label for="">COUNTRY</label>
                                         <div class="input-wrap">
-                                            <input name="country" type="text" placeholder="ex:TAIWAN">
+                                            <input name="country" type="text" :value="(checked)?'{{$user->country}}':''">
                                         </div>
                                     </div>
                                 </div>
@@ -343,7 +393,7 @@
                                     <div class="item-wrap textarea-wrap">
                                         <label for="">NOTE</label>
                                         <div class="input-wrap">
-                                            <textarea placeholder="ENTER TEXT" rows="6"></textarea>
+                                            <textarea placeholder="ENTER TEXT" rows="6" name="note"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -354,7 +404,7 @@
             </div>
             <div class="container">
                 <div class="btn-area apply-btn-area">
-                    <button type="submit">NEXT</button>
+                    <button type="submit" >NEXT</button>
                 </div>
             </div>
         </form>
@@ -365,7 +415,7 @@
 var app = new Vue({
     el: '#shop-cart',
     data: {
-
+        checked:false
     },
     methods: {
         addCount: function (event) {
@@ -425,7 +475,7 @@ var app = new Vue({
                     .then(function (response) {
                         target.parentElement.parentElement.parentElement.style.display = "none";
                         // 更新total
-                        $('#total_price span').text(Number($('#total_price span').text()) - (amount * price))
+                        $('#total_price span').text( (Number($('#total_price span').text()) - (amount * price)).toFixed(2) )
                         // 更新navbar購物車數字
                         $('.shop-num').each(function () {
                             $(this).text(Number($(this).text()) - 1);
@@ -437,18 +487,7 @@ var app = new Vue({
                 //
             }
         },
-        updateOrder() {
-            $('.form_tr:visible').each(function () {
-                var amount = $(this).find('.pdNum').attr('data-amount');
-                var id = $(this).find('.pdNum').attr('data-id');
-                $(this).find('input').val(JSON.stringify({
-                    id: id,
-                    amount: amount
-                }));
 
-            });
-            $('#order_form').submit();
-        },
     },
 })
 </script>

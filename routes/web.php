@@ -38,4 +38,6 @@ Route::group(['middleware' => ['verified', 'auth']], function () {
     Route::post('addToCart', 'CartController@addToCart');
     Route::post('dropToCart', 'CartController@dropToCart');
     Route::get('cart', 'CartController@cart');
+    Route::post('cart/update', 'CartController@update_cart')->name('update.cart');
+    Route::get('cart/order', 'CartController@makeOrder');
 });

@@ -132,7 +132,7 @@ class HomeController extends Controller
     public function footer($theme)
     {
         $data = Footer::first();
-        abort_if(!$data['data'], 404);
+        abort_if(!$data, 404);
         return view('footer_terms', ['data' => $data]);
     }
 

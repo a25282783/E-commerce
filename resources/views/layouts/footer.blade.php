@@ -2,6 +2,7 @@
     @php
     $footer = App\Footer::first();
     @endphp
+    @if ($footer)
 	<div class="row">
 		<div class="container">
 			<div class="row">
@@ -73,6 +74,8 @@
 			</div>
 		</div>
 	</div>
+    @endif
+
 </footer>
 <div class="container-fluid">
   <div class="row">

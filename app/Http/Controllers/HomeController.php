@@ -39,12 +39,14 @@ class HomeController extends Controller
     public function company()
     {
         $data['data'] = Company::first();
+        abort_if(!$data['data'], 404);
         return view('company', $data);
     }
 
     public function service()
     {
         $data['data'] = Service::first();
+        abort_if(!$data['data'], 404);
         $data['main'] = 'Service';
         return view('template', $data);
     }
@@ -52,6 +54,7 @@ class HomeController extends Controller
     public function technology()
     {
         $data['data'] = Tech::first();
+        abort_if(!$data['data'], 404);
         $data['main'] = 'Technology';
         return view('template', $data);
     }
@@ -59,6 +62,7 @@ class HomeController extends Controller
     public function faq()
     {
         $data['data'] = Faq::first();
+        abort_if(!$data['data'], 404);
         $data['main'] = 'Faq';
         return view('template', $data);
     }
@@ -72,6 +76,7 @@ class HomeController extends Controller
     public function contact()
     {
         $data['data'] = Contact::first();
+        abort_if(!$data['data'], 404);
         return view('contact', $data);
     }
 
@@ -127,6 +132,7 @@ class HomeController extends Controller
     public function footer($theme)
     {
         $data = Footer::first();
+        abort_if(!$data['data'], 404);
         return view('footer_terms', ['data' => $data]);
     }
 

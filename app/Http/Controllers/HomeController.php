@@ -6,7 +6,9 @@ use App\Company;
 use App\Contact;
 use App\Faq;
 use App\File;
+use App\Footer;
 use App\Message;
+use App\News;
 use App\Service;
 use App\Tech;
 use Illuminate\Http\Request;
@@ -106,6 +108,39 @@ class HomeController extends Controller
             'country' => $data['country'],
         ]);
         return back();
+    }
+
+    public function order_list()
+    {
+        $data['data'] = Auth::user()->orders()->orderBy('id', 'desc')->paginate(10);
+        return view('order_list', $data);
+    }
+
+    public function order_list_detail($id)
+    {
+        $order = Auth::user()->orders()->find($id);
+        abort_if(!$order, 404);
+        $receipt = $order->receipt;
+        return view('order_list_detail', ['order' => $order, 'receipt' => $receipt]);
+    }
+
+    public function footer($theme)
+    {
+        $data = Footer::first();
+        return view('footer_terms', ['data' => $data]);
+    }
+
+    public function news()
+    {
+        $data = News::orderBy('id', 'desc')->paginate(6);
+        return view('news', ['data' => $data]);
+    }
+
+    public function news_show($id)
+    {
+        $data = News::find($id);
+        abort_if(!$data, 404);
+        return view('news_show', ['data' => $data]);
     }
 
 }

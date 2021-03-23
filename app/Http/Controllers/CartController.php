@@ -11,6 +11,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class CartController extends Controller
 {
@@ -27,7 +28,14 @@ class CartController extends Controller
         $res = Category::find($id);
         abort_if(!$res, 404);
         $data['data'] = $res->products()->orderBy('id', 'desc')->paginate(12);
+        $data['name'] = $res->name;
         return view('category', $data);
+    }
+
+    public function product_all()
+    {
+        $data['data'] = Product::orderBy('id', 'desc')->paginate(12);
+        return view('product_all', $data);
     }
 
     public function addToCart(Request $request)
@@ -160,12 +168,11 @@ class CartController extends Controller
 
     }
 
-    public function makeOrder()
+    public function make_order()
     {
-
         DB::beginTransaction();
         try {
-            $user_cart = Auth::user()->carts()->select(['product_id', 'amount', 'total_price', 'per_price'])->get()->toArray();
+            $user_cart = Auth::user()->carts()->select(['product_id', 'amount', 'total_price', 'per_price', 'receipt'])->get()->toArray();
             if (count($user_cart) == 0) {
                 return redirect('/cart');
             }
@@ -197,11 +204,13 @@ class CartController extends Controller
                 'cart_info' => $user_cart,
                 'status' => 1,
                 'price' => $price,
+                'receipt' => $user_cart[0]['receipt'],
             ]);
             Auth::user()->carts()->delete();
             DB::commit();
-            echo '成立訂單成功';
+            return redirect('/order/list');
         } catch (\Throwable $e) {
+            Log::info('CartController.make_order:' . $e->getMessage());
             DB::rollback();
             return redirect('/cart')->with('shortage', $shortage);
         }

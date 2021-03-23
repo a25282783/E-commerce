@@ -7,7 +7,7 @@
                 <div class="row">
                     <div class="w-100">
                         <h2 class='text-center openSans-font font40'>
-                            <div class="en">{{ $name }}</div>
+                            <div class="en">All Product</div>
                             <div class="cn"></div>
                         </h2>
                     </div>

@@ -6,9 +6,14 @@
 		<div class="">
 			<ul class='navbar-userM'>
 				<li>
-                    <a href="/cart">
+                    <a href="/cart" style="position: relative;">
                     @include('mixin.svg.navbar1')
-					<p>SHOPPING CAR</p>
+                    @auth
+                    <span class="badge custom-badges shop-num" >
+                        {{ Auth::user()->carts->count() }}
+                    </span>
+                    @endauth
+                        <p >SHOPPING CAR</p>
 				    </a>
                 </li>
 				<li>
@@ -29,7 +34,7 @@
                 </li>
                 @auth
                 <li>
-                    <a href="order-list.php">
+                    <a href="/order/list">
                         <img src="/img/svg/order-w.svg" alt="">
                         <p>ORDER LIST</p>
                     </a>
@@ -87,7 +92,7 @@
 		      </li>
 
 			  <li class="nav-item">
-			    <a class="nav-link" href="{{ route('service') }}">SERVICE</a>
+			    <a class="nav-link" href="{{ route('news') }}">NEWS</a>
 			  </li>
 			  <li class="nav-item">
 			    <a class="nav-link" href="{{ route('tech') }}">TECHNOLOGY </a>
@@ -133,7 +138,7 @@
             </li>
                 @auth
                 <li>
-                    <a href="order-list.php">
+                    <a href="/order/list">
                         <img src="/img/svg/order-w.svg" alt="" style="background-color: #4b4b4b;border-radius: 5px;padding: 0;">
                         <p>ORDER LIST</p>
                     </a>

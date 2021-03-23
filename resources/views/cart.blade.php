@@ -79,13 +79,16 @@
                                     data-amount="{{ $cart->amount }}"
                                     data-product_amount="{{ $cart->product->amount }}" >
                                     <div class="list-inner-title">Quantity</div>
-                                    <div class="flex-wraper">
+                                    <div class="flex-wraper" style="flex-direction: column;">
                                         <div class="input-wrap count">
                                             <input min="1" class="spinner" type="number"
                                             value="{{ $cart->amount }}" name="order[{{ $cart->id }}]">
                                             <div class="spin add" @click="addCount">▲</div>
                                             <div class="spin sub" @click="minusCount">▼</div>
                                         </div>
+                                        @if (session('shortage')&&in_array($cart->product_id,session('shortage')))
+                                        <span class="form-required">Shortage</span>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-2">

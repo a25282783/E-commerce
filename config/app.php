@@ -230,4 +230,12 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
     ],
 
+    // 訂單狀態
+    'orderStatus' => [
+        1 => '待付款',
+        2 => '待發貨',
+        3 => '已發貨',
+        99 => '異常',
+    ],
+
 ];

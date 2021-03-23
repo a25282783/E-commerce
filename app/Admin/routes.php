@@ -15,7 +15,7 @@ Route::group([
     $router->resource('basic', BasicController::class);
     $router->resource('company', CompanyController::class);
     $router->resource('faq', FaqController::class);
-    $router->resource('service', ServiceController::class);
+    // $router->resource('service', ServiceController::class);
     $router->resource('tech', TechController::class);
     $router->resource('contact', ContactController::class);
     $router->resource('message', MessageController::class);
@@ -23,4 +23,7 @@ Route::group([
     $router->resource('category', CategoryController::class);
     $router->resource('product', ProductController::class);
     $router->resource('cart', CartController::class);
+    $router->resource('footer', FooterController::class);
+    $router->resource('news', NewsController::class);
+    $router->resource('banner', BannerController::class);
 });

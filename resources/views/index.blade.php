@@ -204,7 +204,7 @@
                             </a>
                         </div>
                     </div>
-                @if ($loop->index%4==3)
+                @if ($loop->index%4==3 || $loop->last)
                     </div>
                 </div>
                 @endif

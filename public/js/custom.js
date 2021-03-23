@@ -2,7 +2,7 @@ $(function(){
 	$('.indexBn-slick').slick({
 		dots: true,
 		speed: 1200,
-		autoplay: false,
+		autoplay: true,
 		autoplaySpeed: 5000,
 		cssEase: 'linear',
 		arrows: true,
@@ -13,7 +13,7 @@ $(function(){
 	$('.index-p1-out .index-p1').slick({
 		swipeToSlide:true,
 		dots: false,
-		autoplay: false,
+		autoplay: true,
 		infinite: true,
 		// autoplaySpeed: 2000,
 		speed: 500,
@@ -54,7 +54,7 @@ $(function(){
 	$('.index-p2-out .index-p1').slick({
 		swipeToSlide:true,
 		dots: false,
-		autoplay: false,
+		autoplay: true,
 		infinite: true,
 		speed: 500,
 		cssEase: 'ease',
@@ -122,7 +122,7 @@ $(function(){
 	$('.index-adslide-ul').slick({
 		swipeToSlide:true,
 		dots: false,
-		autoplay: false,
+		autoplay: true,
 		infinite: true,
 		speed: 500,
 		cssEase: 'ease',

@@ -123,6 +123,7 @@
     @php
     $footer = App\Footer::first();
     @endphp
+    @if ($footer)
     <div class="row index-bn2 banner3" onclick="window.location.href='{{ $footer->mid_url }}'" >
         <div class="bg-wrap" style="background-image: url('/uploads/{{ $footer->mid_banner }}')">
         </div>
@@ -149,6 +150,7 @@
             </div>
         </div>
     </div>
+    @endif
 
     <!-- Au product -->
     <div class="row ptb50">

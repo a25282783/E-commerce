@@ -50,8 +50,8 @@
 	<link rel="stylesheet" type="text/css" href="/css/vendor/animation/animation.css">
 	<link rel="stylesheet" type="text/css" href="/css/vendor/slick/slick.css">
 	<link rel="stylesheet" type="text/css" href="/css/vendor/slick/slick-theme.css">
-	<link rel="stylesheet" type="text/css" href="/css/style.css">
-	<link rel="stylesheet" type="text/css" href="/css/global.css">
+	<link rel="stylesheet" type="text/css" href="/css/style.css?v=20210323">
+	<link rel="stylesheet" type="text/css" href="/css/global.css?v=20210323">
 	<!--[if lt IE 9]>
 		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>

@@ -26,4 +26,5 @@ Route::group([
     $router->resource('footer', FooterController::class);
     $router->resource('news', NewsController::class);
     $router->resource('banner', BannerController::class);
+    $router->resource('order', OrderController::class);
 });

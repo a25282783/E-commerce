@@ -26,9 +26,11 @@ class CartController extends AdminController
         $grid = new Grid(new Cart());
 
         $grid->column('id', __('Id'));
-        $grid->column('user.id', '用戶id');
+        $grid->column('user.name', '用戶名稱');
         $grid->column('product.name', '產品名稱');
         $grid->column('amount', '數量');
+        $grid->column('per_price', '單價');
+        $grid->column('total_price', '總價');
 
         return $grid;
     }

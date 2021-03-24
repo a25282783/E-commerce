@@ -1,10 +1,10 @@
 @extends('layouts.app')
 @section('content')
 <style>
-    ul{
+    #search{
         margin: 0 auto;
     }
-    li{
+    #search li{
         list-style-type: disclosure-closed;
         margin-bottom: 10px;
     }
@@ -15,7 +15,7 @@
             @if (count($data)==0)
                 <p>No Result~</p>
             @else
-            <ul >
+            <ul id="search">
                 @foreach ($data as $item)
                     <li>
                         <a href="/product/{{$item->id}}">{{$item->name}}</a>

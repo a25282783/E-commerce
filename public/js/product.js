@@ -27,6 +27,10 @@ var app = new Vue({
                     app.is_loading = false;
                     app.callback = true;
                     app.callback_msg = response.data.msg
+                    // 更新navbar購物車數字
+                    $('.shop-num').each(function () {
+                        $(this).text(Number($(this).text()) + 1);
+                    })
                 })
                 .catch(function (error) {
                     app.is_loading = false;

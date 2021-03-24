@@ -209,5 +209,5 @@
     </div>
 </section>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="/js/product.js"></script>
+<script src="/js/product.js?v=20210324"></script>
 @endsection

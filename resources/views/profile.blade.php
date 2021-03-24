@@ -1,11 +1,5 @@
 @extends('layouts.app')
 @section('content')
-<style>
-    .form-required{
-        padding: 0 !important;
-        color: #e60e0efa;
-    }
-</style>
 <section id="person-info" class="top-bottom-empty">
     <div class="main-title-bottom">
         <div class="container">

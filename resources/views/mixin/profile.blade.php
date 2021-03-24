@@ -4,13 +4,14 @@
     </label>
     <div class="input-wrap">
         <input id="first_name" name="first_name" type="text" value="{{ old('first_name')?old('first_name'):$user->first_name }}"  placeholder="First Name" >
-        @error('first_name')
-        <span class="form-required">
-            {{ $message }}
-        </span>
-        @enderror
+
     </div>
 </div>
+@error('first_name')
+<span class="form-required">
+    {{ $message }}
+</span>
+@enderror
 <div class="item-wrap">
     <label for="last_name">
         <span class="form-required">*</span>
@@ -18,13 +19,14 @@
     </label>
     <div class="input-wrap">
         <input id="last_name" name="last_name" type="text" value="{{ old('last_name')?old('last_name'):$user->last_name }}" placeholder="Last Name" required>
-        @error('last_name')
-        <span class="form-required">
-            {{ $message }}
-        </span>
-        @enderror
+
     </div>
 </div>
+@error('last_name')
+<span class="form-required">
+    {{ $message }}
+</span>
+@enderror
 <div class="item-wrap">
     <label for="mobile">
         <span class="form-required">*</span>
@@ -32,13 +34,14 @@
     </label>
     <div class="input-wrap">
         <input id="mobile" name="mobile" type="number" placeholder="PHONE NUMBER" required value="{{ old('mobile')?old('mobile'):$user->mobile }}">
-        @error('mobile')
-        <span class="form-required">
-            {{ $message }}
-        </span>
-        @enderror
+
     </div>
 </div>
+@error('mobile')
+<span class="form-required">
+    {{ $message }}
+</span>
+@enderror
 <div class="item-wrap">
     <label for="address">
         <span class="form-required">*</span>
@@ -46,13 +49,14 @@
     </label>
     <div class="input-wrap">
         <input id="address" name="address" type="text" placeholder="please enter your address" required value="{{ old('address')?old('address'):$user->address }}">
-        @error('address')
-        <span class="form-required">
-            {{ $message }}
-        </span>
-        @enderror
+
     </div>
 </div>
+@error('address')
+<span class="form-required">
+    {{ $message }}
+</span>
+@enderror
 <div class="item-wrap item-wrap-6">
     <div class="item">
         <label for="city">CITY</label>

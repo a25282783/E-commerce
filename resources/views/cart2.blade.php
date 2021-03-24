@@ -1,10 +1,6 @@
 @extends('layouts.app')
 @section('content')
 <style>
-    .form-required{
-        padding: 0 !important;
-        color: #e60e0efa;
-    }
     .product-name-wrap{
         cursor:pointer;
     }

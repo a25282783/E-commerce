@@ -60,6 +60,10 @@
 	================================================== -->
 
     <style>
+        .form-required{
+            padding: 0 !important;
+            color: #e60e0efa;
+        }
         .dropdown-menu .dropdown-submenu ul li a{
             display: block!important;
         }

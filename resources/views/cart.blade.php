@@ -1,10 +1,6 @@
 @extends('layouts.app')
 @section('content')
 <style>
-    .form-required{
-        padding: 0 !important;
-        color: #e60e0efa;
-    }
     .product-name-wrap{
         cursor:pointer;
     }
@@ -286,13 +282,14 @@
                                         </label>
                                         <div class="input-wrap">
                                             <input class="receiver-name" name="first_name" type="text" :value="(checked)?'{{$user->first_name}}':''" required>
-                                            @error('first_name')
-                                            <span class="form-required">
-                                                {{ $message }}
-                                            </span>
-                                            @enderror
+
                                         </div>
                                     </div>
+                                    @error('first_name')
+                                    <span class="form-required">
+                                        {{ $message }}
+                                    </span>
+                                    @enderror
                                 </div>
                                 <div class="col-12 col-lg-6 order-4">
                                     <div class="item-wrap">
@@ -302,13 +299,14 @@
                                         </label>
                                         <div class="input-wrap">
                                             <input type="text" name="email" :value="(checked)?'{{$user->email}}':''" required>
-                                            @error('email')
-                                            <span class="form-required">
-                                                {{ $message }}
-                                            </span>
-                                            @enderror
+
                                         </div>
                                     </div>
+                                    @error('email')
+                                    <span class="form-required">
+                                        {{ $message }}
+                                    </span>
+                                    @enderror
                                 </div>
                                 <div class="col-12 col-lg-6 order-2">
                                     <div class="item-wrap">
@@ -318,13 +316,14 @@
                                         </label>
                                         <div class="input-wrap">
                                             <input class="receiver-name" name="last_name" type="text" :value="(checked)?'{{$user->last_name}}':''" required>
-                                            @error('last_name')
-                                            <span class="form-required">
-                                                {{ $message }}
-                                            </span>
-                                            @enderror
+
                                         </div>
                                     </div>
+                                    @error('last_name')
+                                    <span class="form-required">
+                                        {{ $message }}
+                                    </span>
+                                    @enderror
                                 </div>
                                 <div class="col-12 col-lg-6 order-3">
                                     <div class="item-wrap">
@@ -334,13 +333,14 @@
                                         </label>
                                         <div class="input-wrap">
                                             <input class="receiver-phone" name="mobile" type="text" :value="(checked)?'{{$user->mobile}}':''" required>
-                                            @error('mobile')
-                                            <span class="form-required">
-                                                {{ $message }}
-                                            </span>
-                                            @enderror
+
                                         </div>
                                     </div>
+                                    @error('mobile')
+                                    <span class="form-required">
+                                        {{ $message }}
+                                    </span>
+                                    @enderror
                                 </div>
                                 <div class="col-12 order-5">
                                     <div class="item-wrap address-wrap">
@@ -352,13 +352,14 @@
                                             <div class="address-input">
                                                 <input class="receiver-address" name="address" type="text" :value="(checked)?'{{$user->address}}':''" required>
                                             </div>
-                                            @error('address')
-                                            <span class="form-required">
-                                                {{ $message }}
-                                            </span>
-                                            @enderror
+
                                         </div>
                                     </div>
+                                    @error('address')
+                                    <span class="form-required">
+                                        {{ $message }}
+                                    </span>
+                                    @enderror
                                 </div>
                                 <div class="col-12 col-lg-6 order-7">
                                     <div class="item-wrap">

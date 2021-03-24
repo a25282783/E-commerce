@@ -9,6 +9,7 @@ use App\File;
 use App\Footer;
 use App\Message;
 use App\News;
+use App\Product;
 use App\Service;
 use App\Tech;
 use Illuminate\Http\Request;
@@ -147,6 +148,14 @@ class HomeController extends Controller
         $data = News::find($id);
         abort_if(!$data, 404);
         return view('news_show', ['data' => $data]);
+    }
+
+    public function search(Request $request)
+    {
+        $data = Product::where('name', 'like', "%{$request->input('p')}%")
+            ->orWhere('intro', 'like', "%{$request->input('p')}%")
+            ->get();
+        return view('search', ['data' => $data]);
     }
 
 }

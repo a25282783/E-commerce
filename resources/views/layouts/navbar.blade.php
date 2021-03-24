@@ -51,8 +51,8 @@
 			</a>
 			<ul class="navbar-nav">
 				<li class="nav-item header-input" style="">
-				<form>
-					<input type="text" class="form-control" style="color: #495057!important;">
+				<form action="/search" method="GET">
+					<input type="text" class="form-control" style="color: #495057!important;" name="p">
 					<button type="submit">
                     @include('mixin.svg.navbar3')
 					</button>
@@ -148,12 +148,12 @@
 		</div>
 	</nav>
 </header>
-<form class="container-fluid header-input">
+<form class="container-fluid header-input" action="/search" method="GET">
 	<div class="row">
 		<div class="container">
 			<div class="row">
 				<div class="col-12 col-md-10 offset-md-1">
-					<input type="text" class='form-control'>
+					<input type="text" class='form-control' name="p">
 					<button type="submit">
 						@include('mixin.svg.navbar6')
 					</button>

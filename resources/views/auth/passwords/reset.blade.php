@@ -29,24 +29,26 @@
                                 <label for="email">ACCOUNT</label>
                                 <div class="input-wrap">
                                     <input name="email" type="email" placeholder="email address" value="{{ $email ?? old('email') }}" required autocomplete="email">
-                                    @error('email')
-                                    <label id="email-error" class="error" for="email">
-                                        {{ $message }}
-                                    </label>
-                                    @enderror
+
                                 </div>
                             </div>
+                            @error('email')
+                            <span class="form-required">
+                                {{ $message }}
+                            </span>
+                            @enderror
                             <div class="item-wrap">
                                 <label for="password">PASSWORD</label>
                                 <div class="input-wrap">
                                     <input name="password" id="password" type="password" placeholder="password" required>
-                                    @error('password')
-                                    <label id="email-error" class="error" for="email">
-                                        {{ $message }}
-                                    </label>
-                                    @enderror
+
                                 </div>
                             </div>
+                            @error('password')
+                            <span class="form-required">
+                                {{ $message }}
+                            </span>
+                            @enderror
                             <div class="item-wrap">
                                 <label for="password-confirm">CONFIRM PASSWORD</label>
                                 <div class="input-wrap">

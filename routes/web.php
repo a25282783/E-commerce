@@ -32,6 +32,7 @@ Route::get('/product/{id}', 'CartController@product')->where('id', '[0-9]+');
 Route::get('/category/{id}', 'CartController@category')->where('id', '[0-9]+');
 Route::get('/product/all', 'CartController@product_all');
 Route::get('/footer/{theme}', 'HomeController@footer');
+Route::get('/search', 'HomeController@search');
 
 // ========= upload ==========
 Route::post('ckeditor/upload', 'CkeditorUploadController@uploadImage');

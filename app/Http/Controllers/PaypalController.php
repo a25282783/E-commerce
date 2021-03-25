@@ -31,7 +31,6 @@ class PaypalController extends Controller
         $this->client_id = config('paypal.client_id');
         $this->client_secret = config('paypal.client_secret');
         $this->callback_url = config('paypal.callback_url');
-        $this->notify_url = config('notify_url');
 
         $this->paypal = new ApiContext(
             new OAuthTokenCredential(
@@ -151,7 +150,7 @@ class PaypalController extends Controller
     {
         // 異步回調
         $json = file_get_contents('php://input');
-
+        Log::info(json_encode(json_decode($json, true), 128));
         return "success";
     }
 

@@ -49,8 +49,11 @@ Route::group(['middleware' => ['verified', 'auth']], function () {
     Route::get('order/list/{id}', 'HomeController@order_list_detail')->where('id', '[0-9]+');
 
     // ======= paypal ========
-    Route::get('paywithpaypal', 'PaypalController@payWithPaypal')->name('paywithpaypal');
-    Route::post('paypal', 'PaypalController@postPaymentWithpaypal')->name('paypal');
-    Route::get('paypal', 'PaypalController@getPaymentStatus')->name('status');
+    Route::get('/paypal', function () {
+        return view('paypal');
+    });
+    Route::post('/paypal', 'PaypalController@pay');
+    Route::post('/refund', 'PaypalController@refund');
+    Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
 });

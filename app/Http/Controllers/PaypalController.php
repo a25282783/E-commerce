@@ -1,122 +1,189 @@
 <?php
+
 namespace App\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\URL;
 use PayPal\Api\Amount;
+use PayPal\Api\Details;
 use PayPal\Api\Item;
 use PayPal\Api\ItemList;
 use PayPal\Api\Payer;
 use PayPal\Api\Payment;
 use PayPal\Api\PaymentExecution;
 use PayPal\Api\RedirectUrls;
+use PayPal\Api\Refund;
+use PayPal\Api\Sale;
 use PayPal\Api\Transaction;
 use PayPal\Auth\OAuthTokenCredential;
-use Paypal\Exception\PayPalConnectionException;
 use PayPal\Rest\ApiContext;
 
 class PaypalController extends Controller
 {
-    private $_api_context;
+    protected $client_id;
+    protected $client_secret;
+    protected $callback_url;
+    protected $paypal;
 
     public function __construct()
     {
+        $this->client_id = config('paypal.client_id');
+        $this->client_secret = config('paypal.client_secret');
+        $this->callback_url = config('paypal.callback_url');
+        $this->notify_url = config('notify_url');
 
-        $paypal_configuration = config('paypal');
-        $this->_api_context = new ApiContext(new OAuthTokenCredential($paypal_configuration['client_id'], $paypal_configuration['secret']));
-        $this->_api_context->setConfig($paypal_configuration['settings']);
+        $this->paypal = new ApiContext(
+            new OAuthTokenCredential(
+                $this->client_id,
+                $this->client_secret
+            )
+        );
+        // $this->paypal->setConfig(
+        //     array(
+        //         'mode' => 'live',
+        //     )
+        // );
     }
 
-    public function payWithPaypal()
+    public function pay(Request $request)
     {
-        return view('paypal.paywithpaypal');
-    }
+        $data = $request->all();
 
-    public function postPaymentWithpaypal(Request $request)
-    {
-        Log::info('postPaymentWithpaypal:' . json_encode($request->all()));
         $payer = new Payer();
         $payer->setPaymentMethod('paypal');
 
-        $item_1 = new Item();
+        $item = new Item();
+        $item->setName($data['name'])
+            ->setCurrency($data['currency'])
+            ->setQuantity($data['mount'])
+            ->setPrice($data['price']);
 
-        $item_1->setName('Product 1')
-            ->setCurrency('USD')
-            ->setQuantity(1)
-            ->setPrice($request->get('amount'));
+        $itemList = new ItemList();
+        $itemList->setItems([$item]);
 
-        $item_list = new ItemList();
-        $item_list->setItems(array($item_1));
+        $details = new Details();
+        $details->setShipping($data['shipping_fee'])
+            ->setSubtotal($data['price'] * $data['mount']);
 
         $amount = new Amount();
-        $amount->setCurrency('USD')
-            ->setTotal($request->get('amount'));
+        $amount->setCurrency($data['currency'])
+            ->setTotal($data['price'] * $data['mount'] + $data['shipping_fee'])
+            ->setDetails($details);
 
         $transaction = new Transaction();
         $transaction->setAmount($amount)
-            ->setItemList($item_list)
-            ->setDescription('Enter Your transaction description');
+            ->setItemList($itemList)
+            ->setDescription($data['description'])
+            ->setInvoiceNumber(uniqid());
 
-        $redirect_urls = new RedirectUrls();
-        $redirect_urls->setReturnUrl(URL::route('status'))
-            ->setCancelUrl(URL::route('status'));
+        $redirectUrls = new RedirectUrls();
+        $redirectUrls->setReturnUrl($this->callback_url . '?success=true')
+            ->setCancelUrl($this->callback_url . '/?success=false');
 
         $payment = new Payment();
-        $payment->setIntent('Sale')
+        $payment->setIntent('sale')
             ->setPayer($payer)
-            ->setRedirectUrls($redirect_urls)
-            ->setTransactions(array($transaction));
+            ->setRedirectUrls($redirectUrls)
+            ->setTransactions([$transaction]);
+
         try {
-            $payment->create($this->_api_context);
-        } catch (PayPalConnectionException $ex) {
-            if (config('app.debug')) {
-                session()->put('error', 'Connection timeout');
-                return redirect('/paywithpaypal');
-            } else {
-                session()->put('error', 'Some error occur, sorry for inconvenient');
-                return redirect('/paywithpaypal');
-            }
+            $payment->create($this->paypal);
+        } catch (\PayPal\Exception\PayPalConnectionException $e) {
+            Log::debug($e);
+            return response()->json([
+                'type' => 'failure',
+                'message' => $e->getData(),
+            ]);
         }
 
-        foreach ($payment->getLinks() as $link) {
-            if ($link->getRel() == 'approval_url') {
-                $redirect_url = $link->getHref();
-                break;
-            }
-        }
+        $approvalUrl = $payment->getApprovalLink();
 
-        session()->put('paypal_payment_id', $payment->getId());
-
-        if (isset($redirect_url)) {
-            return redirect($redirect_url);
-        }
-
-        session()->put('error', 'Unknown error occurred');
-        return redirect('/paywithpaypal');
+        return response()->json([
+            'type' => 'success',
+            'paypal_url' => $approvalUrl,
+        ]);
     }
 
-    public function getPaymentStatus(Request $request)
+    public function callback(Request $request)
     {
-        Log::info('getPaymentStatus:' . json_encode($request->all()));
-        $payment_id = session('paypal_payment_id');
+        $request = $request->all();
+        Log::info('callback:' . json_encode($request));
+        $success = trim($request['success']);
 
-        session('paypal_payment_id', null);
-        if (empty($request->input('PayerID')) || empty($request->input('token'))) {
-            session()->put('error', 'Payment failed');
-            return redirect('/paywithpaypal');
-        }
-        $payment = Payment::get($payment_id, $this->_api_context);
-        $execution = new PaymentExecution();
-        $execution->setPayerId($request->input('PayerID'));
-        $result = $payment->execute($execution, $this->_api_context);
-
-        if ($result->getState() == 'approved') {
-            session()->put('success', 'Payment success !!');
-            return redirect('/paywithpaypal');
+        if ($success == 'false' && !isset($request['paymentId']) && !isset($request['PayerID'])) {
+            return view('results')->with([
+                'status' => '取消付款',
+                'results' => $request,
+            ]);
         }
 
-        session()->put('error', 'Payment failed !!');
-        return redirect('/paywithpaypal');
+        $paymentId = trim($request['paymentId']);
+        $PayerID = trim($request['PayerID']);
+
+        if (!isset($success, $paymentId, $PayerID)) {
+            return view('results')->with([
+                'status' => '支付失敗',
+                'results' => $request,
+            ]);
+        }
+
+        $payment = Payment::get($paymentId, $this->paypal);
+        $execute = new PaymentExecution();
+        $execute->setPayerId($PayerID);
+
+        try {
+            $payment->execute($execute, $this->paypal);
+        } catch (Exception $e) {
+            return view('results')->with([
+                'status' => '支付失敗',
+                'results' => $request,
+            ]);
+        }
+
+        return view('results')->with([
+            'status' => '支付成功',
+            'results' => $request,
+        ]);
+    }
+
+    public function notify()
+    {
+        // 異步回調
+        $json = file_get_contents('php://input');
+
+        return "success";
+    }
+
+    public function refund(Request $request)
+    {
+        try {
+            $data = $request->all();
+
+            $txn_id = $data['txn_id']; // 異步回調中拿到的 ID
+            $amt = new Amount();
+            $amt->setCurrency($data['currency'])
+                ->setTotal($data['money']); // 退款的費用
+
+            $refund = new Refund();
+            $refund->setAmount($amt);
+
+            $sale = new Sale();
+            $sale->setId($txn_id);
+
+            $refundedSale = $sale->refund($refund, $this->paypal);
+        } catch (Exception $e) {
+            // PayPal 退款失敗
+            Log::debug($e->getMessage());
+            return response()->json([
+                'type' => 'failure',
+                'message' => $e->getMessage(),
+            ]);
+        }
+        // 退款完成
+        Log::info($refundedSale);
+        return response()->json([
+            'type' => 'success',
+        ]);
     }
 }

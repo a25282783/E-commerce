@@ -237,5 +237,11 @@ return [
         3 => '已發貨',
         99 => '異常',
     ],
+    'orderStatus_en' => [
+        1 => 'Pending payment',
+        2 => 'Pending delivery',
+        3 => 'Has delivered',
+        99 => 'Abnormal',
+    ],
 
 ];

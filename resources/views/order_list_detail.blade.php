@@ -21,20 +21,20 @@
                         <div class="decor-squ"></div>
                         <div>
                             <span>ORDER</span>
-                            <span>2017123107361041</span>
+                            <span>{{ $order->order_id }}</span>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-lg-3">
                     <div class="status">
                         <span>Status:</span>
-                        <span>Completed</span>
+                        <span>{{ config('app.orderStatus_en')[$order->status] }}</span>
                     </div>
                 </div>
                 <div class="col-12 col-lg-3">
                     <div class="date">
                         <span>Date:</span>
-                        <span>2020-01-31</span>
+                        <span>{{ date("Y-m-d",strtotime($order->created_at)) }}</span>
                     </div>
                 </div>
             </div>
@@ -112,7 +112,9 @@
                                 <span>PAYMENT METHOD :</span>
                                 <span>PayPal</span>
                             </div>
-                            <div class="item-wrap"><span>PAYMENT STATUS :</span><span>Unpaid</span></div>
+                            <div class="item-wrap"><span>PAYMENT STATUS :</span>
+                                <span>{{ config('app.orderStatus_en')[$order->status] }}</span>
+                            </div>
                         </div>
                     </div>
                     <div class="col-12">

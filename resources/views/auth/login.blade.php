@@ -62,7 +62,6 @@
 
                             <div class="btn-area">
                                 <button type="submit">LogIn</button>
-                                <button class="fb-btn"><span class="fa fa-facebook"></span>Facebook LogIn</button>
                             </div>
                         </form>
                         {{-- login --}}

@@ -47,7 +47,7 @@
                             <span class="item-title">Price&nbsp</span><span>US${{ $item->price }}</span>
                         </div>
                         <div class="col-12 col-lg-3">
-                            <span class="item-title">Status&nbsp</span><span>{{ config('app.orderStatus')[$item->status] }}</span>
+                            <span class="item-title">Status&nbsp</span><span>{{ config('app.orderStatus_en')[$item->status] }}</span>
                         </div>
                         <div class="col-12 col-lg-2">
                             <a href="/order/list/{{$item->id}}">

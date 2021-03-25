@@ -55,6 +55,11 @@ class OrderController extends AdminController
         });
         $grid->column('price', '總計');
 
+        $grid->filter(function ($filter) {
+            $filter->equal('status', '付款狀態')->radio(config('app.orderStatus'));
+            $filter->equal('user_id', '用戶ID');
+        });
+
         return $grid;
     }
 
@@ -80,7 +85,7 @@ class OrderController extends AdminController
             return rtrim($text, ',');
         });
         $form->radio('status', '付款狀態')->options(config('app.orderStatus'));
-        $form->text('callback_id', '支付寶單號')->readonly();
+        $form->text('callback_id', 'Paypal單號')->readonly();
         // $form->text('detail', __('Detail'));
         $form->display('receipt', '收據')->with(function ($receipt) {
             $text = '';

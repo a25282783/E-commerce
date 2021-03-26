@@ -1,5 +1,14 @@
 @extends('layouts.app')
 @section('content')
+<style>
+    .paypal-icon{
+        background-image: url(https://www.paypalobjects.com/webstatic/en_US/i/buttons/checkout-logo-large.png);
+        background-color: transparent !important;
+        background-repeat: no-repeat !important;
+        background: none !important;
+        cursor: pointer;
+    }
+</style>
 <section id="order" class="top-bottom-empty">
     <!-- <div class="main-title-bottom"> -->
     <div class="">
@@ -140,12 +149,21 @@
                     </div>
                 </div>
                 <div class="row">
+                    @if ($order->status===1)
+                    <div class="col-12">
+                       <!-- PayPal Logo --><table border="0" cellpadding="10" cellspacing="0" align="center"><tr><td align="center"></td></tr><tr><td align="center"><a href="javascript:void(0)" title="How PayPal Works" onclick="document.getElementById('form-paypal').submit();"><img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/checkout-logo-large.png" alt="Check out with PayPal" /></a></td></tr></table><!-- PayPal Logo -->
+                    </div>
+                    @endif
                     <div class="col-12">
                         <div class="prev-btn">
                             <a href="/order/list"><button>BACK</button></a>
                         </div>
                     </div>
                 </div>
+                <form id="form-paypal" method="POST" target="_blank" action="/paypal" >
+                @csrf
+                <input type="hidden" name="order_id" value="{{ $order->id }}">
+                </form>
             </div>
         </div>
     </div>

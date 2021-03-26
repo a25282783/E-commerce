@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Order;
+use App\Product;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -25,6 +27,7 @@ class PaypalController extends Controller
     protected $client_secret;
     protected $callback_url;
     protected $paypal;
+    const CURRENCY = 'USD';
 
     public function __construct()
     {
@@ -38,43 +41,53 @@ class PaypalController extends Controller
                 $this->client_secret
             )
         );
-        // $this->paypal->setConfig(
-        //     array(
-        //         'mode' => 'live',
-        //     )
-        // );
+        $this->paypal->setConfig(
+            config('paypal.settings')
+        );
     }
 
     public function pay(Request $request)
     {
-        $data = $request->all();
+        $order_id = $request->input('order_id');
+        abort_if(!$order_id, 404);
+
+        $order = Order::find($order_id);
+        abort_if(!$order, 404);
+        abort_if(!($order->status == 1), 404);
 
         $payer = new Payer();
         $payer->setPaymentMethod('paypal');
 
-        $item = new Item();
-        $item->setName($data['name'])
-            ->setCurrency($data['currency'])
-            ->setQuantity($data['mount'])
-            ->setPrice($data['price']);
+        $items = [];
+        foreach ($order->cart_info as $v) {
+            $item = new Item();
+            $name = Product::find($v['product_id'])->name;
+            $amount = $v['amount'];
+            $price = $v['per_price'];
+            $item->setName($name)
+                ->setCurrency(self::CURRENCY)
+                ->setQuantity($amount)
+                ->setPrice($price);
+            $items[] = $item;
+        }
 
         $itemList = new ItemList();
-        $itemList->setItems([$item]);
+        $itemList->setItems($items);
 
         $details = new Details();
-        $details->setShipping($data['shipping_fee'])
-            ->setSubtotal($data['price'] * $data['mount']);
+        $details->setShipping(0)
+            ->setSubtotal($order->price);
 
         $amount = new Amount();
-        $amount->setCurrency($data['currency'])
-            ->setTotal($data['price'] * $data['mount'] + $data['shipping_fee'])
+        $amount->setCurrency(self::CURRENCY)
+            ->setTotal($order->price)
             ->setDetails($details);
 
         $transaction = new Transaction();
         $transaction->setAmount($amount)
             ->setItemList($itemList)
-            ->setDescription($data['description'])
-            ->setInvoiceNumber(uniqid());
+            ->setDescription("Daemon")
+            ->setInvoiceNumber($order->order_id);
 
         $redirectUrls = new RedirectUrls();
         $redirectUrls->setReturnUrl($this->callback_url . '?success=true')
@@ -90,18 +103,13 @@ class PaypalController extends Controller
             $payment->create($this->paypal);
         } catch (\PayPal\Exception\PayPalConnectionException $e) {
             Log::debug($e);
-            return response()->json([
-                'type' => 'failure',
-                'message' => $e->getData(),
-            ]);
+            return back();
         }
 
         $approvalUrl = $payment->getApprovalLink();
 
-        return response()->json([
-            'type' => 'success',
-            'paypal_url' => $approvalUrl,
-        ]);
+        return redirect($approvalUrl);
+
     }
 
     public function callback(Request $request)
@@ -112,7 +120,7 @@ class PaypalController extends Controller
 
         if ($success == 'false' && !isset($request['paymentId']) && !isset($request['PayerID'])) {
             return view('results')->with([
-                'status' => '取消付款',
+                'status' => 'Cancel Payment!',
                 'results' => $request,
             ]);
         }
@@ -122,7 +130,7 @@ class PaypalController extends Controller
 
         if (!isset($success, $paymentId, $PayerID)) {
             return view('results')->with([
-                'status' => '支付失敗',
+                'status' => 'Payment Fail!',
                 'results' => $request,
             ]);
         }
@@ -133,15 +141,25 @@ class PaypalController extends Controller
 
         try {
             $payment->execute($execute, $this->paypal);
+            // 存回detail
+            // $order = Auth::user()->order;
+            // $order_detail = $order->detail;
+            // if ($order_detail === null) {
+            //     $res->detail = ['invoice_id' => $invoice_id];
+            // } else {
+            //     $order_detail['invoice_id'] = $invoice_id;
+            //     $res->detail = $order_detail;
+            // }
+            // $res->save();
         } catch (Exception $e) {
             return view('results')->with([
-                'status' => '支付失敗',
+                'status' => 'Payment Fail!',
                 'results' => $request,
             ]);
         }
 
         return view('results')->with([
-            'status' => '支付成功',
+            'status' => 'Payment Success!',
             'results' => $request,
         ]);
     }
@@ -150,7 +168,17 @@ class PaypalController extends Controller
     {
         // 異步回調
         $json = file_get_contents('php://input');
-        Log::info(json_encode(json_decode($json, true), 128));
+        Log::info('notify:' . json_encode(json_decode($json, true), 128));
+        // 存回detail
+        // $order = Auth::user()->order;
+        // $order_detail = $order->detail;
+        // if ($order_detail === null) {
+        //     $res->detail = ['invoice_id' => $invoice_id];
+        // } else {
+        //     $order_detail['invoice_id'] = $invoice_id;
+        //     $res->detail = $order_detail;
+        // }
+        // $res->save();
         return "success";
     }
 

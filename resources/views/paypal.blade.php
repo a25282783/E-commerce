@@ -171,14 +171,14 @@
                 description : $('#description').val(),
             };
             // Loop over them and prevent submission
-            Array.prototype.filter.call(forms, function(form) {
-                if (form.checkValidity() === false) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    validation = false;
-                }
-                form.classList.add('was-validated');
-            });
+            // Array.prototype.filter.call(forms, function(form) {
+            //     if (form.checkValidity() === false) {
+            //         event.preventDefault();
+            //         event.stopPropagation();
+            //         validation = false;
+            //     }
+            //     form.classList.add('was-validated');
+            // });
             setTimeout(function () {
                 if (validation) {
                     $.ajax({

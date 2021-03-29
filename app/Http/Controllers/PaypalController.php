@@ -87,7 +87,7 @@ class PaypalController extends Controller
         $transaction->setAmount($amount)
             ->setItemList($itemList)
             ->setDescription("Daemon")
-            ->setInvoiceNumber($order->order_id);
+            ->setInvoiceNumber(uniqid());
 
         $redirectUrls = new RedirectUrls();
         $redirectUrls->setReturnUrl($this->callback_url . '?success=true')
@@ -108,6 +108,12 @@ class PaypalController extends Controller
 
         $approvalUrl = $payment->getApprovalLink();
 
+        // 記住token
+        $urls = parse_url($approvalUrl);
+        parse_str($urls['query'], $queries);
+        $order->token = $queries['token'];
+        $order->save();
+
         return redirect($approvalUrl);
 
     }
@@ -115,7 +121,7 @@ class PaypalController extends Controller
     public function callback(Request $request)
     {
         $request = $request->all();
-        Log::info('callback:' . json_encode($request));
+
         $success = trim($request['success']);
 
         if ($success == 'false' && !isset($request['paymentId']) && !isset($request['PayerID'])) {
@@ -127,6 +133,7 @@ class PaypalController extends Controller
 
         $paymentId = trim($request['paymentId']);
         $PayerID = trim($request['PayerID']);
+        $token = trim($request['token']);
 
         if (!isset($success, $paymentId, $PayerID)) {
             return view('results')->with([
@@ -141,16 +148,12 @@ class PaypalController extends Controller
 
         try {
             $payment->execute($execute, $this->paypal);
-            // 存回detail
-            // $order = Auth::user()->order;
-            // $order_detail = $order->detail;
-            // if ($order_detail === null) {
-            //     $res->detail = ['invoice_id' => $invoice_id];
-            // } else {
-            //     $order_detail['invoice_id'] = $invoice_id;
-            //     $res->detail = $order_detail;
-            // }
-            // $res->save();
+            // 存paymentId,payerId
+            Order::where('token', $token)->update([
+                'payment_id' => $paymentId,
+                'detail' => json_encode(['payerId' => $PayerID]),
+            ]);
+
         } catch (Exception $e) {
             return view('results')->with([
                 'status' => 'Payment Fail!',

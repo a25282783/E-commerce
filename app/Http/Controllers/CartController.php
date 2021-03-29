@@ -172,13 +172,12 @@ class CartController extends Controller
     {
         DB::beginTransaction();
         try {
-            $user_cart = Auth::user()->carts()->select(['product_id', 'amount', 'total_price', 'per_price', 'receipt'])->get()->toArray();
+            $user_cart = Auth::user()->carts()->select(['product_id', 'amount', 'total_price', 'per_price'])->get()->toArray();
             if (count($user_cart) == 0) {
                 return redirect('/cart');
             }
             // 判斷庫存
             $shortage = [];
-
             $price = 0;
             foreach ($user_cart as $v) {
                 $product = Product::find($v['product_id']);
@@ -197,14 +196,14 @@ class CartController extends Controller
             if (count($shortage) > 0) {
                 throw new Exception();
             }
-
+            $receipt = Auth::user()->carts()->first()->receipt;
             $res = Order::create([
                 'order_id' => Auth::id() . '_' . time() . '_' . random_int(10, 99),
                 'user_id' => Auth::id(),
                 'cart_info' => $user_cart,
                 'status' => 1,
                 'price' => $price,
-                'receipt' => $user_cart[0]['receipt'],
+                'receipt' => $receipt,
             ]);
             Auth::user()->carts()->delete();
             DB::commit();

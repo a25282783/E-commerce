@@ -233,14 +233,18 @@ return [
     // 訂單狀態
     'orderStatus' => [
         1 => '待付款',
-        2 => '待發貨',
-        3 => '已發貨',
+        2 => '扣款成功,但交易未完成',
+        3 => '待發貨,交易完成',
+        4 => '已發貨',
+        98 => '扣款失敗',
         99 => '異常',
     ],
     'orderStatus_en' => [
         1 => 'Pending payment',
-        2 => 'Pending delivery',
-        3 => 'Has delivered',
+        2 => 'Deduction successful',
+        3 => 'Pending delivery',
+        4 => 'Has delivered',
+        98 => 'Deduction fail',
         99 => 'Abnormal',
     ],
 

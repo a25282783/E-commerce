@@ -148,21 +148,29 @@ class PaypalController extends Controller
 
         try {
             $payment->execute($execute, $this->paypal);
-            // 存paymentId,payerId
+            // 存paymentId,payerId,更改status
             Order::where('token', $token)->update([
                 'payment_id' => $paymentId,
                 'detail' => json_encode(['payerId' => $PayerID]),
+                'status' => 2,
             ]);
 
         } catch (Exception $e) {
+            if ($token) {
+                Order::where('token', $token)->update([
+                    'status' => 98,
+                ]);
+            }
             return view('results')->with([
                 'status' => 'Payment Fail!',
+                'type' => 0,
                 'results' => $request,
             ]);
         }
 
         return view('results')->with([
             'status' => 'Payment Success!',
+            'type' => 1,
             'results' => $request,
         ]);
     }

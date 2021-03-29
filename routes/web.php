@@ -14,6 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
  */
 Route::get('/test', 'HomeController@sandbox');
+Route::get('/paypal', function () {
+    // return view('paypal');
+    return view('results')->with([
+        'status' => 'Payment Success!',
+        'type' => 0,
+    ]);
+});
 
 Auth::routes(['verify' => true]);
 
@@ -49,9 +56,6 @@ Route::group(['middleware' => ['verified', 'auth']], function () {
     Route::get('order/list/{id}', 'HomeController@order_list_detail')->where('id', '[0-9]+');
 
     // ======= paypal ========
-    Route::get('/paypal', function () {
-        return view('paypal');
-    });
     Route::post('/paypal', 'PaypalController@pay');
     Route::post('/refund', 'PaypalController@refund');
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');

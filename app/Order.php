@@ -61,4 +61,13 @@ class Order extends Model
         $this->attributes['price'] = $price * 100;
     }
 
+    public function getPayableAttribute($status)
+    {
+        $status = $this->attributes['status'];
+        if (in_array($status, [1, 98, 99])) {
+            return true;
+        }
+        return false;
+    }
+
 }

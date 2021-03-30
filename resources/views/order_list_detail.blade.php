@@ -149,7 +149,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    @if (in_array($order->status,[1,98,99]))
+                    @if ($order->payable)
                     <div class="col-12">
                        <!-- PayPal Logo --><table border="0" cellpadding="10" cellspacing="0" align="center"><tr><td align="center"></td></tr><tr><td align="center"><a href="javascript:void(0)" title="How PayPal Works" onclick="document.getElementById('form-paypal').submit();"><img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/checkout-logo-large.png" alt="Check out with PayPal" /></a></td></tr></table><!-- PayPal Logo -->
                     </div>

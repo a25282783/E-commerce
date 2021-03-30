@@ -53,7 +53,7 @@ class PaypalController extends Controller
 
         $order = Order::find($order_id);
         abort_if(!$order, 404);
-        abort_if(!in_array($order->status, [1, 98, 99]), 404);
+        abort_if(!$order->payable, 404);
 
         $payer = new Payer();
         $payer->setPaymentMethod('paypal');

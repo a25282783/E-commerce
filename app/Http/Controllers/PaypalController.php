@@ -53,7 +53,7 @@ class PaypalController extends Controller
 
         $order = Order::find($order_id);
         abort_if(!$order, 404);
-        abort_if(!($order->status == 1), 404);
+        abort_if(!in_array($order->status, [1, 98, 99]), 404);
 
         $payer = new Payer();
         $payer->setPaymentMethod('paypal');
@@ -84,10 +84,11 @@ class PaypalController extends Controller
             ->setDetails($details);
 
         $transaction = new Transaction();
+        $invoice_id = env('PAYPAL_MODE') == 'live' ? $order->order_id : uniqid();
         $transaction->setAmount($amount)
             ->setItemList($itemList)
             ->setDescription("Daemon")
-            ->setInvoiceNumber(uniqid());
+            ->setInvoiceNumber($invoice_id);
 
         $redirectUrls = new RedirectUrls();
         $redirectUrls->setReturnUrl($this->callback_url . '?success=true')

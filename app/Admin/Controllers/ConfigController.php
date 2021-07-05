@@ -30,6 +30,8 @@ class ConfigController extends AdminController
         $grid->column('fb', __('Fb'));
         $grid->column('messenger', __('Messenger'));
         $grid->column('mail', __('Mail'));
+        $grid->column('all_product_intro', '所有商品介紹')->limit(30);
+        $grid->column('shop_intro', '商家介紹')->limit(30);
 
         return $grid;
     }
@@ -47,6 +49,8 @@ class ConfigController extends AdminController
         $form->text('fb', __('Fb'));
         $form->text('messenger', __('Messenger'));
         $form->text('mail', __('Mail'));
+        $form->textarea('all_product_intro', '所有商品介紹');
+        $form->textarea('shop_intro', '商家介紹', '所有商品介紹');
 
         return $form;
     }

@@ -48,17 +48,14 @@
     <div class="py-6 text-muted" >
       <div class="container" style="">
         <div class="row">
-        @php
-        $company = App\Company::first();
-        @endphp
-        @isset($company)
+        @if ($config && $config->shop_intro)
         <div class="col-lg-8">
-            <h6 class="text-dark letter-spacing-1 mb-4">{{ $data->title1 }}</h6>
+            <h6 class="text-dark letter-spacing-1 mb-4">商家介紹</h6>
             <p class="text-sm mb-3">
-                {!! $data->content !!}
+                {!! nl2br($config->shop_intro) !!}
             </p>
-            </div>
-        @endisset
+        </div>
+        @endif
           <div class="col-lg-4" >
             <h6 class="text-dark letter-spacing-1 mb-4 d-none d-lg-block">聯絡我們</h6>
             @if ($config)

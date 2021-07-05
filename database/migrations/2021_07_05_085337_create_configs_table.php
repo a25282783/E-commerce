@@ -21,6 +21,8 @@ class CreateConfigsTable extends Migration
             $table->string('fb')->nullable();
             $table->string('messenger')->nullable();
             $table->string('mail')->nullable();
+            $table->text('all_product_intro')->nullable();
+            $table->text('shop_intro')->nullable();
         });
     }
 

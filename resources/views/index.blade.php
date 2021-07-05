@@ -86,7 +86,11 @@
         </svg>
         <div class="container">
           <h2 id="all_product">所有商品</h2>
-          <p class="lead text-muted mb-5">所有商品介紹所有商品介紹所有商品介紹</p>
+          <p class="lead text-muted mb-5">
+              @if ($config && $config->all_product_intro)
+                  {!! nl2br($config->all_product_intro) !!}
+              @endif
+          </p>
           <div class="row justify-content-between align-items-center mb-4">
             <div class="col-12 col-md">
               <ul class="list-inline mb-3 mb-md-0">

@@ -27,4 +27,5 @@ Route::group([
     $router->resource('news', NewsController::class);
     $router->resource('banner', BannerController::class);
     $router->resource('order', OrderController::class);
+    $router->resource('config', ConfigController::class);
 });

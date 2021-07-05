@@ -1,3 +1,49 @@
+ <!-- Contact model -->
+ <div class="modal fade" id="contactmodel" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <button class="close close-absolute" type="button" data-dismiss="modal" aria-label="Close">
+          <svg class="svg-icon w-3rem h-3rem svg-icon-light align-middle">
+            <use xlink:href="#close-1"> </use>
+          </svg>
+        </button>
+
+        <div class="modal-body p-5">
+          <ul class="nav list-inline" role="tablist">
+            <li class="list-inline-item">聯絡我們</li>
+          </ul>
+          <hr class="mb-3">
+          <div class="tab-content">
+            <div class="tab-pane active fade show px-3">
+                @if ($config)
+                    @isset($config->line)
+                    <a class="text-decoration-none" href="{{$config->line}}">
+                        <img src="/img/line_btn.png">
+                      </a>
+                    @endisset
+                    @isset($config->fb)
+                    <a class="text-decoration-none" href="{{$config->fb}}">
+                        <img src="/img/fb_btn.png">
+                      </a>
+                    @endisset
+                    @isset($config->messenger)
+                    <a class="text-decoration-none" href="{{$config->messenger}}">
+                        <img src="/img/fbmsger_btn.png">
+                      </a>
+                    @endisset
+                    @isset($config->mail)
+                    <a class="text-decoration-none" href="mailto:{{$config->mail}}">
+                        <img src="/img/mail_btn.png">
+                      </a>
+                    @endisset
+                @endif
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+   <!-- /Contact model -->
 <footer>
     <div class="py-6 text-muted" >
       <div class="container" style="">
@@ -15,18 +61,28 @@
         @endisset
           <div class="col-lg-4" >
             <h6 class="text-dark letter-spacing-1 mb-4 d-none d-lg-block">聯絡我們</h6>
-              <a class="" href="#">
+            @if ($config)
+            @isset($config->line)
+            <a class="" href="{{$config->line}}">
                 <img src="/img/line_btn.png">
               </a>
-              <a class="" href="#">
+            @endisset
+            @isset($config->fb)
+            <a class="" href="{{$config->fb}}">
                 <img src="/img/fb_btn.png">
               </a>
-              <a class="" href="#">
+            @endisset
+            @isset($config->messenger)
+            <a class="" href="{{$config->messenger}}">
                 <img src="/img/fbmsger_btn.png">
               </a>
-              <a class="" href="#">
+            @endisset
+            @isset($config->mail)
+            <a class="" href="mailto:{{$config->mail}}">
                 <img src="/img/mail_btn.png">
               </a>
+            @endisset
+        @endif
           </div>
         </div>
       </div>

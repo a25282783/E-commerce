@@ -10,7 +10,7 @@
       <!-- Hero Content-->
       <div class="hero-content">
         <h1 class="hero-heading mb-3">忘記密碼</h1>
-        <div><p class="text-muted">請輸入電子郵件，我們會寄出確認信給您。</p></div>
+        <div><p class="text-muted">請輸入電子郵件，我們會寄出確認信給您，如果您有任何問題，請直接 <a href="#" data-toggle="modal" data-target="#contactmodel">聯繫我們</a>。</p></div>
       </div>
     </div>
   </section>

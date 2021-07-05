@@ -1,164 +1,75 @@
-<header class='fixed-top'>
-	<nav class="navbar navbar-expand-xl navbar-light .navbar-toggler-icon ">
-		<a class="navbar-brand" href="/">
-			<img src="/img/svg/logo-02.png">
-		</a>
-		<div class="">
-			<ul class='navbar-userM'>
-				<li>
-                    <a href="/cart" style="position: relative;">
-                    @include('mixin.svg.navbar1')
-                    @auth
-                    <span class="badge custom-badges shop-num" >
-                        {{ Auth::user()->carts->count() }}
-                    </span>
-                    @endauth
-                        <p >SHOPPING CAR</p>
-				    </a>
-                </li>
-				<li>
-                    @auth
-                    <a href="{{ route('user') }}">
-                    @endauth
-                    @guest
-                    <a href="/login">
-                    @endguest
-                    @include('mixin.svg.navbar2')
-                    @auth
-                    <p>PROFILE</p>
-                    @endauth
-                    @guest
-                    <p>LOG IN</p>
-                    @endguest
-                    </a>
-                </li>
+<header class="header">
+    <nav class="navbar navbar-expand-lg bg-transparent border-0 shadow-0 navbar-light px-lg-5 ">
+        <a class="navbar-brand" href="/">
+            <img src="/img/brand/scu_logo.png" style="max-height: 45px;">
+        </a>
+      <ul class="list-inline mb-0 d-block d-lg-none">
+        <li class="list-inline-item mr-3">
+            @auth
+            <a class="text-dark text-hover-primary" href="{{ route('user') }}" >
+                <svg class="svg-icon navbar-icon">
+                    <use xlink:href="#avatar-1"> </use>
+                </svg>
+            </a>
+            @endauth
+            @guest
+            <a class="text-dark text-hover-primary" href="/login">
+                <svg class="svg-icon navbar-icon">
+                    <use xlink:href="#avatar-1"> </use>
+                </svg>
+            </a>
+            @endguest
+        </li>
+        <li class="list-inline-item position-relative mr-3">
+            <a class="text-dark text-hover-primary" href="/order/list" >
+                <svg class="svg-icon navbar-icon">
+                    <use xlink:href="#retail-bag-1"> </use>
+                </svg>
                 @auth
-                <li>
-                    <a href="/order/list">
-                        <img src="/img/svg/order-w.svg" alt="">
-                        <p>ORDER LIST</p>
-                    </a>
-                </li>
+                <div class="navbar-icon-badge">
+                    {{ Auth::user()->carts->count() }}
+                </div>
                 @endauth
-			</ul>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-			</button>
-		</div>
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<a class="navbar-brand" href="/">
-				<img src="/img/svg/logo-01.png">
-			</a>
-			<ul class="navbar-nav">
-				<li class="nav-item header-input" style="">
-				<form action="/search" method="GET">
-					<input type="text" class="form-control" style="color: #495057!important;" name="p">
-					<button type="submit">
-                    @include('mixin.svg.navbar3')
-					</button>
-				</form>
-				</li>
-			  <li class="nav-item">
-			    <a class="nav-link" href="{{ route('about') }}">COMPANY<span class="sr-only">(current)</span></a>
-			  </li>
-			  <li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				PRODUCT
-				</a>
-				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<ul class='dropdown-submenu'>
-						<li>
-							<h3 class="dropdown-item dropdown-main">New product</h3>
-							<ul class="dropdown-menu">
-                                @foreach (App\Product::select('id','name')->orderBy('id','desc')->limit(7)->get() as $item)
-                                <li>
-                                    <a href="/product/{{ $item->id }}">{{ $item->name }}</a>
-                                </li>
-                                @endforeach
-							</ul>
-						</li>
-						<li>
-							<h3 class="dropdown-item dropdown-main">Category</h3>
-							<ul class="dropdown-menu">
-                                @foreach (App\Category::select('id','name')->orderBy('id','desc')->limit(7)->get() as $item)
-                                <li>
-                                    <a href="/category/{{ $item->id }}">{{ $item->name }}</a>
-                                </li>
-                                @endforeach
-							</ul>
-						</li>
-					</ul>
-				</div>
-		      </li>
+            </a>
+        </li>
+      </ul>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <form class="d-lg-flex ml-auto mr-lg-5 mr-xl-6 my-4 my-lg-0" action="#">
+            <div class="input-group input-group-underlined">
+            <input class="form-control form-control-underlined pl-3" type="text" placeholder="Search" aria-label="Search" aria-describedby="button-search">
+            <div class="input-group-append ml-0">
+                <button class="btn btn-underlined py-0" id="button-search" type="button">
+                <svg class="svg-icon navbar-icon">
+                    <use xlink:href="#search-1"> </use>
+                </svg>
+                </button>
+            </div>
+            </div>
+        </form>
+        <ul class="list-inline mb-0 d-none d-lg-block">
+          <li class="list-inline-item mr-3">
+              @auth
+              <a class="text-dark text-hover-primary" href="{{ route('user') }}" >
+                <svg class="svg-icon navbar-icon">
+                  <use xlink:href="#avatar-1"> </use>
+                </svg></a>
+              @endauth
+              @guest
+              <a class="text-dark text-hover-primary"  href="/login">
+                <svg class="svg-icon navbar-icon">
+                  <use xlink:href="#avatar-1"> </use>
+                </svg></a>
+              @endguest
+         </li>
 
-			  <li class="nav-item">
-			    <a class="nav-link" href="{{ route('news') }}">NEWS</a>
-			  </li>
-			  <li class="nav-item">
-			    <a class="nav-link" href="{{ route('tech') }}">TECHNOLOGY </a>
-			  </li>
-			  <li class="nav-item">
-			    <a class="nav-link" href="{{ route('faq') }}">FAQ </a>
-			  </li>
-			  <li class="nav-item">
-			    <a class="nav-link" href="{{ route('download') }}">DOWNLOAD </a>
-			  </li>
-			  <li class="nav-item">
-			    <a class="nav-link" href="{{ route('contact') }}">CONTACT US </a>
-			  </li>
-			</ul>
-			<ul class='navbar-user d-flex'>
-				<li>
-                    <a href="/cart">
-                        @include('mixin.svg.navbar4')
-                        <p style="position: relative;margin-top:3px">SHOPPING CAR
-                            @auth
-                            <span class="badge custom-badges shop-num" >
-                                {{ Auth::user()->carts->count() }}
-                            </span>
-                            @endauth
-                        </p>
-                    </a>
-                </li>
-				<li>
-                @auth
-                <a href="{{ route('user') }}" >
-                @endauth
-                @guest
-                <a href="/login">
-                @endguest
-                @include('mixin.svg.navbar5')
-                @auth
-                <p style="margin-top:3px;">PROFILE</p>
-                @endauth
-                @guest
-                <p style="margin-top:3px;">LOG IN</p>
-                @endguest
-				</a>
-            </li>
-                @auth
-                <li>
-                    <a href="/order/list">
-                        <img src="/img/svg/order-w.svg" alt="" style="background-color: #4b4b4b;border-radius: 5px;padding: 0;">
-                        <p>ORDER LIST</p>
-                    </a>
-                </li>
-                @endauth
-			</ul>
-		</div>
-	</nav>
-</header>
-<form class="container-fluid header-input" action="/search" method="GET">
-	<div class="row">
-		<div class="container">
-			<div class="row">
-				<div class="col-12 col-md-10 offset-md-1">
-					<input type="text" class='form-control' name="p">
-					<button type="submit">
-						@include('mixin.svg.navbar6')
-					</button>
-				</div>
-			</div>
-		</div>
-	</div>
-</form>
+          <li class="list-inline-item position-relative mr-3"><a class="text-dark text-hover-primary" href="#" data-toggle="modal" data-target="#sidebarCart">
+              <svg class="svg-icon navbar-icon">
+                <use xlink:href="#retail-bag-1"> </use>
+              </svg>
+              @auth
+              <div class="navbar-icon-badge">{{ Auth::user()->carts->count() }}</div></a></li>
+              @endauth
+        </ul>
+      </div>
+    </nav>
+  </header>

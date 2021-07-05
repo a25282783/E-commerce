@@ -1,70 +1,61 @@
 @extends('layouts.app')
 @section('content')
-<section id="person-login-register" class="top-bottom-empty">
-	<!-- <div class="main-title-bottom"> -->
-	<div>
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="main-title">
-                        <h1>RESET PASSWORD</h1>
-                    </div>
-                </div>
-            </div>
-        </div>
-	</div>
-	<div class="info-bottom">
-		<div class="container">
-			<div class="row">
-                <div class="col-12 col-xl-6 offset-xl-3">
-                    <div class="title green-decor-title">
-                        <div class="decor-squ"></div>
-                        <div>RESET PASSWORD</div>
-                    </div>
-                    <div class="form-wrap">
-						<form action="{{ route('password.update') }}" id="login-form" method="POST">
-                            @csrf
-                            <input type="hidden" name="token" value="{{ $token }}">
-                            <div class="item-wrap">
-                                <label for="email">ACCOUNT</label>
-                                <div class="input-wrap">
-                                    <input name="email" type="email" placeholder="email address" value="{{ $email ?? old('email') }}" required autocomplete="email">
+<section class="hero py-6">
+    <div class="container">
+      <!-- Breadcrumbs -->
+      <ol class="breadcrumb pl-0 ">
+        <li class="breadcrumb-item"><a href="/">所有商家</a></li>
+        <li class="breadcrumb-item active">重設密碼</li>
+      </ol>
+      <!-- Hero Content-->
+      <div class="hero-content">
+        <h1 class="hero-heading mb-3">重設密碼</h1>
+        <div><p class="text-muted">如果您有任何問題，請直接 <a href="#" data-toggle="modal" data-target="#contactmodel">聯繫我們</a>。</p></div>
 
-                                </div>
-                            </div>
-                            @error('email')
-                            <span class="form-required">
-                                {{ $message }}
-                            </span>
-                            @enderror
-                            <div class="item-wrap">
-                                <label for="password">PASSWORD</label>
-                                <div class="input-wrap">
-                                    <input name="password" id="password" type="password" placeholder="password" required>
-
-                                </div>
-                            </div>
-                            @error('password')
-                            <span class="form-required">
-                                {{ $message }}
-                            </span>
-                            @enderror
-                            <div class="item-wrap">
-                                <label for="password-confirm">CONFIRM PASSWORD</label>
-                                <div class="input-wrap">
-                                    <input name="password_confirmation" id="password-confirm" type="password" placeholder="password"  required>
-                                </div>
-                            </div>
-
-
-                            <div class="btn-area justify-content-center">
-                                <button type="submit">submit</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
-</section>
+  </section>
+  <!-- customer login-->
+  <section class="pb-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-header py-4 px-5">
+              <h5 class="mb-0">重設密碼</h5>
+            </div>
+            <div class="card-body p-5">
+              <form action="{{ route('password.update') }}" method="POST">
+                @csrf
+                <input type="hidden" name="token" value="{{ $token }}">
+                <div class="form-group">
+                    <label class="form-label" for="email">帳號</label>
+                    <input name="email" type="email" value="{{ $email ?? old('email') }}" required autocomplete="email" class="form-control" id="email" >
+                    @error('email')
+                    <span class="form-required text-danger">
+                        {{ $message }}
+                    </span>
+                    @enderror
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="passwordLogin">新密碼</label>
+                  <input name="password" type="password" required class="form-control" id="passwordLogin">
+                  @error('password')
+                  <span class="form-required text-danger">
+                      確認密碼不一致
+                  </span>
+                  @enderror
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="password-confirm">再輸入一次密碼</label>
+                  <input name="password_confirmation" type="password" required class="form-control" id="password-confirm">
+                </div>
+                <button class="btn btn-dark" type="submit"><i class="fa fa-sign-in-alt mr-2"></i> 送出</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 @endsection

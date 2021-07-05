@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Banner;
+use App\Category;
 use App\Company;
 use App\Contact;
 use App\Faq;
@@ -12,6 +14,7 @@ use App\News;
 use App\Product;
 use App\Service;
 use App\Tech;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,12 +32,34 @@ class HomeController extends Controller
     public function sandbox()
     {
         // 測試用
-        return view('sandbox');
+        auth()->login(User::find(1));
+        dd(auth()->check());
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return view('index');
+        $new_product = Product::orderBy('id', 'desc')->limit(6)->get();
+        $banner = Banner::all();
+        $all_category = Category::select('id', 'name')->orderBy('id', 'desc')->limit(7)->get();
+
+        if ($request->has('cate')) {
+            $all_product = Product::where('category_id', $request->input('cate'))
+                ->orderBy('id', 'asc')
+                ->get();
+            foreach ($all_category as $value) {
+                if ($value->id == $request->input('cate')) {
+                    $value->tagClass = 'text-dark';
+                } else {
+                    $value->tagClass = 'text-muted text-hover-dark';
+                }
+            }
+            $tagClassAll = 'text-muted text-hover-dark';
+        } else {
+            $all_product = Product::orderBy('id', 'asc')->get();
+            $tagClassAll = 'text-dark';
+        }
+
+        return view('index', compact('new_product', 'banner', 'all_product', 'all_category', 'tagClassAll'));
     }
 
     public function company()

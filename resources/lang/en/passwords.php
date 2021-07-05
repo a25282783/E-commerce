@@ -11,12 +11,12 @@ return [
     | that are given by the password broker for a password update attempt
     | has failed, such as for an invalid token or invalid new password.
     |
-    */
+     */
 
-    'reset' => 'Your password has been reset!',
-    'sent' => 'We have emailed your password reset link!',
-    'throttled' => 'Please wait before retrying.',
-    'token' => 'This password reset token is invalid.',
-    'user' => "We can't find a user with that email address.",
+    'reset' => '密碼已變更！',
+    'sent' => '已發送重設密碼連結',
+    'throttled' => '請稍後再試',
+    'token' => '重設密碼已過期',
+    'user' => "找不到此帳號",
 
 ];

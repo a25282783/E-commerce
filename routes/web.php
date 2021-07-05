@@ -40,6 +40,9 @@ Route::get('/category/{id}', 'CartController@category')->where('id', '[0-9]+');
 Route::get('/product/all', 'CartController@product_all');
 Route::get('/footer/{theme}', 'HomeController@footer');
 Route::get('/search', 'HomeController@search');
+Route::get('/forget-password', function () {
+    return view('auth.passwords.email');
+});
 
 // ========= upload ==========
 Route::post('ckeditor/upload', 'CkeditorUploadController@uploadImage');

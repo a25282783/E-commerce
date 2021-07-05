@@ -1,89 +1,131 @@
-<footer class="container-fluid">
-    @php
-    $footer = App\Footer::first();
-    @endphp
-    @if ($footer)
-	<div class="row">
-		<div class="container">
-			<div class="row">
-				<div class="col-xl-3 col-lg-4 col-sm-6 footer-info">
-					<h3>Customer service</h3>
-					<p>{{ $footer->tel }}</p>
-					<p>{{ $footer->fax }}</p>
-					<p>s{{ $footer->email }}</p>
-					<p>{{ $footer->address }}</p>
-				</div>
-				<div class="col-xl-3 col-lg-4 col-sm-3 col-6 footer-link">
-					<ul>
-						<li>
-							<a href="/footer/payment">
-								<img src="/img/svg/btn_arrow_w.svg" class='svg-farrow'>payment method
-							</a>
-						</li>
-						<li>
-							<a href="/footer/shipping">
-								<img src="/img/svg/btn_arrow_w.svg" class='svg-farrow'>Shipping method
-							</a>
-						</li>
-						<li>
-							<a href="/footer/return">
-								<img src="/img/svg/btn_arrow_w.svg" class='svg-farrow'>Return and exchange methods
-							</a>
-						</li>
-					</ul>
-				</div>
-				<div class="col-xl-3 col-lg-4 col-sm-3 col-6 footer-link">
-					<ul>
-						<li>
-							<a href="/footer/service">
-								<img src="/img/svg/btn_arrow_w.svg" class='svg-farrow'>Terms of Service
-							</a>
-						</li>
-						<li>
-							<a href="/footer/privacy">
-								<img src="/img/svg/btn_arrow_w.svg" class='svg-farrow'>privacy policy
-							</a>
-						</li>
-					</ul>
-				</div>
-				<div class="col-xl-3 col-12 footer-social">
-					<ul>
-                        @if ($footer->fb!='')
-                        <li>
-                            <a href="{{ $footer->fb }}">
-                                <i class="fa fa-facebook"></i>
-                            </a>
-                        </li>
-                        @endif
-                        @if ($footer->ig!='')
-                        <li>
-                            <a href="{{ $footer->ig }}">
-                                <i class="fa fa-instagram"></i>
-                            </a>
-                        </li>
-                        @endif
-                        @if ($footer->line!='')
-                        <li>
-                            <a href="{{ $footer->line }}">
-                                <i class="fab fa-line" style="font-size: 28px;"></i>
-                            </a>
-                        </li>
-                        @endif
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
-    @endif
+<footer>
+    <div class="py-6 text-muted" >
+      <div class="container" style="">
+        <div class="row">
+        @php
+        $company = App\Company::first();
+        @endphp
+        @isset($company)
+        <div class="col-lg-8">
+            <h6 class="text-dark letter-spacing-1 mb-4">{{ $data->title1 }}</h6>
+            <p class="text-sm mb-3">
+                {!! $data->content !!}
+            </p>
+            </div>
+        @endisset
+          <div class="col-lg-4" >
+            <h6 class="text-dark letter-spacing-1 mb-4 d-none d-lg-block">聯絡我們</h6>
+              <a class="" href="#">
+                <img src="/img/line_btn.png">
+              </a>
+              <a class="" href="#">
+                <img src="/img/fb_btn.png">
+              </a>
+              <a class="" href="#">
+                <img src="/img/fbmsger_btn.png">
+              </a>
+              <a class="" href="#">
+                <img src="/img/mail_btn.png">
+              </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Copyright section of the footer-->
+    <div class="py-4 font-weight-light text-muted">
+      <div class="container">
+        <div class="row align-items-center text-sm text-gray-500">
+          <div class="col-lg-4 text-center text-lg-left">
+            <p class="mb-lg-0">&copy; 2021 SCU Life p!ckup.  All rights reserved.</p>
+          </div>
+          <div class="col-lg-8">
+            <ul class="list-inline mb-0 mt-2 mt-md-0 text-center text-lg-right">
+                <li class="list-inline-item">
+                    <a class="text-reset" href="/footer/service">
+                    Terms &amp; Conditions
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a class="text-reset" href="/footer/privacy">
+                        Privacy &amp; cookies
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a class="text-reset" href="/footer/Accessibility">
+                        Accessibility
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a class="text-reset" href="/footer/shipping">
+                        Customer Data Promise
+                    </a>
+                </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- /Footer end-->
+  <!-- JavaScript files-->
+  <script>
+    // ------------------------------------------------------- //
+    //   Inject SVG Sprite -
+    //   see more here
+    //   https://css-tricks.com/ajaxing-svg-sprite/
+    // ------------------------------------------------------ //
+    function injectSvgSprite(path) {
 
-</footer>
-<div class="container-fluid">
-  <div class="row">
-  	<div class="col-12 copyright">
-  		COPYRIGHT@moveon All Right Reserved 2020.  	</div>
-  </div>
-</div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-<script type="text/javascript" src='/js/custom.js'></script>
+        var ajax = new XMLHttpRequest();
+        ajax.open("GET", path, true);
+        ajax.send();
+        ajax.onload = function(e) {
+        var div = document.createElement("div");
+        div.className = 'd-none';
+        div.innerHTML = ajax.responseText;
+        document.body.insertBefore(div, document.body.childNodes[0]);
+        }
+    }
+    // this is set to Bootstrapious website as you cannot
+    // inject local SVG sprite (using only 'icons/orion-svg-sprite.svg' path)
+    // while using file:// protocol
+    // pls don't forget to change to your domain :)
+    injectSvgSprite('https://demo.bootstrapious.com/varkala/1-1/icons/orion-svg-sprite.svg');
+    injectSvgSprite('https://demo.bootstrapious.com/varkala/1-1/icons/varkala-clothes.svg');
+    injectSvgSprite('https://demo.bootstrapious.com/varkala/1-1/img/shape/blob-sprite.svg');
 
+  </script>
+  <!-- jQuery-->
+  <script src="/vendor/jquery/jquery.min.js"></script>
+  <!-- Bootstrap Bundle -->
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Swiper Carousel                       -->
+  <script src="/vendor/swiper/js/swiper.min.js"></script>
+  <!-- Bootstrap Select-->
+  <script src="/vendor/bootstrap-select/js/bootstrap-select.min.js"></script>
+  <!-- AOS - AnimationOnScroll-->
+  <script src="/vendor/aos/aos.js"></script>
+  <!-- Custom Scrollbar-->
+  <script src="/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+  <script src="/js/custom-scrollbar-init.js"></script>
+  <!-- Smooth scroll-->
+  <script src="/vendor/smooth-scroll/smooth-scroll.polyfills.min.js"></script>
+  <!-- Object Fit Images - Fallback for browsers that don't support object-fit-->
+  <script src="/vendor/object-fit-images/ofi.min.js"></script>
+  <!-- JavaScript Countdown-->
+  <script src="/js/countdown.js"></script>
+  <script>
+    var deadline = new Date(Date.parse(new Date()) + 15 * 24 * 60 * 60 * 1000);
+    var countdown = new Countdown('countdown', deadline);
+
+  </script>
+  <!-- Some theme config-->
+  <script>
+    var options = {
+        navbarExpandPx: 992
+    }
+
+  </script>
+  <!-- Main Theme files-->
+  <script src="/js/sliders-init.js"></script>
+  <script src="/js/theme.js"></script>

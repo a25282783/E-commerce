@@ -1,121 +1,103 @@
 @extends('layouts.app')
 @section('content')
-<section id="person-login-register" class="top-bottom-empty">
-	<!-- <div class="main-title-bottom"> -->
-	<div>
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="main-title">
-                        <h1>LOGIN</h1>
-                    </div>
-                </div>
-            </div>
-        </div>
-	</div>
-	<div class="info-bottom">
-		<div class="container">
-			<div class="row">
-                <div class="col-12 col-xl-6 offset-xl-3">
-                    <div class="title green-decor-title">
-                        <div class="decor-squ"></div>
-                        <div>LOGIN</div>
-                    </div>
-                    <div class="form-wrap">
-                        {{-- login --}}
-						<form action="{{ route('login') }}" id="login-form" method="POST">
-                            @csrf
-                            <div class="item-wrap">
-                                <label for="email">ACCOUNT</label>
-                                <div class="input-wrap">
-                                    <input name="email" type="email" placeholder="email address" value="{{ old('email') }}" required>
-                                </div>
-                            </div>
-                            @error('email')
-                            <span class="form-required">
-                                {{ $message }}
-                            </span>
-                            @enderror
-                            <div class="item-wrap">
-                                <label for="password">PASSWORD</label>
-                                <div class="input-wrap">
-                                    <input name="password" id="password" type="password" placeholder="password" required>
-                                </div>
-                            </div>
-                            @error('password')
-                            <span class="form-required">
-                                {{ $message }}
-                            </span>
-                            @enderror
-                            <div class="item-wrap justify-content-between">
-                                <label for="">
-                                    <a class="forget-pswd-link" href="javascript:;">
-                                        Forget Password
-                                    </a>
-                                </label>
-                                <label for="" class="register-label">
-                                    <a class="register-link" href="{{ route('register') }}">
-                                        Registration
-                                    </a>
-                                </label>
-                            </div>
+<section class="hero py-6">
+    <div class="container">
+      <!-- Breadcrumbs -->
+      <ol class="breadcrumb pl-0 ">
+        <li class="breadcrumb-item"><a href="/">所有商家</a></li>
+        <li class="breadcrumb-item active">登入｜註冊</li>
+      </ol>
+      <!-- Hero Content-->
+      <div class="hero-content">
+        <h1 class="hero-heading mb-3">登入｜註冊</h1>
+        <div><p class="text-muted">如果您有任何問題，請直接 <a href="#" data-toggle="modal" data-target="#contactmodel">聯繫我們</a>。</p></div>
 
-                            <div class="btn-area">
-                                <button type="submit">LogIn</button>
-                            </div>
-                        </form>
-                        {{-- login --}}
-                    </div>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
 </section>
-@if (session('status'))
-<div class="mask"></div>
-<div class="forget-pswd-page suc info-bottom">
-    <div class="form-wrap">
-        <div class="title">
-            <span>forget password</span>
-            <div class="close-btn">✕</div>
-        </div>
-        <div class="content">
-            <div class="svg">
-                <img src="/img/svg/mail-icon.svg" alt="">
+<section class="pb-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-5">
+          <div class="card">
+            <div class="card-header py-4 px-5">
+              <h5 class="mb-0">登入</h5>
             </div>
-            <p>{{ session('status') }}</p>
-        </div>
-        <div class="btn-area">
-            <button type="submit" class="close-btn">確定</button>
-        </div>
-    </div>
-</div>
-<script>
-    $(".mask").css("display", "block");
-    $("header, .header-input, section, footer").addClass("blur-class");
-</script>
-@endif
-<div class="mask" ></div>
-<div class="forget-pswd-page forget info-bottom" style="opacity: 0">
-    <div class="form-wrap">
-        <div class="title">
-            <span>Forget Password</span>
-            <div class="close-btn">✕</div>
-        </div>
-        {{-- forget password --}}
-		<form id="forget-pswd-suc" action="{{ route('password.email') }}" method="POST">
-            @csrf
-            <div class="item-wrap">
-                <label for="">Email Address</label>
-                <div class="input-wrap">
-                    <input name="email" type="email" placeholder="" value="{{ old('email') }}" required>
+            <div class="card-body p-5">
+              <form action="{{ route('login') }}" method="POST">
+                @csrf
+                <div class="form-group">
+                    <label class="form-label" for="emailLogin">電子郵件</label>
+                    <input name="email" type="email" id="emailLogin" value="{{ old('email') }}" required class="form-control">
+                    @error('email')
+                    <span class="form-required text-danger">
+                        {{ $message }}
+                    </span>
+                    @enderror
                 </div>
+                <div class="form-group">
+                    <label class="form-label" for="passwordLogin">密碼</label>
+                    <input name="password" type="password" id="passwordLogin"  required class="form-control">
+                    @error('password')
+                    <span class="form-required text-danger">
+                        {{ $message }}
+                    </span>
+                    @enderror
+                </div>
+                <button class="btn btn-dark" type="submit"><i class="fa fa-sign-in-alt mr-2"></i> 登入</button>
+                <button class="btn btn-dark" type="button"><a href="forget-password" class="text-decoration-none text-white">忘記密碼</a></button>
+              </form>
             </div>
-            <div class="btn-area">
-                <button type="submit">Submit</button>
+          </div>
+        </div>
+        <div class="col-lg-5 offset-lg-1">
+          <div class="card">
+            <div class="card-header py-4 px-5">
+              <h5 class="mb-0">註冊</h5>
             </div>
-        </form>
-        {{-- forget password --}}
-	</div>
-</div>
+            <div class="card-body p-5">
+              <p class="lead">曾使用非會員身分結帳？</p>
+              <p class="text-muted text-sm">請使用先前結帳的 電子郵件 註冊，我們會將您過往訂單自動帶入您的帳號。</p>
+              <p class="text-muted text-sm">如果您有任何問題，請直接 <a href="#" data-toggle="modal" data-target="#contactmodel">聯繫我們</a>。</p>
+              <hr class="my-4">
+              <form action="{{ route('register') }}" method="POST">
+                @csrf
+                <div class="form-group">
+                    <label class="form-label" for="name"><span class="text-danger">*</span>姓名</label>
+                    <input name="name" class="form-control" id="name" type="text" required value="{{ old('name') }}">
+                    @error('name')
+                    <span class="form-required text-danger">
+                        {{ $message }}
+                    </span>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="emailSignup"><span class="text-danger">*</span>電子郵件</label>
+                    <input name="email-r" type="email" class="form-control" id="emailSignup" autocomplete="email" required value="{{ old('email') }}">
+                    @error('email-r')
+                    <span class="form-required text-danger">
+                        {{ $message }}
+                    </span>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="passwordSignup"><span class="text-danger">*</span>密碼</label>
+                    <input name="password-r" type="password"  class="form-control" id="passwordSignup" required>
+                    @error('password-r')
+                    <span class="form-required text-danger">
+                        {{ $message }}
+                    </span>
+                    @enderror
+                </div>
+                <button class="btn btn-dark" type="submit">
+                    <i class="far fa-user mr-2"></i>
+                    註冊
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 @endsection

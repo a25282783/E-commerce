@@ -22,14 +22,6 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
 
-            $table->string('first_name')->default('');
-            $table->string('last_name')->default('');
-            $table->string('mobile')->default('');
-            $table->string('address')->default('');
-            $table->string('city')->default('');
-            $table->string('state')->default('');
-            $table->string('zip_code')->default('');
-            $table->string('country')->default('');
         });
     }
 

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -49,12 +48,17 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'first_name' => ['required', 'string'],
-            'last_name' => ['required', 'string'],
-            'mobile' => ['required', 'numeric'],
-            'address1' => ['required'],
+            'email-r' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'password-r' => ['required', 'string', 'min:8'],
+            'name' => ['required', 'string'],
+        ], [
+            'email-r.required' => 'Email為必填',
+            'email-r.email' => '請檢查Email格式',
+            'email-r.unique' => 'Email已存在',
+            'email-r.max' => '請檢查Email格式',
+            'password-r.required' => '密碼為必填',
+            'password-r.min' => '密碼至少為8個字',
+            'name.required' => '姓名為必填',
         ]);
     }
 
@@ -67,17 +71,9 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['first_name'] . ' ' . $data['last_name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
-            'mobile' => $data['mobile'],
-            'address' => $data['address1'] . $data['address2'],
-            'city' => $data['city'],
-            'state' => $data['state'],
-            'zip_code' => $data['zip_code'],
-            'country' => $data['country'],
+            'name' => $data['name'],
+            'email' => $data['email-r'],
+            'password' => bcrypt($data['password-r']),
         ]);
     }
 }

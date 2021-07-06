@@ -94,22 +94,22 @@
           <div class="col-lg-8">
             <ul class="list-inline mb-0 mt-2 mt-md-0 text-center text-lg-right">
                 <li class="list-inline-item">
-                    <a class="text-reset" href="/footer/service">
+                    <a class="text-reset" href="#">
                     Terms &amp; Conditions
                     </a>
                 </li>
                 <li class="list-inline-item">
-                    <a class="text-reset" href="/footer/privacy">
+                    <a class="text-reset" href="#">
                         Privacy &amp; cookies
                     </a>
                 </li>
                 <li class="list-inline-item">
-                    <a class="text-reset" href="/footer/Accessibility">
+                    <a class="text-reset" href="#">
                         Accessibility
                     </a>
                 </li>
                 <li class="list-inline-item">
-                    <a class="text-reset" href="/footer/shipping">
+                    <a class="text-reset" href="#">
                         Customer Data Promise
                     </a>
                 </li>

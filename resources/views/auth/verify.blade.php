@@ -5,11 +5,11 @@
       <!-- Breadcrumbs -->
       <ol class="breadcrumb pl-0 ">
         <li class="breadcrumb-item"><a href="/">所有商家</a></li>
-        <li class="breadcrumb-item active">驗證密碼</li>
+        <li class="breadcrumb-item active">驗證信箱</li>
       </ol>
       <!-- Hero Content-->
       <div class="hero-content">
-        <h1 class="hero-heading mb-3">驗證密碼</h1>
+        <h1 class="hero-heading mb-3">驗證信箱</h1>
         <div><p class="text-muted">如果您有任何問題，請直接 <a href="#" data-toggle="modal" data-target="#contactmodel">聯繫我們</a>。</p></div>
 
       </div>
@@ -21,7 +21,7 @@
         <div class="col-lg-12">
           <div class="card">
             <div class="card-header py-4 px-5">
-              <h5 class="mb-0">驗證密碼</h5>
+              <h5 class="mb-0">驗證信箱</h5>
             </div>
             <div class="card-body p-5">
               <form method="POST" action="{{ route('verification.resend') }}">

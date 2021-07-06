@@ -47,10 +47,10 @@ class CustomVerifyEmail extends Notification implements ShouldQueue
         }
 
         return (new MailMessage)
-            ->subject(Lang::get('Verify Email Address'))
-            ->line(Lang::get('Please click the button below to verify your email address.'))
-            ->action(Lang::get('Verify Email Address'), $verificationUrl)
-            ->line(Lang::get('If you did not create an account, no further action is required.'));
+            ->subject(Lang::get('驗證通知'))
+            ->line(Lang::get('請點擊下方按鈕進行驗證'))
+            ->action(Lang::get('驗證郵件'), $verificationUrl)
+            ->line(Lang::get('如不是您本人，請忽略！'));
     }
 
     /**

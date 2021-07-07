@@ -1,3 +1,62 @@
+    <!-- Sidebar Cart Modal-->
+    <div class="modal fade modal-right" id="sidebarCart" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content sidebar-cart-content">
+            <div class="modal-header border-0">
+              <button class="close modal-close close-rotate" type="button" data-dismiss="modal" aria-label="Close">
+                <svg class="svg-icon w-3rem h-3rem svg-icon-light align-middle">
+                  <use xlink:href="#close-1"> </use>
+                </svg>
+              </button>
+            </div>
+            <div class="modal-body px-5 sidebar-cart-body">
+              <!-- Empty cart snippet-->
+              <!-- In case of empty cart - display this snippet + remove .d-none-->
+              <div class="d-none text-center mb-5">
+                <svg class="svg-icon w-3rem h-3rem svg-icon-light mb-4 text-muted">
+                  <use xlink:href="#retail-bag-1"> </use>
+                </svg>
+                <p>你的購物車是空的唷 </p>
+              </div>
+              <!-- Empty cart snippet end-->
+              <div class="sidebar-cart-product-wrapper custom-scrollbar">
+
+                <!-- cart item-->
+                <div class="navbar-cart-product">
+                  <div class="d-flex align-items-center"><a href="detail-1.html"><img class="img-fluid navbar-cart-product-image" src="img/product/book-sq.jpg" alt="..."/></a>
+                    <div class="w-100"><a class="close" href="#">
+                        <svg class="svg-icon sidebar-cart-icon">
+                          <use xlink:href="#close-1"> </use>
+                        </svg></a>
+                      <div class="pl-3"> <a class="navbar-cart-product-link text-dark link-animated" href="detail-1.html">Furniture source book</a><small class="d-block text-muted">Quantity: 1 </small><strong class="d-block text-sm">$399     </strong></div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- cart item-->
+                <div class="navbar-cart-product">
+                  <div class="d-flex align-items-center"><a href="detail-2.html"><img class="img-fluid navbar-cart-product-image" src="img/product/chair-2-sq.jpg" alt="..."/></a>
+                    <div class="w-100"><a class="close" href="#">
+                        <svg class="svg-icon sidebar-cart-icon">
+                          <use xlink:href="#close-1"> </use>
+                        </svg></a>
+                      <div class="pl-3"> <a class="navbar-cart-product-link text-dark link-animated" href="detail-2.html">Norwegg design chair</a><small class="d-block text-muted">Quantity: 1 </small><strong class="d-block text-sm">$1399     </strong></div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /cart item-->
+
+              </div>
+            </div>
+            <div class="modal-footer sidebar-cart-footer shadow">
+              <div class="w-100">
+                <h5 class="mb-4">小計: <span class="float-right">$1,798</span></h5><a class="btn btn-outline-dark btn-block mb-3" href="cart.html">查看購物車</a><a class="btn btn-dark btn-block" href="checkout.html">結帳</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End of Sidebar Cart Modal-->
  <!-- Contact model -->
  <div class="modal fade" id="contactmodel" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">

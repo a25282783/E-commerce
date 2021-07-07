@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Basic;
 use App\Cart;
 use App\Category;
 use App\Order;
@@ -87,43 +86,50 @@ class CartController extends Controller
         $cart = Auth::user()->carts()->with('product')->get();
         // 總計
         $total_price = 0;
-        foreach ($cart as $v) {
-            // 判斷是否特價
-            if (session('status')) {
-                $price = $v->per_price;
-                $v->perItemTotalPrice = $v->total_price;
-
-            } else {
-                if ($v->product->detail['sale']) {
-                    $price = $v->product->detail['sale'];
-                } else {
-                    $price = $v->product->detail['price'];
-                }
-                $v->perItemTotalPrice = $v->amount * $price;
+        foreach ($cart as $k => $v) {
+            if (is_null($v->product)) {
+                unset($cart[$k]);
+                continue;
             }
+            // 判斷是否特價
+            // if (session('status')) {
+            //     $price = $v->per_price;
+            //     $v->perItemTotalPrice = $v->total_price;
 
+            // } else {
+            //     if ($v->product->detail['sale']) {
+            //         $price = $v->product->detail['sale'];
+            //     } else {
+            //         $price = $v->product->detail['price'];
+            //     }
+            //     $v->perItemTotalPrice = $v->amount * $price;
+            // }
+            $v->perItemTotalPrice = $v->amount * $v->product->price;
             $total_price += $v->perItemTotalPrice;
         }
-        $data['data'] = $cart;
+        $data['carts'] = $cart;
         $data['total_price'] = $total_price;
         /**
          * 運送
          */
-        $basic = Basic::first();
-        if ($basic) {
-            $data['basic'] = $basic;
-        }
+        // $basic = Basic::first();
+        // if ($basic) {
+        //     $data['basic'] = $basic;
+        // }
         /**
          * 訂單資料
          */
         $data['user'] = Auth::user();
+        return view('cart_show', $data);
 
-        if (session('status')) {
-            // 從前一頁過來
-            return view('cart2', $data);
-        } else {
-            return view('cart', $data);
-        }
+        // if (session('status')) {
+        //     // 從前一頁過來
+        //     dd(1);
+        //     return view('cart2', $data);
+        // } else {
+        //     dd(2);
+        //     return view('cart', $data);
+        // }
 
     }
 

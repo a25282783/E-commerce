@@ -17,8 +17,7 @@ class CartController extends Controller
 {
     public function product($id)
     {
-        $res = Product::find($id);
-        abort_if(!$res, 404);
+        $res = Product::with('category')->findorFail($id);
         $data['data'] = $res;
         return view('product', $data);
     }
@@ -40,23 +39,24 @@ class CartController extends Controller
 
     public function addToCart(Request $request)
     {
-        $product_id = (int) $request->input('product_id');
-        $count = (int) $request->input('count');
-        $product = Product::find($product_id);
+        $input = $request->only([
+            'product_id', 'amount', 'color', 'size', 'pack',
+        ]);
+        $product_id = (int) $input['product_id'];
+        $count = (int) $input['amount'];
+        $product = Product::findOrFail($product_id);
 
         // 檢查庫存
         if ($count >= $product->amount) {
-            return json_encode(['msg' => 'Inventory Shortage']);
+            return back()->with('status', '0');
         }
 
         $productInCarts = Auth::user()->carts()->where('product_id', $product_id)->first();
         if (!$productInCarts) {
             // 購物車不存在此商品
-            Cart::create([
-                'user_id' => Auth::id(),
-                'product_id' => $product_id,
-                'amount' => $count,
-            ]);
+            $input['user_id'] = Auth::id();
+            $input['per_price'] = $product->price;
+            Cart::create($input);
         } else {
             // 購買數量
             $add = $productInCarts->amount + $count;
@@ -67,7 +67,7 @@ class CartController extends Controller
             ]);
         }
 
-        return json_encode(['msg' => 'Add To Cart Successfully']);
+        return back()->with('status', '1');
 
     }
 

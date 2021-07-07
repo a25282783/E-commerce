@@ -9,6 +9,17 @@ class Product extends Model
 {
     protected $guarded = [];
 
+    protected $attributes = [
+        'img' => '[]',
+        'color' => '[]',
+        'size' => '[]',
+        'pack' => '[]',
+    ];
+
+    protected $casts = [
+        'img' => 'array',
+    ];
+
     protected static function booted()
     {
         if (request()->is('admin/*')) {
@@ -25,39 +36,73 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function setImgAttribute($img)
-    {
-        if (is_array($img)) {
-            $this->attributes['img'] = json_encode($img);
-        }
-        if (!$img) {
-            $this->attributes['img'] = json_encode([]);
-        }
-    }
-
-    public function getImgAttribute($img)
-    {
-        return json_decode($img, true);
-    }
-
-    public function setDetailAttribute($detail)
-    {
-        if (is_array($detail)) {
-            $this->attributes['detail'] = json_encode($detail);
-        }
-        if (!$detail) {
-            $this->attributes['detail'] = json_encode([]);
-        }
-    }
-
-    public function getDetailAttribute($detail)
-    {
-        return json_decode($detail, true);
-    }
-
     public function carts()
     {
         return $this->hasMany(Cart::class);
+    }
+
+    public function setColorAttribute($value)
+    {
+        if (!empty($value)) {
+            $this->attributes['color'] = json_encode(explode(',', $value));
+        } else {
+            $this->attributes['color'] = '[]';
+        }
+    }
+
+    public function getColorAttribute($value)
+    {
+        if (request()->is('admin/*')) {
+            // 後台需變成字串
+            $array = json_decode($value, true);
+            return implode(',', $array);
+        } else {
+            // 後台需變成陣列
+            return json_decode($value, true);
+        }
+
+    }
+
+    public function setSizeAttribute($value)
+    {
+        if (!empty($value)) {
+            $this->attributes['size'] = json_encode(explode(',', $value));
+        } else {
+            $this->attributes['size'] = '[]';
+        }
+    }
+
+    public function getSizeAttribute($value)
+    {
+        if (request()->is('admin/*')) {
+            // 後台需變成字串
+            $array = json_decode($value, true);
+            return implode(',', $array);
+        } else {
+            // 後台需變成陣列
+            return json_decode($value, true);
+        }
+    }
+
+    public function setPackAttribute($value)
+    {
+        if (!empty($value)) {
+            $this->attributes['pack'] = json_encode(explode(',', $value));
+        } else {
+            $this->attributes['pack'] = '[]';
+        }
+    }
+
+    public function getPackAttribute($value)
+    {
+        if (request()->is('admin/*')) {
+            // 後台需變成字串
+            $array = json_decode($value, true);
+            return implode(',', $array);
+        } else {
+            // 後台需變成陣列
+            return json_decode($value, true);
+        }
     }
 
 }

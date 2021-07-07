@@ -23,30 +23,14 @@
                                     <a href="/product/{{ $product->id }}">
                                         <figure>
                                             <img src="/uploads/{{ $product->prev_img }}" class='img-rwd'>
-                                            @if ($product->detail['sale'])
-                                            <figcaption>
-                                                <p>TIME<br>LIMIT</p>
-                                                <span></span>
-                                            </figcaption>
-                                            @endif
+
                                         </figure>
                                     </a>
                                     <h4 class='ip-name'>{{ Str::limit($product->name,30) }}</h4>
                                     <div class="ip-price-wrap-m ">
-                                        @if ($product->detail['sale'])
-                                        <STRIKE class='ip-price'>
-                                            Price:US${{ $product->detail['price'] }}
-                                        </STRIKE>
-                                        <p class='ip-price-onsale'>
-                                            Sale:US${{ $product->detail['sale'] }}
-                                        </p>
-                                        @else
                                         <p class='ip-price'>
-                                            Price:US${{ $product->detail['price'] }}
+                                            Price:US${{ $product->price }}
                                         </p>
-                                        <p class='ip-price-onsale'>&nbsp;</p>
-                                        @endif
-
                                     </div>
                                     <a href="/product/{{ $product->id }}" class='ip-cart'>
                                         Detail

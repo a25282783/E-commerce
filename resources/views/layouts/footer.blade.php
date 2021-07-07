@@ -167,6 +167,11 @@
   <script src="/vendor/object-fit-images/ofi.min.js"></script>
   <!-- JavaScript Countdown-->
   <script src="/js/countdown.js"></script>
+  <script src="/vendor/photoswipe/photoswipe.min.js"></script>
+    <script src="/vendor/photoswipe/photoswipe-ui-default.min.js"></script>
+    <script src="/js/photoswipe-init.js"></script>
+    <!-- Image Zoom plugin-->
+    <script src="/vendor/jquery-zoom/jquery.zoom.min.js"></script>
   <script>
     var deadline = new Date(Date.parse(new Date()) + 15 * 24 * 60 * 60 * 1000);
     var countdown = new Countdown('countdown', deadline);

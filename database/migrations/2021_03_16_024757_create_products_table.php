@@ -19,17 +19,20 @@ class CreateProductsTable extends Migration
 
             $table->unsignedBigInteger('category_id');
             $table->string('name')->default('');
-            $table->string('intro')->default('');
+            $table->text('intro')->nullable();
             $table->string('prev_img')->default('');
             $table->json('img')->nullable();
             $table->unsignedBigInteger('amount');
-            $table->json('detail')->nullable();
-            $table->string('banner')->default('');
-            $table->text('feature')->nullable();
-            $table->text('package')->nullable();
-            $table->text('exterior')->nullable();
+            $table->unsignedInteger('price')->nullable();
+            $table->string('spec')->nullable();
+            $table->string('weight')->nullable();
+            $table->string('place')->nullable();
+            $table->text('ship_way')->nullable();
+            $table->text('refund_way')->nullable();
+            $table->json('color')->nullable();
+            $table->json('size')->nullable();
+            $table->json('pack')->nullable();
             $table->boolean('status')->default(1);
-
         });
     }
 

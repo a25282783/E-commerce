@@ -87,7 +87,7 @@ class PaypalController extends Controller
         $invoice_id = env('PAYPAL_MODE') == 'live' ? $order->order_id : uniqid();
         $transaction->setAmount($amount)
             ->setItemList($itemList)
-            ->setDescription("Daemon")
+            ->setDescription("Scu")
             ->setInvoiceNumber($invoice_id);
 
         $redirectUrls = new RedirectUrls();

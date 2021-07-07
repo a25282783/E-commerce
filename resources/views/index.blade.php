@@ -60,11 +60,7 @@
                     <h3>{{ nl2br($product->name,30) }}
                     </h3>
                     <p class="text-muted">
-                        @if ($product->detail['sale'])
-                            ${{ $product->detail['sale'] }}
-                        @else
-                            ${{ $product->detail['price'] }}
-                        @endif
+                        ${{ $product->price }}
                     </p>
                 </a>
                 <p>
@@ -130,11 +126,7 @@
                         </a>
                     </h3>
                     <span class="text-gray-500 text-sm">
-                        @if ($product->detail['sale'])
-                        ${{ $product->detail['sale'] }}
-                        @else
-                        ${{ $product->detail['price'] }}
-                        @endif
+                        ${{ $product->price }}
                     </span>
                   <div class="product-stars text-xs"><i class="fa fa-star text-primary"></i><i class="fa fa-star text-primary"></i><i class="fa fa-star text-primary"></i><i class="fa fa-star text-muted"></i><i class="fa fa-star text-muted"></i></div>
                 </div>

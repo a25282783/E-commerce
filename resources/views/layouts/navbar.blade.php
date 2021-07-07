@@ -21,7 +21,7 @@
             @endguest
         </li>
         <li class="list-inline-item position-relative mr-3">
-            <a class="text-dark text-hover-primary" href="/order/list" >
+            <a class="text-dark text-hover-primary" href="/cart" >
                 <svg class="svg-icon navbar-icon">
                     <use xlink:href="#retail-bag-1"> </use>
                 </svg>
@@ -63,7 +63,7 @@
               @endguest
          </li>
 
-          <li class="list-inline-item position-relative mr-3"><a class="text-dark text-hover-primary" href="#" data-toggle="modal" data-target="#sidebarCart">
+          <li class="list-inline-item position-relative mr-3"><a class="text-dark text-hover-primary" href="/cart" data-toggle="modal" data-target="#sidebarCart">
               <svg class="svg-icon navbar-icon">
                 <use xlink:href="#retail-bag-1"> </use>
               </svg>

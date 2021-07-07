@@ -59,19 +59,11 @@
                                 <div class="col-12 col-lg-2">
                                     <div class="list-inner-title">Price</div>
                                     <div class="flex-wraper">
-                                        @if ($cart->product->detail['sale'])
-                                            US${{ $cart->product->detail['sale'] }}
-                                        @else
-                                            US${{ $cart->product->detail['price'] }}
-                                        @endif
+                                        US${{ $cart->product->price }}
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-2"
-                                    @if ($cart->product->detail['sale'])
-                                    data-price="{{ $cart->product->detail['sale'] }}"
-                                    @else
-                                    data-price="{{ $cart->product->detail['price'] }}"
-                                    @endif
+                                    data-price="{{ $cart->product->price] }}"
                                     data-amount="{{ $cart->amount }}"
                                     data-product_amount="{{ $cart->product->amount }}" >
                                     <div class="list-inner-title">Quantity</div>

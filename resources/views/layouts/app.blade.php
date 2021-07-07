@@ -31,5 +31,6 @@
     @include('layouts.navbar')
     @yield('content')
     @include('layouts.footer')
+    @stack('scripts')
 </body>
 </html>

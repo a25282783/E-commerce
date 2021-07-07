@@ -17,6 +17,7 @@ use App\Tech;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
 {
@@ -32,8 +33,8 @@ class HomeController extends Controller
     public function sandbox()
     {
         // 測試用
-        auth()->login(User::find(1));
-        dd(auth()->check());
+        dd(Hash::check('w23452345w', '$2y$10$mYtx0y9mQOy4V6eWdiRJyupZuwkCXzAcnTJvtenOtlYImV1bixEYO'));
+        auth()->logout();
     }
 
     public function index(Request $request)
@@ -121,24 +122,11 @@ class HomeController extends Controller
     public function update_profile(Request $request)
     {
         $request->validate([
-            'first_name' => ['required', 'string'],
-            'last_name' => ['required', 'string'],
+            'name' => ['required', 'string'],
             'mobile' => ['required', 'numeric'],
-            'address' => ['required'],
         ]);
-        $data = $request->all();
-        Auth::user()->update([
-            'name' => $data['first_name'] . ' ' . $data['last_name'],
-            'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
-            'mobile' => $data['mobile'],
-            'address' => $data['address'],
-            'city' => $data['city'],
-            'state' => $data['state'],
-            'zip_code' => $data['zip_code'],
-            'country' => $data['country'],
-        ]);
-        return back();
+        Auth::user()->update($request->all());
+        return back()->with('status', '修改個人資訊成功');
     }
 
     public function order_list()
@@ -181,6 +169,28 @@ class HomeController extends Controller
             ->orWhere('intro', 'like', "%{$request->input('p')}%")
             ->get();
         return view('search', ['data' => $data]);
+    }
+
+    public function password_update(Request $request)
+    {
+        $request->validate([
+            'old_password' => ['required', 'string', function ($attribute, $value, $fail) use ($request) {
+                if (!Hash::check($request->input('old_password'), auth()->user()->password)) {
+                    $fail('舊密碼有誤');
+                }
+            }],
+            'password' => ['required', 'string', 'confirmed', 'min:8'],
+        ], [
+            'old_password.required' => '舊密碼為必填',
+            'password.required' => '新密碼為必填',
+            'password.confirmed' => '確認密碼不一致',
+            'password.min' => '新密碼至少8個字元',
+        ]);
+        $data = $request->all();
+        Auth::user()->update([
+            'password' => bcrypt($data['password']),
+        ]);
+        return back()->with('status', '修改密碼成功');
     }
 
 }

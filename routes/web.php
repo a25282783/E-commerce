@@ -57,6 +57,7 @@ Route::group(['middleware' => ['verified', 'auth']], function () {
     Route::get('cart/order', 'CartController@make_order');
     Route::get('order/list', 'HomeController@order_list');
     Route::get('order/list/{id}', 'HomeController@order_list_detail')->where('id', '[0-9]+');
+    Route::post('password_update', 'HomeController@password_update')->name('password.update.custom');
 
     // ======= paypal ========
     Route::post('/paypal', 'PaypalController@pay');

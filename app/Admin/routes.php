@@ -28,4 +28,5 @@ Route::group([
     $router->resource('banner', BannerController::class);
     $router->resource('order', OrderController::class);
     $router->resource('config', ConfigController::class);
+    $router->resource('user', UserController::class);
 });

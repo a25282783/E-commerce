@@ -3,10 +3,10 @@
 namespace App\Admin\Controllers;
 
 use App\Order;
-use App\Product;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
+use Encore\Admin\Widgets\Table;
 
 class OrderController extends AdminController
 {
@@ -27,22 +27,26 @@ class OrderController extends AdminController
         $grid = new Grid(new Order());
 
         $grid->column('id', __('Id'));
-        $grid->column('order_id', '訂單編號');
+        $grid->column('serial_id', '訂單編號');
         $grid->column('user_id', '用戶ID');
         $grid->column('user.name', '用戶名');
-        $grid->column('cart_info', '購物車資訊')->display(function ($cart) {
-            $text = '';
-            foreach ($cart as $v) {
-                $name = Product::find($v['product_id'])->name;
-                $amount = $v['amount'];
-                $per_price = $v['per_price'];
-                $text .= "$name * $amount,$per_price<br>";
-            }
-            return rtrim($text, ',');
+        $grid->column('none', '商品資訊')->expand(function ($model) {
+            $cart = $model->products()->get()->map(function ($product) {
+                return [
+                    $product->id,
+                    $product->name,
+                    $product->pivot->per_price,
+                    $product->pivot->per_amount,
+                    $product->pivot->detail,
+                ];
+            });
+            return new Table(['ID', '名稱', '單價', '數量', '細節'], $cart->toArray());
         });
         $grid->column('status', '付款狀態')->using(config('app.orderStatus'));
         $grid->column('callback_id', '金流單號');
-        $grid->column('detail', __('Detail'));
+        $grid->column('detail', '金流資訊')->display(function ($detail) {
+            json_decode($detail, true);
+        });
         $grid->column('receipt', '收據')->display(function ($receipt) {
             $text = '';
             if (!$receipt) {
@@ -53,12 +57,18 @@ class OrderController extends AdminController
             }
             return rtrim($text, ',');
         });
-        $grid->column('price', '總計');
+        $grid->column('total_price', '總計');
 
         $grid->filter(function ($filter) {
             $filter->equal('status', '付款狀態')->radio(config('app.orderStatus'));
             $filter->equal('user_id', '用戶ID');
         });
+
+        $grid->actions(function (Grid\Displayers\Actions $actions) {
+            $actions->disableView();
+            $actions->disableEdit();
+        });
+        $grid->disableCreateButton();
 
         return $grid;
     }
@@ -74,16 +84,6 @@ class OrderController extends AdminController
 
         $form->text('order_id', '訂單編號')->readonly();
         $form->text('user_id', '用戶ID')->readonly();
-        $form->display('cart_info', '購物車資訊')->with(function ($cart) {
-            $text = '';
-            foreach ($cart as $v) {
-                $name = Product::find($v['product_id'])->name;
-                $amount = $v['amount'];
-                $per_price = $v['per_price'];
-                $text .= "$name * $amount,$per_price<br>";
-            }
-            return rtrim($text, ',');
-        });
         $form->radio('status', '付款狀態')->options(config('app.orderStatus'));
         $form->text('callback_id', 'Paypal單號')->readonly();
         // $form->text('detail', __('Detail'));

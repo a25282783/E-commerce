@@ -31,6 +31,9 @@ class CartController extends AdminController
         $grid->column('amount', '數量');
         $grid->column('per_price', '單價');
         $grid->column('total_price', '總價');
+        $grid->column('color', '顏色');
+        $grid->column('size', '尺寸');
+        $grid->column('pack', '裝訂');
 
         return $grid;
     }

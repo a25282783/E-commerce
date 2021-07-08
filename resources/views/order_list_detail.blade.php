@@ -52,7 +52,9 @@
                                 <span class="text-muted text-sm">
                                     @php
                                         $detail = json_decode($product->pivot->detail,true);
-                                        $detail = array_filter($detail, fn($value) => !is_null($value) && $value !== '');
+                                        $detail = array_filter($detail, function ($value) {
+                                            return !is_null($value) && $value !== '';
+                                        });
                                     @endphp
                                     {{implode(',',$detail)}}
                                 </span>

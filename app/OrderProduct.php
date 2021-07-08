@@ -11,9 +11,6 @@ class OrderProduct extends Model
     protected $attributes = [
         'detail' => '[]',
     ];
-    protected $casts = [
-        'detail' => 'array',
-    ];
 
     public function getPerPriceAttribute($price)
     {
@@ -23,6 +20,19 @@ class OrderProduct extends Model
     public function setPerPriceAttribute($price)
     {
         $this->attributes['per_price'] = $price * 100;
+    }
+
+    public function getDetailAttribute($detail)
+    {
+        if (is_array($detail)) {
+            return $detail;
+        } else {
+            $detail = json_decode($detail, true);
+            return array_filter($detail, function ($value) {
+                return !is_null($value) && $value !== '';
+            });
+        }
+
     }
 
 }

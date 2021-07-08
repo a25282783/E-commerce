@@ -41,13 +41,16 @@ class CartController extends Controller
         $input = $request->only([
             'product_id', 'amount', 'color', 'size', 'pack',
         ]);
+        if ((int) $input['amount'] < 1) {
+            return back()->with('status', '數量不對');
+        }
         $product_id = (int) $input['product_id'];
         $count = (int) $input['amount'];
         $product = Product::findOrFail($product_id);
 
         // 檢查庫存
         if ($count >= $product->amount) {
-            return back()->with('status', '0');
+            return back()->with('status', '庫存不足');
         }
 
         $productInCarts = Auth::user()->carts()->where('product_id', $product_id);
@@ -157,6 +160,9 @@ class CartController extends Controller
             if (is_null($cart->product)) {
                 continue;
             }
+            if ($order[$cart->id] < 1) {
+                return back()->with('status', '數量不對');
+            }
             $data = [
                 'amount' => $order[$cart->id],
                 'per_price' => $cart->product->price,
@@ -225,7 +231,6 @@ class CartController extends Controller
         } catch (\Throwable $e) {
             Log::info('CartController.make_order:' . $e->getMessage());
             DB::rollback();
-            dd($e->getMessage());
             if (count($shortage) > 0) {
                 $status = implode(',', $shortage) . '  庫存不足！';
             } else {

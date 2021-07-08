@@ -10,7 +10,7 @@
             <svg class="svg-icon d-none d-sm-block w-3rem h-3rem svg-icon-light flex-shrink-0 mr-3">
               <use xlink:href="#checked-circle-1"> </use>
             </svg>
-            <p class="mb-0">{{session('status')=='1'?'成功加入購物車':'庫存不足'}}
+            <p class="mb-0">{{session('status')=='1'?'成功加入購物車':session('status')}}
                 @if (session('status')=='1')
                 <br class="d-inline-block d-lg-none">
                 <a href="/cart" class="text-reset text-decoration-underline ml-lg-3">查看購物車</a>

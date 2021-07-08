@@ -10,6 +10,16 @@ class Order extends Model
     use SoftDeletes;
     protected $guarded = [];
 
+    protected $attributes = [
+        'detail' => '[]',
+        'receipt' => '[]',
+    ];
+
+    protected $casts = [
+        'detail' => 'array',
+        'receipt' => 'array',
+    ];
+
     public function getTotalPriceAttribute($price)
     {
         return $price / 100;
@@ -18,30 +28,6 @@ class Order extends Model
     public function setTotalPriceAttribute($price)
     {
         $this->attributes['total_price'] = $price * 100;
-    }
-
-    public function setDetailAttribute($detail)
-    {
-        if (is_array($detail)) {
-            $this->attributes['detail'] = json_encode($detail);
-        }
-    }
-
-    public function getDetailAttribute($detail)
-    {
-        return json_decode($detail, true);
-    }
-
-    public function setReceiptAttribute($receipt)
-    {
-        if (is_array($receipt)) {
-            $this->attributes['receipt'] = json_encode($receipt);
-        }
-    }
-
-    public function getReceiptAttribute($receipt)
-    {
-        return json_decode($receipt, true);
     }
 
     public function getPayableAttribute($status)

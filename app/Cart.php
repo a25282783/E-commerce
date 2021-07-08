@@ -39,16 +39,4 @@ class Cart extends Model
     {
         $this->attributes['per_price'] = $price * 100;
     }
-
-    public function setReceiptAttribute($receipt)
-    {
-        if (is_array($receipt)) {
-            $this->attributes['receipt'] = json_encode($receipt);
-        }
-    }
-
-    public function getReceiptAttribute($receipt)
-    {
-        return json_decode($receipt, true);
-    }
 }

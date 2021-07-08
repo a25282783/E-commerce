@@ -47,7 +47,7 @@ class Product extends Model
             $array = json_decode($value, true);
             return implode(',', $array);
         } else {
-            // 後台需變成陣列
+            // 前台需變成陣列
             return json_decode($value, true);
         }
 
@@ -69,7 +69,7 @@ class Product extends Model
             $array = json_decode($value, true);
             return implode(',', $array);
         } else {
-            // 後台需變成陣列
+            // 前台需變成陣列
             return json_decode($value, true);
         }
     }
@@ -90,7 +90,7 @@ class Product extends Model
             $array = json_decode($value, true);
             return implode(',', $array);
         } else {
-            // 後台需變成陣列
+            // 前台需變成陣列
             return json_decode($value, true);
         }
     }

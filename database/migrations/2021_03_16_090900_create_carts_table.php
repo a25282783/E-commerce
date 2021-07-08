@@ -20,6 +20,11 @@ class CreateCartsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('product_id');
             $table->integer('amount');
+            $table->unsignedInteger('total_price')->comment('總價')->default(0);
+            $table->unsignedInteger('per_price')->comment('單價')->default(0);
+            $table->string('color')->nullable();
+            $table->string('size')->nullable();
+            $table->string('pack')->nullable();
             $table->softDeletes();
         });
     }

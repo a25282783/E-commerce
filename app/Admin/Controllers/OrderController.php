@@ -42,7 +42,7 @@ class OrderController extends AdminController
             });
             return new Table(['ID', '名稱', '單價', '數量', '細節'], $cart->toArray());
         });
-        $grid->column('status', '付款狀態')->using(config('app.orderStatus'));
+        $grid->column('status', '付款狀態')->radio(config('app.orderStatus'))->filter(config('app.orderStatus'));
         $grid->column('callback_id', '金流單號');
         $grid->column('detail', '金流資訊')->display(function ($detail) {
             json_decode($detail, true);

@@ -111,7 +111,7 @@
                     </div>
                     <div class="card-body p-4">
                       <p class="card-text text-muted">
-                          <strong>{{$receipt['payment']}}</strong>
+                          <strong>{{data_get($receipt,'payment','')}}</strong>
                         </p>
                     </div>
                   </div>
@@ -123,12 +123,12 @@
                     </div>
                     <div class="card-body p-4">
                         <p class="card-text text-muted">
-                            {{$receipt['name']}}
+                            {{data_get($receipt,'name','')}}
                             <br>
-                            {{$receipt['mobile']}}
+                            {{data_get($receipt,'mobile','')}}
                             <br>
                             <strong>
-                                {{$receipt['ship']}}
+                                {{data_get($receipt,'ship','')}}
                             </strong>
                         </p>
                     </div>
@@ -140,7 +140,7 @@
                       <h5 class="mb-0">發票資訊</h5>
                     </div>
                     <div class="card-body p-4">
-                      <p class="card-text text-muted">電子發票<br><strong>Email：{{$receipt['email']}}</strong></p>
+                      <p class="card-text text-muted">電子發票<br><strong>Email：{{data_get($receipt,'email','')}}</strong></p>
                     </div>
                   </div>
                   <!-- End of Invoice info -->

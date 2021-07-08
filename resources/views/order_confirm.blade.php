@@ -40,7 +40,7 @@
           </div>
           <div class="col-6 col-lg-3">
             <div class="text-sm text-uppercase text-muted mb-3">運送方式</div><span class="h5">
-                {{ $order->receipt['ship'] }}
+                {{ data_get($order->receipt,'ship','') }}
             </span>
           </div>
         </div>

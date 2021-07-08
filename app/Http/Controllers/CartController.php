@@ -23,8 +23,7 @@ class CartController extends Controller
 
     public function category($id)
     {
-        $res = Category::find($id);
-        abort_if(!$res, 404);
+        $res = Category::findOrFail($id);
         $data['data'] = $res->products()->orderBy('id', 'desc')->paginate(12);
         $data['name'] = $res->name;
         return view('category', $data);

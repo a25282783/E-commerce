@@ -18,11 +18,11 @@
         </div>
       </section>
       <!-- Checkout-->
+      <form action="{{ Route('create.order') }}" method="POST" id="form-order">
+        @csrf
       <div class="container pb-6">
         <div class="row">
           <div class="col-lg-7 pr-xl-6">
-            <form action="{{ Route('create.order') }}" method="POST" id="form-order">
-                @csrf
               <h5 class="mb-5">收件人 </h5>
               <div class="row">
                 <div class="form-group col-md-6 mb-4">
@@ -57,9 +57,9 @@
                 </div>
                 {{-- 運送 --}}
                 <div class="form-group col-12 mt-3">
-                  <h5 class="mb-3">運送方式 </h5>
+                  <h5 class="mb-3">運送方式(必填) </h5>
                   <div class="custom-control custom-checkbox" >
-                    <input type="radio" name="ship" value="宅配"  class="custom-control-input" id="ship" data-toggle="collapse" data-target="#shippingAddress" aria-expanded="false" aria-controls="ship" role="checkbox" >
+                    <input checked type="radio" name="ship" value="宅配"  class="custom-control-input" id="ship" data-toggle="collapse" data-target="#shippingAddress" aria-expanded="false" aria-controls="ship" role="checkbox" >
                     <label class="custom-control-label align-middle" for="ship">宅配</label><br>
                   </div>
                   <div class="custom-control custom-checkbox">
@@ -103,10 +103,7 @@
                 </div>
               </div>
               <!-- /Shipping Address                            -->
-            </form>
           </div>
-
-
           <div class="col-lg-5">
             <h5 class="mb-5">訂單總覽</h5>
             <table class="table border-bottom border-dark mb-5">
@@ -217,4 +214,5 @@
           </div>
         </div>
       </div>
+    </form>
 @endsection

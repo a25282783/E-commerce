@@ -50,7 +50,18 @@ class CartController extends Controller
             return back()->with('status', '0');
         }
 
-        $productInCarts = Auth::user()->carts()->where('product_id', $product_id)->first();
+        $productInCarts = Auth::user()->carts()->where('product_id', $product_id);
+        if (isset($input['color'])) {
+            $productInCarts = $productInCarts->where('color', $input['color']);
+        }
+        if (isset($input['size'])) {
+            $productInCarts = $productInCarts->where('size', $input['size']);
+        }
+        if (isset($input['pack'])) {
+            $productInCarts = $productInCarts->where('pack', $input['pack']);
+        }
+        $productInCarts = $productInCarts->first();
+
         if (!$productInCarts) {
             // 購物車不存在此商品
             $input['user_id'] = Auth::id();
@@ -155,35 +166,6 @@ class CartController extends Controller
             $order_price += $order[$cart->id] * $cart->product->price;
         }
         $user = Auth::user();
-        // foreach ($request->input('order') as $id => $amount) {
-        //     $cart = Cart::find($id);
-        //     if (!$cart) {
-        //         continue;
-        //     }
-        // if ($cart->product->detail['sale']) {
-        //     $price = $cart->product->detail['sale'];
-        // } else {
-        //     $price = $cart->product->detail['price'];
-        // }
-        // $price = $cart->product->price;
-        // $cart->amount = $amount;
-        // $cart->total_price = $amount * $price;
-        // $cart->per_price = $price;
-        // $cart->receipt = [
-        //     'first_name' => $request->input('first_name'),
-        //     'email' => $request->input('email'),
-        //     'last_name' => $request->input('last_name'),
-        //     'mobile' => $request->input('mobile'),
-        //     'address' => $request->input('address'),
-        //     'city' => $request->input('city'),
-        //     'zip_code' => $request->input('zip_code'),
-        //     'country' => $request->input('country'),
-        //     'note' => $request->input('note'),
-        //     'state' => $request->input('state'),
-        // ];
-        // $cart->save();
-        // }
-        // return redirect('/cart')->with('status', 'back');
         return view('checkout', compact('carts', 'user', 'order_price'));
 
     }
@@ -207,7 +189,7 @@ class CartController extends Controller
             }
             // 建立訂單
             // TODO 運費
-            $ship_fee = 0;
+            $ship_fee = 60;
             // 訂單總金額
             $price = 0;
             foreach ($user_cart as $v) {
@@ -239,7 +221,7 @@ class CartController extends Controller
 
             Auth::user()->carts()->delete();
             DB::commit();
-            return redirect('/order/list');
+            return redirect('/order/confirm')->with('order_id', $newOrder->id);
         } catch (\Throwable $e) {
             Log::info('CartController.make_order:' . $e->getMessage());
             DB::rollback();
@@ -251,6 +233,15 @@ class CartController extends Controller
             }
             return redirect('/cart')->with('status', $status);
         }
+    }
+
+    public function order_confirm()
+    {
+        if (is_null(session('order_id'))) {
+            return redirect('/');
+        }
+        $order = Order::find(session('order_id'));
+        return view('order_confirm', compact('order'));
     }
 
 }

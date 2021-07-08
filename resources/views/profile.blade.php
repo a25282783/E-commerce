@@ -127,7 +127,7 @@
 
            <h5>{{ $user->name }}</h5>
          </div>
-         @include('mixin.profile-sidebar')
+         @include('mixin.profile-sidebar',['page'=>'profile'])
        </div>
      </div>
      <!-- /Customer Sidebar-->

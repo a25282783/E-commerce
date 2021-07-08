@@ -1,65 +1,66 @@
 @extends('layouts.app')
 @section('content')
-<section id="order-list" class="top-bottom-empty">
-    <!-- <div class="main-title-bottom"> -->
-    <div class="">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="main-title">
-                        <h1>ORDER</h1>
-                    </div>
-                </div>
-            </div>
-        </div>
+ <!-- Hero Section-->
+ <section class="hero py-6">
+    <div class="container">
+      <!-- Breadcrumbs -->
+      <ol class="breadcrumb pl-0 ">
+        <li class="breadcrumb-item"><a href="/">所有商家</a></li>
+        <li class="breadcrumb-item active">所有訂單</li>
+      </ol>
+      <!-- Hero Content-->
+      <div class="hero-content">
+        <h1 class="hero-heading">所有訂單</h1>
+        <div><p class="text-muted">如果您有任何問題，請直接 <a href="#" data-toggle="modal" data-target="#contactmodel">聯繫我們</a>。</p></div>
+      </div>
     </div>
-    <div class="order-bottom">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="title green-decor-title">
-                        <div class="decor-squ"></div>
-                        <div>ORDER</div>
-                    </div>
-                </div>
-            </div>
-            <div class="list-title">
-                <div class="row">
-                    <div class="col-3">Order number</div>
-                    <div class="col-2">Date</div>
-                    <div class="col-2">Price</div>
-                    <div class="col-2">Status</div>
-                    <div class="col-3"></div>
-                </div>
-            </div>
-            @foreach ($data as $item)
-            <div class="list-wrap">
-                <div class="list">
-                    <div class="row">
-                        <div class="col-12 col-lg-3">
-                            <span class="item-title">Order number&nbsp</span>
-                            <span>{{ $item->order_id }}</span>
-                        </div>
-                        <div class="col-12 col-lg-2">
-                            <span class="item-title">Date&nbsp</span><span>{{ date("Y-m-d",strtotime($item->created_at)) }}</span>
-                        </div>
-                        <div class="col-12 col-lg-2">
-                            <span class="item-title">Price&nbsp</span><span>US${{ $item->price }}</span>
-                        </div>
-                        <div class="col-12 col-lg-3">
-                            <span class="item-title">Status&nbsp</span><span>{{ config('app.orderStatus_en')[$item->status] }}</span>
-                        </div>
-                        <div class="col-12 col-lg-2">
-                            <a href="/order/list/{{$item->id}}">
-                                <button>Detail</button>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            @endforeach
+  </section>
+  <section class="pb-6">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-xl-9">
+          <table class="table table-hover table-responsive-md">
+            <thead class="bg-light">
+              <tr>
+                <th class="py-4 pl-4 text-sm border-0">訂單編號</th>
+                <th class="py-4 text-sm border-0">日期</th>
+                <th class="py-4 text-sm border-0">總金額</th>
+                <th class="py-4 text-sm border-0">狀態</th>
+                <th class="py-4 text-sm border-0"></th>
+              </tr>
+            </thead>
+            <tbody>
+                @foreach ($data as $item)
+                <tr>
+                    <th class="pl-4 py-5 align-middle"># {{$item->serial_id}}</th>
+                    <td class="py-5 align-middle">{{date("Y/m/d", strtotime($item->created_at))}}</td>
+                    <td class="py-5 align-middle">${{$item->total_price}}</td>
+                    <td class="py-5 align-middle">
+                        <span class="badge badge-info-light">
+                            {{config('app.orderStatus')[$item->status]}}
+                        </span>
+                    </td>
+                    <td class="py-5 align-middle">
+                        <a class="btn btn-outline-dark btn-sm" href="/order/list/{{$item->id}}">
+                            查看訂單
+                        </a>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+          </table>
         </div>
-        {{ $data->links() }}
+        <!-- Customer Sidebar-->
+        <div class="col-xl-3 col-lg-4 mb-5">
+          <div class="customer-sidebar card border-0">
+            <div class="customer-profile"><a class="d-inline-block" href="#"><img class="img-fluid rounded-circle customer-image" src="img/avatar/avatar-0.jpg" alt=""></a>
+              <h5>{{auth()->user()->name}}</h5>
+            </div>
+            @include('mixin.profile-sidebar',['page'=>'order'])
+          </div>
+        </div>
+        <!-- /Customer Sidebar-->
+      </div>
     </div>
-</section>
+  </section>
 @endsection

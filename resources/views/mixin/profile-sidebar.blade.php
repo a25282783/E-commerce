@@ -1,11 +1,11 @@
 <nav class="list-group customer-nav">
-    <a class="active list-group-item d-flex justify-content-between align-items-center" href="customer-orders.html"><span>
+    <a class="{{($page=='order')?'active':''}} list-group-item d-flex justify-content-between align-items-center" href="/order/list"><span>
         <svg class="svg-icon svg-icon-heavy mr-2">
           <use xlink:href="#paper-bag-1"> </use>
         </svg>所有訂單</span>
-      <div class="badge badge-pill badge-light font-weight-normal px-3">5</div>
+      {{-- <div class="badge badge-pill badge-light font-weight-normal px-3">5</div> --}}
     </a>
-    <a class="list-group-item d-flex justify-content-between align-items-center" href="customer-account.html"><span>
+    <a class="{{($page=='profile')?'active':''}} list-group-item d-flex justify-content-between align-items-center" href="/profile"><span>
         <svg class="svg-icon svg-icon-heavy mr-2">
           <use xlink:href="#male-user-1"> </use>
         </svg>個人資訊</span>

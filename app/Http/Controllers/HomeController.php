@@ -131,16 +131,15 @@ class HomeController extends Controller
 
     public function order_list()
     {
-        $data['data'] = Auth::user()->orders()->orderBy('id', 'desc')->paginate(10);
+        $data['data'] = Auth::user()->orders()->orderBy('id', 'desc')->get();
         return view('order_list', $data);
     }
 
     public function order_list_detail($id)
     {
-        $order = Auth::user()->orders()->find($id);
-        abort_if(!$order, 404);
+        $order = Auth::user()->orders()->with('products')->findOrFail($id);
         $receipt = $order->receipt;
-        return view('order_list_detail', ['order' => $order, 'receipt' => $receipt]);
+        return view('order_list_detail', compact('order', 'receipt'));
     }
 
     public function footer($theme)

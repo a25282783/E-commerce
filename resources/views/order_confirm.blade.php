@@ -20,7 +20,7 @@
     <div class="container">
       <p class="lead">Hi {{auth()->user()->name}}，您的訂單已確認，感謝您的購買。</p>
       <p class="lead mb-5">您的訂單正在處理中，開始運送時，我們會以Email通知您。 </p>
-      <p class="mb-6"><a class="btn btn-outline-dark" href="customer-order.html">管理訂單</a></p>
+      <p class="mb-6"><a class="btn btn-outline-dark" href="order/list/{{ $order->id }}">管理訂單</a></p>
       <div class="p-5 bg-gray-100">
         <div class="row text-break">
           <div class="col-6 col-lg-3 mb-5 mb-lg-0">

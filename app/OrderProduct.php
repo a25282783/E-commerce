@@ -8,6 +8,12 @@ class OrderProduct extends Model
 {
     protected $table = 'order_products';
     protected $guarded = [];
+    protected $attributes = [
+        'detail' => '[]',
+    ];
+    protected $casts = [
+        'detail' => 'array',
+    ];
 
     public function getPerPriceAttribute($price)
     {

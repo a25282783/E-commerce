@@ -31,16 +31,6 @@ class Product extends Model
         }
     }
 
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
-    }
-
-    public function carts()
-    {
-        return $this->hasMany(Cart::class);
-    }
-
     public function setColorAttribute($value)
     {
         if (!empty($value)) {
@@ -103,6 +93,23 @@ class Product extends Model
             // 後台需變成陣列
             return json_decode($value, true);
         }
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
+
+    public function orders()
+    {
+        return $this->belongsToMany('App\Order', 'order_products')
+            ->withPivot('per_price', 'per_amount', 'detail')
+            ->withTimestamps();
     }
 
 }

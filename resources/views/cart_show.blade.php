@@ -1,6 +1,26 @@
 @extends('layouts.app')
 @section('content')
 <section class="hero py-6">
+    {{-- 提示 --}}
+    @if (session('status'))
+    <div class="d-block" id="addToCartAlert">
+        <div class="mb-4 mb-lg-5 alert alert-danger" role="alert">
+          <div class="d-flex align-items-center pr-3">
+            <svg class="svg-icon d-none d-sm-block w-3rem h-3rem svg-icon-light flex-shrink-0 mr-3">
+              <use xlink:href="#checked-circle-1"> </use>
+            </svg>
+            <p class="mb-0">{{session('status')}}
+            </p>
+          </div>
+          <button class="close close-absolute close-centered opacity-10 text-inherit" type="button" data-dismiss="alert" aria-label="Close">
+            <svg class="svg-icon w-2rem h-2rem">
+              <use xlink:href="#close-1"> </use>
+            </svg>
+          </button>
+        </div>
+      </div>
+    @endif
+      {{-- 提示end --}}
     <div class="container">
       <!-- Breadcrumbs -->
       <ol class="breadcrumb pl-0 ">
@@ -126,7 +146,7 @@
                   </td>
                 </tr>
               </table>
-              <a class="btn btn-dark btn-block btn-lg mb-3" href="checkout.html">結帳</a>
+                <a class="btn btn-dark btn-block btn-lg mb-3" href="javascript:void(0)" onclick="document.getElementById('cart_form').submit()">結帳</a>
             </div>
           </div>
         </div>

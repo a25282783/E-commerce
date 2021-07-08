@@ -17,11 +17,11 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->timestamps();
 
-            $table->string('order_id')->comment('系統訂單號');
+            $table->string('serial_id')->comment('系統訂單號');
             $table->unsignedBigInteger('user_id');
-            $table->json('cart_info')->comment('購買詳情')->nullable();
+            $table->unsignedBigInteger('total_price');
             $table->Integer('status')->comment('狀態')->default(1);
-            $table->string('callback_id')->comment('金流訂單號')->default('');
+            $table->string('callback_id')->comment('金流訂單號')->nullable();
             $table->json('detail')->comment('金流細節')->nullable();
             $table->json('receipt')->comment('收據詳情')->nullable();
             $table->softDeletes();

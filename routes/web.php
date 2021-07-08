@@ -54,7 +54,7 @@ Route::group(['middleware' => ['verified', 'auth']], function () {
     Route::post('dropToCart', 'CartController@dropToCart');
     Route::get('cart', 'CartController@cart');
     Route::post('cart/update', 'CartController@update_cart')->name('update.cart');
-    Route::get('cart/order', 'CartController@make_order');
+    Route::post('cart/order', 'CartController@make_order')->name('create.order');
     Route::get('order/list', 'HomeController@order_list');
     Route::get('order/list/{id}', 'HomeController@order_list_detail')->where('id', '[0-9]+');
     Route::post('password_update', 'HomeController@password_update')->name('password.update.custom');

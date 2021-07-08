@@ -10,21 +10,14 @@ class Order extends Model
     use SoftDeletes;
     protected $guarded = [];
 
-    public function setCartInfoAttribute($cart_info)
+    public function getTotalPriceAttribute($price)
     {
-        if (is_array($cart_info)) {
-            $this->attributes['cart_info'] = json_encode($cart_info);
-        }
+        return $price / 100;
     }
 
-    public function getCartInfoAttribute($cart_info)
+    public function setTotalPriceAttribute($price)
     {
-        return json_decode($cart_info, true);
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
+        $this->attributes['total_price'] = $price * 100;
     }
 
     public function setDetailAttribute($detail)
@@ -51,16 +44,6 @@ class Order extends Model
         return json_decode($receipt, true);
     }
 
-    public function getPriceAttribute($price)
-    {
-        return $price / 100;
-    }
-
-    public function setPriceAttribute($price)
-    {
-        $this->attributes['price'] = $price * 100;
-    }
-
     public function getPayableAttribute($status)
     {
         $status = $this->attributes['status'];
@@ -68,6 +51,18 @@ class Order extends Model
             return true;
         }
         return false;
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function products()
+    {
+        return $this->belongsToMany('App\Product', 'order_products')
+            ->withPivot('per_price', 'per_amount', 'detail')
+            ->withTimestamps();
     }
 
 }

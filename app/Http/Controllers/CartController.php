@@ -135,89 +135,121 @@ class CartController extends Controller
 
     public function update_cart(Request $request)
     {
-        $request->validate([
-            'first_name' => ['required', 'string'],
-            'last_name' => ['required', 'string'],
-            'mobile' => ['required', 'numeric'],
-            'address' => ['required'],
-            'email' => ['required', 'string', 'email', 'max:255'],
-        ]);
-
-        foreach ($request->input('order') as $id => $amount) {
-            $cart = Cart::find($id);
-            if (!$cart) {
+        $order = $request->input('order');
+        if (is_null($order)) {
+            return back()->with('status', '購物車沒有商品');
+        }
+        $order_id_array = array_keys($order);
+        $carts = Cart::with('product')->find($order_id_array);
+        $order_price = 0;
+        foreach ($carts as $cart) {
+            if (is_null($cart->product)) {
                 continue;
             }
-            if ($cart->product->detail['sale']) {
-                $price = $cart->product->detail['sale'];
-            } else {
-                $price = $cart->product->detail['price'];
-            }
-            $cart->amount = $amount;
-            $cart->total_price = $amount * $price;
-            $cart->per_price = $price;
-            $cart->receipt = [
-                'first_name' => $request->input('first_name'),
-                'email' => $request->input('email'),
-                'last_name' => $request->input('last_name'),
-                'mobile' => $request->input('mobile'),
-                'address' => $request->input('address'),
-                'city' => $request->input('city'),
-                'zip_code' => $request->input('zip_code'),
-                'country' => $request->input('country'),
-                'note' => $request->input('note'),
-                'state' => $request->input('state'),
+            $data = [
+                'amount' => $order[$cart->id],
+                'per_price' => $cart->product->price,
+                'total_price' => $order[$cart->id] * $cart->product->price,
             ];
-            $cart->save();
+            $cart->update($data);
+            $order_price += $order[$cart->id] * $cart->product->price;
         }
-        return redirect('/cart')->with('status', 'back');
+        $user = Auth::user();
+        // foreach ($request->input('order') as $id => $amount) {
+        //     $cart = Cart::find($id);
+        //     if (!$cart) {
+        //         continue;
+        //     }
+        // if ($cart->product->detail['sale']) {
+        //     $price = $cart->product->detail['sale'];
+        // } else {
+        //     $price = $cart->product->detail['price'];
+        // }
+        // $price = $cart->product->price;
+        // $cart->amount = $amount;
+        // $cart->total_price = $amount * $price;
+        // $cart->per_price = $price;
+        // $cart->receipt = [
+        //     'first_name' => $request->input('first_name'),
+        //     'email' => $request->input('email'),
+        //     'last_name' => $request->input('last_name'),
+        //     'mobile' => $request->input('mobile'),
+        //     'address' => $request->input('address'),
+        //     'city' => $request->input('city'),
+        //     'zip_code' => $request->input('zip_code'),
+        //     'country' => $request->input('country'),
+        //     'note' => $request->input('note'),
+        //     'state' => $request->input('state'),
+        // ];
+        // $cart->save();
+        // }
+        // return redirect('/cart')->with('status', 'back');
+        return view('checkout', compact('carts', 'user', 'order_price'));
 
     }
 
-    public function make_order()
+    public function make_order(Request $request)
     {
         DB::beginTransaction();
+        $shortage = [];
+        $newOrder = Order::create([
+            'serial_id' => Auth::id() . '_' . time() . '_' . random_int(10, 99),
+            'user_id' => Auth::id(),
+            'status' => 1,
+            'total_price' => 0,
+        ]);
+        $newOrder->receipt = $request->all();
+        $newOrder->save();
         try {
-            $user_cart = Auth::user()->carts()->select(['product_id', 'amount', 'total_price', 'per_price'])->get()->toArray();
+            $user_cart = Auth::user()->carts()->has('product')->with('product')->get();
             if (count($user_cart) == 0) {
                 return redirect('/cart');
             }
-            // 判斷庫存
-            $shortage = [];
+            // 建立訂單
+            // TODO 運費
+            $ship_fee = 0;
+            // 訂單總金額
             $price = 0;
             foreach ($user_cart as $v) {
-                $product = Product::find($v['product_id']);
-                $pro_amount = $product->amount;
-                $pro_amount -= $v['amount'];
-                if ($pro_amount <= 0) {
-                    $shortage[] = $v['product_id'];
+                // 更新庫存
+                try {
+                    DB::update("update products set amount = amount-{$v->amount} where `id` = {$v->product_id} and `status` = 1 ");
+                } catch (\Throwable $th) {
+                    $shortage[] = $v->product->name;
                     continue;
                 }
-                $product->update([
-                    'amount' => $pro_amount,
-                ]);
-                $price += $v['total_price'];
+                $price += $v->product->price * $v->amount;
+                $newOrder->products()->attach(
+                    [
+                        $v->product_id => [
+                            'per_price' => $v->product->price,
+                            'per_amount' => $v->amount,
+                            'detail' => json_encode(array($v->color, $v->size, $v->pack)),
+                        ],
+                    ]
+                );
             }
-
+            // 庫存異常
             if (count($shortage) > 0) {
                 throw new Exception();
             }
-            $receipt = Auth::user()->carts()->first()->receipt;
-            $res = Order::create([
-                'order_id' => Auth::id() . '_' . time() . '_' . random_int(10, 99),
-                'user_id' => Auth::id(),
-                'cart_info' => $user_cart,
-                'status' => 1,
-                'price' => $price,
-                'receipt' => $receipt,
-            ]);
+            // 流程通過，訂單金額建立
+            $newOrder->total_price = $ship_fee + $price;
+            $newOrder->save();
+
             Auth::user()->carts()->delete();
             DB::commit();
             return redirect('/order/list');
         } catch (\Throwable $e) {
             Log::info('CartController.make_order:' . $e->getMessage());
             DB::rollback();
-            return redirect('/cart')->with('shortage', $shortage);
+            dd($e->getMessage());
+            if (count($shortage) > 0) {
+                $status = implode(',', $shortage) . '  庫存不足！';
+            } else {
+                $status = '無法結帳，請聯絡我們！';
+            }
+            return redirect('/cart')->with('status', $status);
         }
     }
 

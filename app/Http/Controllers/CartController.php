@@ -179,6 +179,7 @@ class CartController extends Controller
     {
         DB::beginTransaction();
         $shortage = [];
+        $throwException = false;
         $newOrder = Order::create([
             'serial_id' => Auth::id() . '_' . time() . '_' . random_int(10, 99),
             'user_id' => Auth::id(),
@@ -202,22 +203,25 @@ class CartController extends Controller
                 try {
                     DB::update("update products set amount = amount-{$v->amount} where `id` = {$v->product_id} and `status` = 1 ");
                 } catch (\Throwable $th) {
+                    $throwException = true;
                     $shortage[] = $v->product->name;
                     continue;
                 }
-                $price += $v->product->price * $v->amount;
-                $newOrder->products()->attach(
-                    [
-                        $v->product_id => [
-                            'per_price' => $v->product->price,
-                            'per_amount' => $v->amount,
-                            'detail' => json_encode(array($v->color, $v->size, $v->pack)),
-                        ],
-                    ]
-                );
+                if (!$throwException) {
+                    $price += $v->product->price * $v->amount;
+                    $newOrder->products()->attach(
+                        [
+                            $v->product_id => [
+                                'per_price' => $v->product->price,
+                                'per_amount' => $v->amount,
+                                'detail' => json_encode(array($v->color, $v->size, $v->pack)),
+                            ],
+                        ]
+                    );
+                }
             }
             // 庫存異常
-            if (count($shortage) > 0) {
+            if ($throwException) {
                 throw new Exception();
             }
             // 流程通過，訂單金額建立

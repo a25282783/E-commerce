@@ -25,7 +25,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $config = Config::first();
-        View::share('config', $config);
+        if (!app()->runningInConsole()) {
+            $config = Config::first();
+            View::share('config', $config);
+        }
+        
     }
 }
